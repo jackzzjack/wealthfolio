@@ -1,0 +1,24 @@
+{
+  "notFound": {
+    "title": "Page not found",
+    "description": "Sorry, we couldn't find the page you're looking for. It might have been moved, deleted, or never existed.",
+    "goBack": "Go Back",
+    "backToDashboard": "Back to Dashboard"
+  },
+  "accountSelector": {
+    "searchPlaceholder": "Search accounts...",
+    "noAccountsFound": "No accounts found.",
+    "clickToSelect": "Click to select an account",
+    "requiredForImport": "Required for import",
+    "selectAnAccount": "Select an account"
+  },
+  "settings": {
+    "appearance": {
+      "language": {
+        "label": "Language",
+        "description": "Choose the language used throughout the interface.",
+        "save": "Save Language"
+      }
+    }
+  }
+}

@@ -12,6 +12,7 @@ import { Account, TrackingMode } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Icons, type Icon } from "@wealthfolio/ui";
 import { forwardRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { Skeleton } from "@wealthfolio/ui/components/ui/skeleton";
 import { useAccounts } from "@/hooks/use-accounts";
@@ -124,6 +125,7 @@ export const AccountSelector = forwardRef<HTMLButtonElement, AccountSelectorProp
     ref,
   ) => {
     const [open, setOpen] = useState(false);
+    const { t } = useTranslation();
     const { accounts, isLoading: isLoadingAccounts } = useAccounts({
       filterActive,
       includeArchived: false,
@@ -288,8 +290,10 @@ export const AccountSelector = forwardRef<HTMLButtonElement, AccountSelectorProp
                         exit={{ opacity: 0, y: -5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <p className="text-xs font-medium">Click to select an account</p>
-                        <p className="text-muted-foreground text-xs">Required for import</p>
+                        <p className="text-xs font-medium">{t("accountSelector.clickToSelect")}</p>
+                        <p className="text-muted-foreground text-xs">
+                          {t("accountSelector.requiredForImport")}
+                        </p>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -334,7 +338,9 @@ export const AccountSelector = forwardRef<HTMLButtonElement, AccountSelectorProp
                         <span>{selectedAccount.name}</span>
                       </>
                     ) : (
-                      <span className="text-muted-foreground">Select an account</span>
+                      <span className="text-muted-foreground">
+                        {t("accountSelector.selectAnAccount")}
+                      </span>
                     )}
                   </div>
                   <Icons.ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -366,7 +372,9 @@ export const AccountSelector = forwardRef<HTMLButtonElement, AccountSelectorProp
                     <span className="truncate">{selectedAccount.name}</span>
                   </>
                 ) : (
-                  <span className="text-muted-foreground">Select an account</span>
+                  <span className="text-muted-foreground">
+                    {t("accountSelector.selectAnAccount")}
+                  </span>
                 )}
               </div>
               <Icons.ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
@@ -409,7 +417,7 @@ export const AccountSelector = forwardRef<HTMLButtonElement, AccountSelectorProp
           }}
         >
           <Command className="w-full">
-            <CommandInput placeholder="Search accounts..." />
+            <CommandInput placeholder={t("accountSelector.searchPlaceholder")} />
             <CommandList>
               {isLoading ? (
                 <div className="px-2 py-6 text-center">
@@ -422,7 +430,7 @@ export const AccountSelector = forwardRef<HTMLButtonElement, AccountSelectorProp
                 </div>
               ) : (
                 <>
-                  <CommandEmpty>No accounts found.</CommandEmpty>
+                  <CommandEmpty>{t("accountSelector.noAccountsFound")}</CommandEmpty>
                   {sortedGroups.map(([type, typeAccounts]) => (
                     <CommandGroup key={type} heading={type}>
                       {typeAccounts.map((account) => {

@@ -91,6 +91,7 @@ const mockSettings: Settings = {
   font: "font-sans",
   baseCurrency: "USD",
   timezone: "America/Chicago",
+  locale: "en",
   instanceId: "test-instance",
   onboardingCompleted: true,
   autoUpdateCheckEnabled: true,

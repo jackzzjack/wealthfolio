@@ -1,6 +1,7 @@
 import { Separator } from "@wealthfolio/ui/components/ui/separator";
 import { SettingsHeader } from "../settings-header";
 import { AppearanceForm } from "./appearance-form";
+import { LocaleSettings } from "./locale-settings";
 
 export default function SettingsAppearancePage() {
   return (
@@ -8,6 +9,7 @@ export default function SettingsAppearancePage() {
       <SettingsHeader heading="Appearance" text=" Customize the appearance of the application." />
       <Separator />
       <AppearanceForm />
+      <LocaleSettings />
     </div>
   );
 }

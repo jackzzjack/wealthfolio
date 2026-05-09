@@ -1,3 +1,4 @@
+import "@/i18n";
 import { isDesktop, getPlatform } from "@/adapters";
 import React from "react";
 import * as ReactDOMLegacy from "react-dom";

@@ -1,9 +1,11 @@
 import { isDesktop, logger } from "@/adapters";
+import i18n from "@/i18n";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 import { useSettings } from "@/hooks/use-settings";
 import { useSettingsMutation } from "@/hooks/use-settings-mutation";
 import { Settings, SettingsContextType } from "@/lib/types";
+import { setFormatterLocale } from "@/lib/utils";
 
 interface ExtendedSettingsContextType extends SettingsContextType {
   updateSettings: (
@@ -14,6 +16,7 @@ interface ExtendedSettingsContextType extends SettingsContextType {
         | "font"
         | "baseCurrency"
         | "timezone"
+        | "locale"
         | "onboardingCompleted"
         | "menuBarVisible"
         | "syncEnabled"
@@ -46,6 +49,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         | "font"
         | "baseCurrency"
         | "timezone"
+        | "locale"
         | "onboardingCompleted"
         | "menuBarVisible"
         | "syncEnabled"
@@ -60,6 +64,10 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     if (data) {
       setSettings(data);
       applySettingsToDocument(data);
+      if (data.locale) {
+        i18n.changeLanguage(data.locale).catch(() => {});
+        setFormatterLocale(data.locale);
+      }
     }
   }, [data]);
 
