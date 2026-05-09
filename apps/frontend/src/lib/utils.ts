@@ -255,6 +255,7 @@ const DECIMAL_FORMAT_OPTIONS: Intl.NumberFormatOptions = {
 // Extend this map when adding new languages.
 const LOCALE_TO_INTL: Record<string, string> = {
   en: "en-US",
+  "zh-TW": "zh-TW",
 };
 
 let _intlLocale = "en-US";

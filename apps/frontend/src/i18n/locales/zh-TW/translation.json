@@ -1,0 +1,24 @@
+{
+  "notFound": {
+    "title": "找不到頁面",
+    "description": "很抱歉，我們找不到您要的頁面。它可能已被移動、刪除，或從未存在。",
+    "goBack": "返回上頁",
+    "backToDashboard": "回到首頁"
+  },
+  "accountSelector": {
+    "searchPlaceholder": "搜尋帳戶...",
+    "noAccountsFound": "找不到帳戶。",
+    "clickToSelect": "點擊選擇帳戶",
+    "requiredForImport": "匯入必填",
+    "selectAnAccount": "選擇帳戶"
+  },
+  "settings": {
+    "appearance": {
+      "language": {
+        "label": "語言",
+        "description": "選擇整個介面使用的語言。",
+        "save": "儲存語言"
+      }
+    }
+  }
+}

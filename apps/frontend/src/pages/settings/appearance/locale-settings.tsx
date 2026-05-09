@@ -28,6 +28,7 @@ import { useSettingsContext } from "@/lib/settings-provider";
 
 export const SUPPORTED_LOCALES: { value: string; label: string }[] = [
   { value: "en", label: "English" },
+  { value: "zh-TW", label: "繁體中文" },
 ];
 
 const localeFormSchema = z.object({
