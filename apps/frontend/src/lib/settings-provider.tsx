@@ -64,10 +64,6 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     if (data) {
       setSettings(data);
       applySettingsToDocument(data);
-      if (data.locale) {
-        i18n.changeLanguage(data.locale).catch(() => {});
-        setFormatterLocale(data.locale);
-      }
     }
   }, [data]);
 
@@ -143,6 +139,12 @@ const applySettingsToDocument = (newSettings: Settings) => {
   // Font classes
   document.body.classList.remove("font-mono", "font-sans", "font-serif");
   document.body.classList.add(newSettings.font);
+
+  // Locale — sync i18next language and number/date formatters
+  if (newSettings.locale) {
+    i18n.changeLanguage(newSettings.locale).catch(() => {});
+    setFormatterLocale(newSettings.locale);
+  }
 
   // Cache theme/font in localStorage for pre-auth usage (login screen)
   try {
