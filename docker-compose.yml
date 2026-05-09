@@ -1,0 +1,34 @@
+services:
+  wealthfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # pnpm version must match the lockfile generator; update if you change pnpm
+        # CONNECT_AUTH_URL and CONNECT_AUTH_PUBLISHABLE_KEY are optional (Wealthfolio Connect)
+        CONNECT_AUTH_URL: ${CONNECT_AUTH_URL:-}
+        CONNECT_AUTH_PUBLISHABLE_KEY: ${CONNECT_AUTH_PUBLISHABLE_KEY:-}
+        CONNECT_API_URL: ${CONNECT_API_URL:-}
+    ports:
+      - "${WF_HOST_PORT:-8080}:8080"
+    volumes:
+      - wealthfolio_data:/data
+    environment:
+      WF_LISTEN_ADDR: "0.0.0.0:8080"
+      WF_DB_PATH: "/data/wealthfolio.db"
+      WF_STATIC_DIR: "dist"
+      # REQUIRED: 32-byte secret key (base64). Generate with:
+      #   openssl rand -base64 32
+      WF_SECRET_KEY: ${WF_SECRET_KEY}
+      # Optional: enable password auth. Generate hash with:
+      #   docker run --rm ghcr.io/wealthfolio/wealthfolio argon2 $(openssl rand -hex 8) -id -e <<< "your-password"
+      # If not set, disable auth check with WF_AUTH_REQUIRED=false (local/trusted-network only)
+      WF_AUTH_PASSWORD_HASH: ${WF_AUTH_PASSWORD_HASH:-}
+      WF_AUTH_REQUIRED: ${WF_AUTH_REQUIRED:-true}
+      WF_COOKIE_SECURE: ${WF_COOKIE_SECURE:-auto}
+      WF_CORS_ALLOW_ORIGINS: ${WF_CORS_ALLOW_ORIGINS:-*}
+      CONNECT_API_URL: ${CONNECT_API_URL:-}
+    restart: unless-stopped
+
+volumes:
+  wealthfolio_data:
