@@ -14,6 +14,7 @@ import { Alert, AlertDescription } from "@wealthfolio/ui/components/ui/alert";
 import { PerformanceMetrics } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export interface PerformanceGridProps {
   performance?: PerformanceMetrics | null;
@@ -31,6 +32,7 @@ export const PerformanceGrid: React.FC<PerformanceGridProps> = ({
   className,
   isHoldingsMode = false,
 }) => {
+  const { t } = useTranslation();
   if (performanceError) {
     return (
       <div className={cn("w-full", className)}>
@@ -95,14 +97,14 @@ export const PerformanceGrid: React.FC<PerformanceGridProps> = ({
           <CardContent className="p-0">
             <div className="grid grid-cols-2 gap-5">
               <MetricDisplay
-                label="Volatility"
+                label={t("account.metrics.volatility")}
                 value={volatility}
                 infoText={HOLDINGS_MODE_VOLATILITY_INFO}
                 isPercentage={false}
                 className="border-muted/30 bg-muted/30 rounded-md border"
               />
               <MetricDisplay
-                label="Max Drawdown"
+                label={t("account.metrics.maxDrawdown")}
                 value={maxDrawdown * -1}
                 infoText={HOLDINGS_MODE_MAX_DRAWDOWN_INFO}
                 isPercentage={true}
@@ -121,7 +123,7 @@ export const PerformanceGrid: React.FC<PerformanceGridProps> = ({
         <CardContent className="p-0">
           <div className="grid grid-cols-2 gap-5">
             <MetricDisplay
-              label="Time Weighted Return"
+              label={t("account.metrics.timeWeightedReturn")}
               value={twrValue}
               annualizedValue={twrAnnualized}
               infoText={TIME_WEIGHTED_RETURN_INFO}
@@ -129,7 +131,7 @@ export const PerformanceGrid: React.FC<PerformanceGridProps> = ({
               className="border-muted/30 bg-muted/30 rounded-md border"
             />
             <MetricDisplay
-              label="Money Weighted Return"
+              label={t("account.metrics.moneyWeightedReturn")}
               value={mwrValue}
               annualizedValue={mwrAnnualized}
               infoText={MONEY_WEIGHTED_RETURN_INFO}
@@ -137,14 +139,14 @@ export const PerformanceGrid: React.FC<PerformanceGridProps> = ({
               className="border-muted/30 bg-muted/30 rounded-md border"
             />
             <MetricDisplay
-              label="Volatility"
+              label={t("account.metrics.volatility")}
               value={volatility}
               infoText={VOLATILITY_INFO}
               isPercentage={false}
               className="border-muted/30 bg-muted/30 rounded-md border"
             />
             <MetricDisplay
-              label="Max Drawdown"
+              label={t("account.metrics.maxDrawdown")}
               value={maxDrawdown * -1}
               infoText={MAX_DRAWDOWN_INFO}
               isPercentage={true}

@@ -2,19 +2,21 @@ import { useMutation } from "@tanstack/react-query";
 import { createActivity } from "@/adapters";
 import { ActivityCreate, AccountValuation } from "@/lib/types";
 import { toast } from "@wealthfolio/ui/components/ui/use-toast";
+import { useTranslation } from "react-i18next";
 
 export const useBalanceUpdate = (account?: AccountValuation | null) => {
+  const { t } = useTranslation();
   const mutation = useMutation({
     mutationFn: (newActivity: ActivityCreate) => createActivity(newActivity),
     onError: () => {
       toast({
-        title: "🔴 Error updating balance",
+        title: t("account.metrics.balanceUpdateError"),
         variant: "destructive",
       });
     },
     onSuccess: () => {
       toast({
-        title: "✅ Balance updated",
+        title: t("account.metrics.balanceUpdated"),
         variant: "default",
       });
     },
@@ -39,7 +41,7 @@ export const useBalanceUpdate = (account?: AccountValuation | null) => {
       // assetId omitted - backend generates CASH:{currency}
       currency: account.accountCurrency,
       amount: amount,
-      comment: "Balance updated manually",
+      comment: t("account.metrics.balanceUpdatedManually"),
     };
 
     mutation.mutate(newActivity);
