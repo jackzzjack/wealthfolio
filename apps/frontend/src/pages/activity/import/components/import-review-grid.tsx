@@ -161,23 +161,26 @@ function useImportReviewColumns({
     () =>
       Object.values(ActivityType).map((type) => ({
         value: type,
-        label: ActivityTypeNames[type],
+        label: t(`activity.types.${type}`, { defaultValue: type }),
       })),
-    [],
+    [t],
   );
 
   // Dynamic subtype options based on activity type
-  const getSubtypeOptions = useCallback((rowData: unknown) => {
-    const draft = rowData as DraftActivity;
-    const activityType = draft.activityType?.toUpperCase();
-    if (!activityType) return [];
+  const getSubtypeOptions = useCallback(
+    (rowData: unknown) => {
+      const draft = rowData as DraftActivity;
+      const activityType = draft.activityType?.toUpperCase();
+      if (!activityType) return [];
 
-    const allowedSubtypes = SUBTYPES_BY_ACTIVITY_TYPE[activityType] || [];
-    return allowedSubtypes.map((subtype) => ({
-      value: subtype,
-      label: SUBTYPE_DISPLAY_NAMES[subtype] || subtype,
-    }));
-  }, []);
+      const allowedSubtypes = SUBTYPES_BY_ACTIVITY_TYPE[activityType] || [];
+      return allowedSubtypes.map((subtype) => ({
+        value: subtype,
+        label: t(`activity.subtypes.${subtype}`, { defaultValue: subtype }),
+      }));
+    },
+    [t],
+  );
 
   return useMemo<ColumnDef<DraftActivity>[]>(
     () => [
@@ -490,7 +493,6 @@ export function ImportReviewGrid({
   onBulkSetAccount,
   gridHeight,
 }: ImportReviewGridProps) {
-  const { t } = useTranslation();
   const { settings } = useSettingsContext();
   const fallbackCurrency = settings?.baseCurrency ?? "USD";
   const nonSelectableRowIndexSet = useMemo(
