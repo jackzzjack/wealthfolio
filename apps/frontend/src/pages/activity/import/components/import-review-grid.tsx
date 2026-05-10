@@ -26,6 +26,7 @@ import { useAccounts } from "@/hooks/use-accounts";
 import { searchTicker } from "@/adapters";
 import { CreateCustomAssetDialog } from "@/components/create-custom-asset-dialog";
 import { useSettingsContext } from "@/lib/settings-provider";
+import { useTranslation } from "react-i18next";
 
 const UNIT_PRICE_HELP_TEXT =
   "For buys and sells, enter the trade price. For staking rewards and in-kind dividends, enter the fair market value per unit at receipt; it sets income amount and cost basis.";
@@ -61,23 +62,23 @@ interface StatusConfig {
 
 const STATUS_CONFIG: Record<DraftActivityStatus, StatusConfig> = {
   valid: {
-    label: "Valid",
+    label: "valid",
     bgClassName: "bg-green-100 dark:bg-green-900/30",
   },
   warning: {
-    label: "Warning",
+    label: "warning",
     bgClassName: "bg-yellow-100 dark:bg-yellow-900/30",
   },
   error: {
-    label: "Error",
+    label: "error",
     bgClassName: "bg-red-100 dark:bg-red-900/30",
   },
   skipped: {
-    label: "Skipped",
+    label: "skipped",
     bgClassName: "bg-muted/50",
   },
   duplicate: {
-    label: "Duplicate",
+    label: "duplicate",
     bgClassName: "bg-blue-100 dark:bg-blue-900/30",
   },
 };
@@ -146,6 +147,7 @@ function useImportReviewColumns({
   onSymbolSelect,
   onCreateCustomAsset,
 }: UseImportReviewColumnsOptions): ColumnDef<DraftActivity>[] {
+  const { t } = useTranslation();
   const accountOptions = useMemo(
     () =>
       accounts.map((account) => ({
@@ -190,7 +192,7 @@ function useImportReviewColumns({
               table.getIsAllRowsSelected() || (table.getIsSomeRowsSelected() && "indeterminate")
             }
             onCheckedChange={(checked) => table.toggleAllRowsSelected(Boolean(checked))}
-            aria-label="Select all rows"
+            aria-label={t("activity.dataGrid.selectAllRows")}
           />
         ),
         cell: ({ row }) => (
@@ -198,7 +200,7 @@ function useImportReviewColumns({
             disabled={!row.getCanSelect()}
             checked={row.getIsSelected()}
             onCheckedChange={(checked) => row.toggleSelected(Boolean(checked))}
-            aria-label="Select row"
+            aria-label={t("activity.dataGrid.selectRow")}
           />
         ),
         size: 40,
@@ -212,7 +214,7 @@ function useImportReviewColumns({
       // 2. Status indicator (row number + validation status)
       {
         id: "status",
-        header: () => "#",
+        header: () => t("activity.importGrid.rowNumber"),
         cell: ({ row }) => {
           const {
             status,
@@ -226,7 +228,7 @@ function useImportReviewColumns({
           } = row.original;
           const isForcedDuplicate = status === "duplicate" && forceImport;
           const title = isForcedDuplicate
-            ? "Will be imported – overrides duplicate detection"
+            ? t("activity.importGrid.willBeImportedOverridesDuplicateDetection")
             : getStatusTitle(
                 status,
                 skipReason,
@@ -375,7 +377,7 @@ function useImportReviewColumns({
       {
         id: "instrumentType",
         accessorKey: "instrumentType",
-        header: "Instrument",
+        header: t("activity.viewControls.instrument"),
         size: 120,
         enableSorting: false,
         enableHiding: true,
@@ -384,7 +386,7 @@ function useImportReviewColumns({
             variant: "select",
             options: [...INSTRUMENT_TYPE_OPTIONS],
             allowEmpty: true,
-            emptyLabel: "Auto",
+            emptyLabel: t("activity.dataGrid.auto"),
           },
         },
       },
@@ -394,7 +396,7 @@ function useImportReviewColumns({
       {
         id: "quantity",
         accessorKey: "quantity",
-        header: "Quantity",
+        header: t("activity.table.quantity"),
         size: 120,
         enableSorting: false,
         meta: { cell: { variant: "number", step: 0.000001, valueType: "string" } },
@@ -403,7 +405,7 @@ function useImportReviewColumns({
       {
         id: "unitPrice",
         accessorKey: "unitPrice",
-        header: "Price",
+        header: t("activity.tableMobile.price"),
         size: 120,
         enableSorting: false,
         meta: {
@@ -415,7 +417,7 @@ function useImportReviewColumns({
       {
         id: "amount",
         accessorKey: "amount",
-        header: "Amount",
+        header: t("activity.detailSheet.amount"),
         size: 120,
         enableSorting: false,
         meta: { cell: { variant: "number", step: 0.000001, valueType: "string" } },
@@ -424,7 +426,7 @@ function useImportReviewColumns({
       {
         id: "currency",
         accessorKey: "currency",
-        header: "Currency",
+        header: t("activity.table.currency"),
         size: 110,
         enableSorting: false,
         meta: { cell: { variant: "currency" } },
@@ -433,7 +435,7 @@ function useImportReviewColumns({
       {
         id: "fee",
         accessorKey: "fee",
-        header: "Fee",
+        header: t("activity.table.fee"),
         size: 100,
         enableSorting: false,
         meta: { cell: { variant: "number", step: 0.000001, valueType: "string" } },
@@ -442,7 +444,7 @@ function useImportReviewColumns({
       {
         id: "fxRate",
         accessorKey: "fxRate",
-        header: "FX Rate",
+        header: t("activity.detailSheet.fxRate"),
         size: 100,
         enableSorting: false,
         meta: { cell: { variant: "number", step: 0.000001, valueType: "string" } },
@@ -453,7 +455,7 @@ function useImportReviewColumns({
       {
         id: "comment",
         accessorKey: "comment",
-        header: "Comment",
+        header: t("activity.dataGrid.comment"),
         size: 260,
         enableSorting: false,
         meta: { cell: { variant: "long-text" } },
@@ -466,6 +468,7 @@ function useImportReviewColumns({
       onSymbolSearch,
       onSymbolSelect,
       onCreateCustomAsset,
+      t,
     ],
   );
 }
@@ -487,6 +490,7 @@ export function ImportReviewGrid({
   onBulkSetAccount,
   gridHeight,
 }: ImportReviewGridProps) {
+  const { t } = useTranslation();
   const { settings } = useSettingsContext();
   const fallbackCurrency = settings?.baseCurrency ?? "USD";
   const nonSelectableRowIndexSet = useMemo(
