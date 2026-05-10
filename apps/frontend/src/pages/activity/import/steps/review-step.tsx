@@ -127,10 +127,10 @@ export function ReviewStep() {
     }
 
     const statuses = [
-      { label: t("activity.review.errors"), value: "error", count: filterStats.errors },
-      { label: t("activity.review.warnings"), value: "warning", count: filterStats.warnings },
-      { label: t("activity.review.duplicates"), value: "duplicate", count: filterStats.duplicates },
-      { label: t("activity.review.skipped"), value: "skipped", count: filterStats.skipped },
+      { label: t("activity.import.reviewStep.errors"), value: "error", count: filterStats.errors },
+      { label: t("activity.import.reviewStep.warnings"), value: "warning", count: filterStats.warnings },
+      { label: t("activity.import.reviewStep.duplicates"), value: "duplicate", count: filterStats.duplicates },
+      { label: t("activity.import.reviewStep.skipped"), value: "skipped", count: filterStats.skipped },
       { label: t("activity.dataGrid.status.valid"), value: "valid", count: filterStats.valid },
     ].filter((o) => o.count > 0);
 
@@ -290,8 +290,8 @@ export function ReviewStep() {
         <ProgressIndicator
           message={
             isValidating
-              ? t("activity.review.validatingActivities")
-              : t("activity.review.processingActivities")
+              ? t("activity.import.reviewStep.validatingActivities")
+              : t("activity.import.reviewStep.processingActivities")
           }
           className="border-none shadow-none"
         />
@@ -304,8 +304,8 @@ export function ReviewStep() {
     return (
       <ImportAlert
         variant="destructive"
-        title={t("activity.review.noData")}
-        description={t("activity.review.noCsvData")}
+        title={t("activity.import.reviewStep.noData")}
+        description={t("activity.import.reviewStep.noCsvData")}
       />
     );
   }
@@ -315,8 +315,8 @@ export function ReviewStep() {
     return (
       <ImportAlert
         variant="warning"
-        title={t("activity.review.missingMapping")}
-        description={t("activity.review.missingMappingDescription")}
+        title={t("activity.import.reviewStep.missingMapping")}
+        description={t("activity.import.reviewStep.missingMappingDescription")}
       />
     );
   }
@@ -336,14 +336,14 @@ export function ReviewStep() {
       {state.validationError ? (
         <ImportAlert
           variant="destructive"
-          title={t("activity.review.backendValidationFailed")}
+          title={t("activity.import.reviewStep.backendValidationFailed")}
           description={state.validationError}
         />
       ) : isStale ? (
         <ImportAlert
           variant="warning"
-          title={t("activity.review.validationOutOfDate")}
-          description={t("activity.review.validationOutOfDateDescription")}
+          title={t("activity.import.reviewStep.validationOutOfDate")}
+          description={t("activity.import.reviewStep.validationOutOfDateDescription")}
         >
           <Button
             variant="outline"
@@ -351,7 +351,7 @@ export function ReviewStep() {
             className="mt-2"
             onClick={() => void validateDrafts(draftActivities)}
           >
-            {t("activity.review.revalidate")}
+            {t("activity.import.reviewStep.revalidate")}
           </Button>
         </ImportAlert>
       ) : hasIssues ? (
@@ -359,16 +359,16 @@ export function ReviewStep() {
           variant={hasErrors ? "destructive" : "warning"}
           title={
             hasErrors
-              ? t("activity.review.rowsNeedFixing", { count: filterStats.errors })
-              : t("activity.review.warningsToReview", { count: warningCount })
+              ? t("activity.import.reviewStep.rowsNeedFixing", { count: filterStats.errors })
+              : t("activity.import.reviewStep.warningsToReview", { count: warningCount })
           }
           description={
             hasErrors
-              ? t("activity.review.validRowsReady", {
+              ? t("activity.import.reviewStep.validRowsReady", {
                   valid: validCount,
                   total: filterStats.all,
                 })
-              : t("activity.review.allActivitiesImportable", { count: filterStats.all })
+              : t("activity.import.reviewStep.allActivitiesImportable", { count: filterStats.all })
           }
         >
           <div className="mt-2 flex flex-wrap gap-2">
@@ -378,7 +378,7 @@ export function ReviewStep() {
                 className="border-destructive/50 text-destructive hover:bg-destructive/10 cursor-pointer"
                 onClick={() => setStatusFilter(new Set(["error"]))}
               >
-                {t("activity.review.errorCount", { count: filterStats.errors })}
+                {t("activity.import.reviewStep.errorCount", { count: filterStats.errors })}
               </Badge>
             )}
             {filterStats.warnings > 0 && (
@@ -387,7 +387,7 @@ export function ReviewStep() {
                 className="cursor-pointer border-yellow-500/50 text-yellow-700 hover:bg-yellow-500/10 dark:text-yellow-400"
                 onClick={() => setStatusFilter(new Set(["warning"]))}
               >
-                {t("activity.review.warningCount", { count: filterStats.warnings })}
+                {t("activity.import.reviewStep.warningCount", { count: filterStats.warnings })}
               </Badge>
             )}
             {filterStats.duplicates > 0 && (
@@ -396,7 +396,7 @@ export function ReviewStep() {
                 className="cursor-pointer border-yellow-500/50 text-yellow-700 hover:bg-yellow-500/10 dark:text-yellow-400"
                 onClick={() => setStatusFilter(new Set(["duplicate"]))}
               >
-                {t("activity.review.duplicateCount", { count: filterStats.duplicates })}
+                {t("activity.import.reviewStep.duplicateCount", { count: filterStats.duplicates })}
               </Badge>
             )}
           </div>
@@ -404,17 +404,17 @@ export function ReviewStep() {
       ) : hasSkipped ? (
         <ImportAlert
           variant="success"
-          title={t("activity.review.activitiesWillBeImported", {
+          title={t("activity.import.reviewStep.activitiesWillBeImported", {
             importCount,
             total: filterStats.all,
           })}
-          description={t("activity.review.activitiesExcludedReady", { count: filterStats.skipped })}
+          description={t("activity.import.reviewStep.activitiesExcludedReady", { count: filterStats.skipped })}
         />
       ) : (
         <ImportAlert
           variant="success"
-          title={t("activity.review.allActivitiesValid", { count: filterStats.all })}
-          description={t("activity.review.dataReadyForImport")}
+          title={t("activity.import.reviewStep.allActivitiesValid", { count: filterStats.all })}
+          description={t("activity.import.reviewStep.dataReadyForImport")}
         />
       )}
 
@@ -422,7 +422,7 @@ export function ReviewStep() {
       <div className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-muted-foreground mr-1 text-sm">
-            {t("activity.review.activitiesCount", { count: filterStats.all })}
+            {t("activity.import.reviewStep.activitiesCount", { count: filterStats.all })}
           </span>
           <FacetedFilter
             title={t("activity.table.type")}
