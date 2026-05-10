@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Carousel,
   CarouselContent,
@@ -30,24 +31,6 @@ interface ActivityTypeConfig<T extends string> {
   label: string;
   icon: IconName;
 }
-
-const PRIMARY_ACTIVITY_TYPES: ActivityTypeConfig<PrimaryActivityType>[] = [
-  { value: CanonicalActivityType.BUY, label: "Buy", icon: "TrendingUp" },
-  { value: CanonicalActivityType.SELL, label: "Sell", icon: "TrendingDown" },
-  { value: CanonicalActivityType.DEPOSIT, label: "Deposit", icon: "ArrowDownLeft" },
-  { value: CanonicalActivityType.WITHDRAWAL, label: "Withdrawal", icon: "ArrowUpRight" },
-  { value: CanonicalActivityType.DIVIDEND, label: "Dividend", icon: "Coins" },
-  { value: "TRANSFER", label: "Transfer", icon: "ArrowLeftRight" },
-];
-
-const SECONDARY_ACTIVITY_TYPES: ActivityTypeConfig<SecondaryActivityType>[] = [
-  { value: CanonicalActivityType.SPLIT, label: "Split", icon: "Split" },
-  { value: CanonicalActivityType.FEE, label: "Fee", icon: "Receipt" },
-  { value: CanonicalActivityType.INTEREST, label: "Interest", icon: "Percent" },
-  { value: CanonicalActivityType.TAX, label: "Tax", icon: "ReceiptText" },
-];
-
-const ALL_ACTIVITY_TYPES = [...PRIMARY_ACTIVITY_TYPES, ...SECONDARY_ACTIVITY_TYPES];
 
 interface ActivityTypePickerProps {
   value?: ActivityType;
@@ -253,7 +236,45 @@ function GridView({
 }
 
 export function ActivityTypePicker({ value, onSelect, allowedTypes }: ActivityTypePickerProps) {
+  const { t } = useTranslation();
   const [viewMode, setViewMode] = useState<ViewMode>("carousel");
+
+  const allActivityTypes = [
+    { value: CanonicalActivityType.BUY, label: t("activity.typePicker.buy"), icon: "TrendingUp" },
+    {
+      value: CanonicalActivityType.SELL,
+      label: t("activity.typePicker.sell"),
+      icon: "TrendingDown",
+    },
+    {
+      value: CanonicalActivityType.DEPOSIT,
+      label: t("activity.typePicker.deposit"),
+      icon: "ArrowDownLeft",
+    },
+    {
+      value: CanonicalActivityType.WITHDRAWAL,
+      label: t("activity.typePicker.withdrawal"),
+      icon: "ArrowUpRight",
+    },
+    {
+      value: CanonicalActivityType.DIVIDEND,
+      label: t("activity.typePicker.dividend"),
+      icon: "Coins",
+    },
+    { value: "TRANSFER", label: t("activity.typePicker.transfer"), icon: "ArrowLeftRight" },
+    { value: CanonicalActivityType.SPLIT, label: t("activity.typePicker.split"), icon: "Split" },
+    { value: CanonicalActivityType.FEE, label: t("activity.typePicker.fee"), icon: "Receipt" },
+    {
+      value: CanonicalActivityType.INTEREST,
+      label: t("activity.typePicker.interest"),
+      icon: "Percent",
+    },
+    {
+      value: CanonicalActivityType.TAX,
+      label: t("activity.typePicker.tax"),
+      icon: "ReceiptText",
+    },
+  ] satisfies ActivityTypeConfig<ActivityType>[];
 
   const toggleViewMode = useCallback(() => {
     setViewMode((prev) => (prev === "carousel" ? "grid" : "carousel"));
@@ -261,8 +282,8 @@ export function ActivityTypePicker({ value, onSelect, allowedTypes }: ActivityTy
 
   // Filter types if allowedTypes is provided
   const filteredTypes = allowedTypes
-    ? ALL_ACTIVITY_TYPES.filter((type) => allowedTypes.includes(type.value))
-    : ALL_ACTIVITY_TYPES;
+    ? allActivityTypes.filter((type) => allowedTypes.includes(type.value))
+    : allActivityTypes;
 
   return (
     <div className="space-y-1 overflow-hidden">
@@ -279,7 +300,11 @@ export function ActivityTypePicker({ value, onSelect, allowedTypes }: ActivityTy
           type="button"
           onClick={toggleViewMode}
           className="text-muted-foreground hover:text-foreground flex items-center gap-1 py-1 transition-colors"
-          aria-label={viewMode === "carousel" ? "Expand to show all types" : "Collapse"}
+          aria-label={
+            viewMode === "carousel"
+              ? t("activity.typePicker.expandToShowAll")
+              : t("activity.typePicker.collapse")
+          }
         >
           <Icons.ChevronDown
             className={cn(

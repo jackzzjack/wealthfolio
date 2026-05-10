@@ -1010,6 +1010,10 @@
         "pending": "Pending"
       }
     },
+    "importPreview": {
+      "validationErrors": "Validation Errors",
+      "invalidActivity": "Invalid activity"
+    },
     "mutations": {
       "failedAction": "Failed {{action}} activity",
       "failedUpdatingActivity": "Failed updating activity",

@@ -1010,6 +1010,10 @@
         "pending": "待處理"
       }
     },
+    "importPreview": {
+      "validationErrors": "驗證錯誤",
+      "invalidActivity": "無效的交易活動"
+    },
     "mutations": {
       "failedAction": "{{action}} 交易活動失敗",
       "failedUpdatingActivity": "更新交易活動失敗",
