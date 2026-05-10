@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/context/auth-context";
 import {
   ApplicationShell,
@@ -13,6 +14,7 @@ import {
 import { FormEvent, useState } from "react";
 
 export function LoginPage() {
+  const { t } = useTranslation();
   const { login, loginLoading, loginError, clearError } = useAuth();
   const [password, setPassword] = useState("");
 
@@ -43,7 +45,7 @@ export function LoginPage() {
             </div>
             <div className="space-y-2">
               <CardTitle>Wealthfolio</CardTitle>
-              <CardDescription>Your private portfolio tracker.</CardDescription>
+              <CardDescription>{t("login.subtitle")}</CardDescription>
             </div>
           </CardHeader>
           <CardContent>
@@ -62,7 +64,7 @@ export function LoginPage() {
                   }}
                   disabled={loginLoading}
                   required
-                  placeholder="Enter your password"
+                  placeholder={t("login.passwordPlaceholder")}
                   className="h-12 rounded-full shadow-none"
                 />
                 {loginError ? (
@@ -73,7 +75,7 @@ export function LoginPage() {
               </div>
 
               <Button type="submit" className="w-full" disabled={loginLoading}>
-                {loginLoading ? "Signing in..." : "Sign In"}
+                {loginLoading ? t("login.signingIn") : t("login.signIn")}
               </Button>
             </form>
           </CardContent>

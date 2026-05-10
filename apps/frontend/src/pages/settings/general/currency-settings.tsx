@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -21,13 +22,14 @@ import {
 } from "@wealthfolio/ui/components/ui/card";
 
 const baseCurrencyFormSchema = z.object({
-  baseCurrency: z.string({ required_error: "Please select a base currency." }),
+  baseCurrency: z.string().min(1),
 });
 
 type BaseCurrencyFormValues = z.infer<typeof baseCurrencyFormSchema>;
 
 // Extracted form component
 export function BaseCurrencyForm() {
+  const { t } = useTranslation();
   const { settings, updateBaseCurrency } = useSettingsContext();
   const defaultValues: Partial<BaseCurrencyFormValues> = {
     baseCurrency: settings?.baseCurrency || "USD",
@@ -62,7 +64,7 @@ export function BaseCurrencyForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Save Currency</Button> {/* Changed button text slightly */}
+        <Button type="submit">{t("settings.general.baseCurrency.save")}</Button>
       </form>
     </Form>
   );
@@ -70,12 +72,14 @@ export function BaseCurrencyForm() {
 
 // Original component now uses the extracted form inside a Card
 export function BaseCurrencySettings() {
+  const { t } = useTranslation();
+
   return (
     <Card>
       <CardHeader>
         <div>
-          <CardTitle className="text-lg">Base Currency</CardTitle>
-          <CardDescription>Select your portfolio base currency.</CardDescription>
+          <CardTitle className="text-lg">{t("settings.general.baseCurrency.label")}</CardTitle>
+          <CardDescription>{t("settings.general.baseCurrency.description")}</CardDescription>
         </div>
       </CardHeader>
       <CardContent>

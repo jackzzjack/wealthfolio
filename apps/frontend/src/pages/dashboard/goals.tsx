@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { getGoals } from "@/adapters";
 import { Card, CardContent } from "@wealthfolio/ui/components/ui/card";
 import { Icons } from "@wealthfolio/ui/components/ui/icons";
@@ -61,6 +62,7 @@ function formatTimeRemaining(targetDate?: string): string {
 }
 
 export function SavingGoals() {
+  const { t } = useTranslation();
   const { isBalanceHidden } = useBalancePrivacy();
 
   const { data: goals, isLoading } = useQuery<Goal[], Error>({
@@ -72,7 +74,7 @@ export function SavingGoals() {
     return (
       <div className="pb-4">
         <div className="flex items-center justify-between py-2">
-          <h2 className="text-md font-semibold">Goals</h2>
+          <h2 className="text-md font-semibold">{t("dashboard.goals.title")}</h2>
         </div>
         <Card className="shadow-xs w-full">
           <CardContent className="px-5 py-6">
@@ -101,24 +103,24 @@ export function SavingGoals() {
     return (
       <div className="pb-4">
         <div className="flex items-center justify-between py-2">
-          <h2 className="text-md font-semibold">Goals</h2>
+          <h2 className="text-md font-semibold">{t("dashboard.goals.title")}</h2>
           <Link
             to="/goals"
             className="text-muted-foreground hover:bg-success/10 inline-flex h-8 items-center rounded-md px-3 text-xs font-medium transition-colors"
           >
-            View All
+            {t("dashboard.goals.viewAll")}
             <Icons.ChevronRight className="ml-1 h-3 w-3" />
           </Link>
         </div>
         <Card className="border-border/50 bg-success/10 shadow-xs w-full">
           <CardContent className="px-4 py-6">
             <div className="text-center">
-              <p className="text-sm">No goals set.</p>
+              <p className="text-sm">{t("dashboard.goals.empty")}</p>
               <Link
                 to="/goals/new"
                 className="text-muted-foreground hover:text-foreground mt-2 inline-flex items-center gap-1 text-xs underline-offset-4 hover:underline"
               >
-                Create your first goal
+                {t("dashboard.goals.createFirst")}
                 <Icons.ChevronRight className="h-3 w-3" />
               </Link>
             </div>
@@ -131,12 +133,12 @@ export function SavingGoals() {
   return (
     <div className="pb-4">
       <div className="flex items-center justify-between py-2">
-        <h2 className="text-md font-semibold">Goals</h2>
+        <h2 className="text-md font-semibold">{t("dashboard.goals.title")}</h2>
         <Link
           to="/goals"
           className="text-muted-foreground hover:bg-success/10 inline-flex h-8 items-center rounded-md px-3 text-xs font-medium transition-colors"
         >
-          View All
+          {t("dashboard.goals.viewAll")}
           <Icons.ChevronRight className="ml-1 h-3 w-3" />
         </Link>
       </div>
@@ -217,7 +219,9 @@ export function SavingGoals() {
               className="text-muted-foreground hover:text-foreground flex items-center justify-between pt-3 text-xs transition-colors"
             >
               <span>
-                +{hiddenGoalsCount} more {hiddenGoalsCount === 1 ? "goal" : "goals"}
+                {hiddenGoalsCount === 1
+                  ? t("dashboard.goals.moreGoals_one", { count: hiddenGoalsCount })
+                  : t("dashboard.goals.moreGoals_other", { count: hiddenGoalsCount })}
               </span>
               <Icons.ChevronRight className="h-4 w-4" />
             </Link>

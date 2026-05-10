@@ -1,12 +1,15 @@
+import { useTranslation } from "react-i18next";
 import { Card } from "@wealthfolio/ui/components/ui/card";
 import { Icons } from "@wealthfolio/ui/components/ui/icons";
 import React from "react";
 
 export const OnboardingStep1: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="w-full max-w-5xl space-y-4 md:space-y-6">
       <div className="text-center">
-        <p className="text-muted-foreground">Two ways to track your portfolio.</p>
+        <p className="text-muted-foreground">{t("onboarding.step1.subtitle")}</p>
       </div>
 
       <div className="mx-auto grid gap-5 px-2 md:grid-cols-2 md:gap-6 md:px-4 lg:gap-8">
@@ -19,15 +22,15 @@ export const OnboardingStep1: React.FC = () => {
               <Icons.Holdings className="h-5 w-5 text-green-600 dark:text-green-400" />
             </div>
             <div>
-              <h3 className="text-lg font-bold md:text-xl">Holdings</h3>
-              <p className="text-muted-foreground text-sm">Value Tracking</p>
+              <h3 className="text-lg font-bold md:text-xl">{t("onboarding.step1.holdings.title")}</h3>
+              <p className="text-muted-foreground text-sm">{t("onboarding.step1.holdings.subtitle")}</p>
             </div>
           </div>
 
           {/* Decision badge - above the fold */}
           <div className="relative mb-6 rounded-md border border-green-200 bg-green-50 px-3 py-2 dark:border-green-800 dark:bg-green-900/20">
             <p className="text-xs text-green-800 md:text-sm dark:text-green-200">
-              Best for low-maintenance tracking.
+              {t("onboarding.step1.holdings.badge")}
             </p>
           </div>
 
@@ -35,26 +38,26 @@ export const OnboardingStep1: React.FC = () => {
           <div className="relative mb-6 flex-1 space-y-2 md:space-y-3">
             <div className="flex items-center gap-2.5">
               <Icons.Check className="h-4 w-4 text-green-600 dark:text-green-400" />
-              <p className="text-sm">Net worth & allocation</p>
+              <p className="text-sm">{t("onboarding.step1.holdings.features.netWorth")}</p>
             </div>
             <div className="flex items-center gap-2.5">
               <Icons.Check className="h-4 w-4 text-green-600 dark:text-green-400" />
-              <p className="text-sm">Value & unrealized P&L</p>
+              <p className="text-sm">{t("onboarding.step1.holdings.features.value")}</p>
             </div>
             <div className="flex items-center gap-2.5">
               <Icons.Check className="h-4 w-4 text-green-600 dark:text-green-400" />
-              <p className="text-sm">Price-based performance</p>
+              <p className="text-sm">{t("onboarding.step1.holdings.features.performance")}</p>
             </div>
             <div className="flex items-center gap-2.5">
               <Icons.Check className="h-4 w-4 text-green-600 dark:text-green-400" />
-              <p className="text-sm">Fast & lightweight setup</p>
+              <p className="text-sm">{t("onboarding.step1.holdings.features.setup")}</p>
             </div>
           </div>
 
           {/* Limit & Note - softened */}
           <div className="text-muted-foreground/70 relative mt-auto space-y-2 text-xs">
-            <p>Limit: No cashflow-adjusted performance.</p>
-            <p>Note: Requires maintaining holdings/positions.</p>
+            <p>{t("onboarding.step1.holdings.limit")}</p>
+            <p>{t("onboarding.step1.holdings.note")}</p>
           </div>
         </Card>
 
@@ -67,15 +70,15 @@ export const OnboardingStep1: React.FC = () => {
               <Icons.Activity className="h-5 w-5 text-blue-600 dark:text-blue-400" />
             </div>
             <div>
-              <h3 className="text-lg font-bold md:text-xl">Transactions</h3>
-              <p className="text-muted-foreground text-sm">Performance Tracking</p>
+              <h3 className="text-lg font-bold md:text-xl">{t("onboarding.step1.transactions.title")}</h3>
+              <p className="text-muted-foreground text-sm">{t("onboarding.step1.transactions.subtitle")}</p>
             </div>
           </div>
 
           {/* Decision badge - above the fold */}
           <div className="relative mb-6 rounded-md border border-blue-200 bg-blue-50 px-3 py-2 dark:border-blue-800 dark:bg-blue-900/20">
             <p className="text-xs text-blue-800 md:text-sm dark:text-blue-200">
-              Best for full performance analytics.
+              {t("onboarding.step1.transactions.badge")}
             </p>
           </div>
 
@@ -116,7 +119,7 @@ export const OnboardingStep1: React.FC = () => {
             rel="noopener noreferrer"
             className="hover:text-foreground underline transition-colors"
           >
-            Learn more
+            {t("common.learnMore")}
           </a>
         </p>
       </div>

@@ -12,13 +12,507 @@
     "requiredForImport": "Required for import",
     "selectAnAccount": "Select an account"
   },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "back": "Back",
+    "continue": "Continue",
+    "search": "Search...",
+    "viewAll": "View All",
+    "update": "Update",
+    "close": "Close",
+    "open": "Open",
+    "hide": "Hide",
+    "show": "Show",
+    "restore": "Restore",
+    "archive": "Archive",
+    "import": "Import",
+    "export": "Export",
+    "loading": "Loading...",
+    "noResults": "No results found.",
+    "error": "Error",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "actions": "Actions",
+    "learnMore": "Learn more",
+    "thisActionCannotBeUndone": "This action cannot be undone."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "insights": "Insights",
+    "holdings": "Holdings",
+    "activities": "Activities",
+    "goals": "Goals",
+    "assistant": "Assistant",
+    "settings": "Settings",
+    "search": "Search...",
+    "logout": "Logout",
+    "addons": "Add-ons",
+    "connect": "Connect",
+    "toggleSidebar": "Toggle Sidebar",
+    "expandSidebar": "Expand Sidebar",
+    "collapseSidebar": "Collapse Sidebar",
+    "openLauncher": "Open launcher",
+    "moreNavigation": "More navigation"
+  },
   "settings": {
+    "title": "Settings",
+    "sections": {
+      "preferences": "Preferences",
+      "portfolio": "Portfolio",
+      "data": "Data",
+      "connections": "Connections",
+      "extensions": "Extensions",
+      "about": "About"
+    },
+    "nav": {
+      "general": {
+        "title": "General",
+        "subtitle": "Currency, exchange rates, and updates"
+      },
+      "appearance": {
+        "title": "Appearance",
+        "subtitle": "Theme, font, and menu bar"
+      },
+      "accounts": {
+        "title": "Accounts",
+        "subtitle": "Investment and savings accounts"
+      },
+      "contributionLimits": {
+        "title": "Contribution Limits",
+        "subtitle": "Limits by year and account"
+      },
+      "securities": {
+        "title": "Securities",
+        "subtitle": "Manage security definitions"
+      },
+      "taxonomies": {
+        "title": "Classifications",
+        "subtitle": "Asset classification hierarchies"
+      },
+      "exports": {
+        "title": "Backup & Export",
+        "subtitle": "Backups and data exports"
+      },
+      "connect": {
+        "title": "Wealthfolio Connect",
+        "subtitle": "Broker and device linking"
+      },
+      "marketData": {
+        "title": "Market Data",
+        "subtitle": "Providers, sync, and imports"
+      },
+      "aiProviders": {
+        "title": "AI Providers",
+        "subtitle": "Configure AI for portfolio insights"
+      },
+      "addons": {
+        "title": "Add-ons",
+        "subtitle": "Extend Wealthfolio with features"
+      },
+      "about": {
+        "title": "About",
+        "subtitle": "Application information"
+      }
+    },
     "appearance": {
+      "title": "Appearance",
+      "description": "Customize the appearance of the application.",
+      "fontFamily": {
+        "label": "Font Family",
+        "description": "Choose the font family used throughout the interface.",
+        "placeholder": "Select a font",
+        "required": "Please select a font."
+      },
+      "theme": {
+        "label": "Theme",
+        "description": "Select your preferred theme for the application.",
+        "required": "Please select a theme."
+      },
+      "menuBar": {
+        "label": "Show menu bar",
+        "description": "Toggle to display the application menu bar."
+      },
       "language": {
         "label": "Language",
         "description": "Choose the language used throughout the interface.",
         "save": "Save Language"
       }
+    },
+    "general": {
+      "title": "General",
+      "description": "Manage the general application settings and preferences.",
+      "baseCurrency": {
+        "label": "Base Currency",
+        "description": "Select your portfolio base currency.",
+        "save": "Save Currency",
+        "required": "Please select a base currency."
+      },
+      "timezone": {
+        "label": "Timezone",
+        "description": "Choose the timezone used for dates, daily buckets, and yearly contribution boundaries.",
+        "save": "Save Timezone",
+        "required": "Please select a timezone."
+      }
+    },
+    "accounts": {
+      "title": "Accounts",
+      "description": "Manage your investment and saving accounts.",
+      "addAccount": "Add account",
+      "searchPlaceholder": "Search accounts...",
+      "tabs": {
+        "all": "All",
+        "active": "Active",
+        "hidden": "Hidden",
+        "archived": "Archived"
+      },
+      "empty": {
+        "title": "No account added!",
+        "description": "You don't have any account yet. Start adding your investment accounts.",
+        "action": "Add an account"
+      },
+      "noResults": "No accounts match your search.",
+      "clearSearch": "Clear search",
+      "activeAccounts": "Active Accounts",
+      "hiddenAndArchived": "Hidden & Archived",
+      "form": {
+        "updateTitle": "Update Account",
+        "addTitle": "Add Account",
+        "updateDescription": "Update account information",
+        "addDescription": "Add an investment account to track.",
+        "accountName": "Account Name",
+        "accountNamePlaceholder": "Account display name",
+        "accountGroup": "Account Group",
+        "accountGroupPlaceholder": "Retirement, 401K, RRSP, TFSA,...",
+        "accountType": "Account Type",
+        "accountTypePlaceholder": "Select an account type",
+        "accountTypeDescription": "Choose the account type that best matches.",
+        "currency": "Currency",
+        "trackingMode": "Tracking Mode",
+        "trackingModeDescription": "Choose how to track this account. This affects what data you enter and what metrics are available.",
+        "transactionsMode": "Transactions",
+        "transactionsModeDescription": "Track every trade for performance analytics",
+        "holdingsMode": "Holdings",
+        "holdingsModeDescription": "Add holdings directly as snapshots",
+        "performanceWarning": "Performance metrics will be limited without transaction history.",
+        "hideAccount": "Hide this account",
+        "hideAccountDescription": "keeps in Total & history",
+        "archiveAccount": "Archive this account",
+        "archiveAccountDescription": "removes from portfolio, can restore later",
+        "switchToTransactions": "Switch to Transactions mode",
+        "switchToTransactionsWarning": "Your account value and performance history will be rebuilt entirely from transactions. Holdings snapshots will no longer be used.",
+        "switchChecklist": {
+          "title": "Make sure your transactions are complete",
+          "item1": "All buys, sells, deposits & withdrawals are recorded",
+          "item2": "Dates, quantities & prices are accurate",
+          "item3": "Gaps in history will lead to incorrect balances & returns"
+        },
+        "keepHoldings": "Keep Holdings",
+        "confirmSwitch": "Switch to Transactions"
+      },
+      "item": {
+        "holdings": "Holdings",
+        "needsSetup": "Needs setup",
+        "transactions": "Transactions",
+        "holdingsDescription": "Add holdings directly as snapshots",
+        "chooseTracking": "Choose how to track this account",
+        "transactionsDescription": "Track every trade for performance analytics",
+        "archived": "Archived",
+        "hidden": "Hidden"
+      },
+      "operations": {
+        "deleteConfirm": "Are you sure you want to delete this account and related activities?",
+        "archiveTitle": "Archive this account?",
+        "archiveDescription": "Archiving will remove this account from your Total Portfolio history and net worth calculations. Historical charts will be recalculated without this account's data. You can restore it later."
+      }
+    },
+    "contributionLimits": {
+      "title": "Contribution Limits",
+      "description": "Manage your contribution limits.",
+      "addLimit": "Add limit",
+      "currentYear": "Current Year",
+      "empty": {
+        "title": "No contribution limits for {{year}}!",
+        "description": "You don't have any contribution limits for the current year. Start adding your contribution limits.",
+        "action": "Add a contribution limit"
+      },
+      "togglePreviousYears": "Show/Hide Previous Years",
+      "form": {
+        "updateTitle": "Update Contribution Limit",
+        "addTitle": "Add Contribution Limit",
+        "updateDescription": "Update contribution limit information",
+        "addDescription": "Add a new contribution limit.",
+        "groupName": "Group Name",
+        "groupNamePlaceholder": "e.g., TFSA, 401(k), RRSP",
+        "groupNameDescription": "Name of the contribution limit group",
+        "limitAmount": "Limit Amount",
+        "limitAmountPlaceholder": "e.g., 6,000.00",
+        "limitAmountDescription": "Maximum contribution amount allowed",
+        "year": "Year",
+        "yearPlaceholder": "e.g., 2024",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "dateNote": "Dates default to January 1st through December 31st of the selected year",
+        "saving": "Saving...",
+        "updating": "Updating..."
+      },
+      "item": {
+        "limitReached": "Limit reached",
+        "overLimit": "{{amount}} over limit",
+        "remaining": "{{amount}} remaining",
+        "completed": "completed"
+      }
+    },
+    "exports": {
+      "title": "Data Export & Backup",
+      "description": "Export your financial data and manage database backups with advanced options.",
+      "tabs": {
+        "backupRestore": "Backup & Restore",
+        "dataExport": "Data Export"
+      },
+      "form": {
+        "title": "Data Export",
+        "description": "Export specific data types in various formats for analysis or external use.",
+        "chooseFormat": "Choose Your Preferred Format",
+        "accounts": "Accounts",
+        "activities": "Activities",
+        "goals": "Goals",
+        "portfolioHistory": "Portfolio History",
+        "accountsDescription": "Your financial accounts",
+        "activitiesDescription": "Detailed transaction history and logs",
+        "goalsDescription": "Financial objectives and progress tracking",
+        "portfolioHistoryDescription": "Your portfolio's performance over time, including valuations, gains, and cash flow activities.",
+        "customizeExport": "Customize Your Export",
+        "csv": "CSV",
+        "json": "JSON",
+        "sqlite": "SQLite",
+        "csvDescription": "Simple, widely compatible spreadsheet format",
+        "jsonDescription": "Structured data for easy programmatic access",
+        "sqliteDescription": "Compact, self-contained database file",
+        "fullSqlite": "Export the full SQLite Database",
+        "fullSqliteDescription": "Complete database backup with WAL/SHM files - choose your backup location",
+        "exporting": "Exporting {{item}}..."
+      },
+      "backup": {
+        "title": "Database Backup & Restore",
+        "description": "Create complete database backups and restore from previous backups.",
+        "createBackup": "Create Backup",
+        "createBackupDescription": "Create a complete backup...",
+        "backupButton": "Backup Database",
+        "restoreBackup": "Restore Backup",
+        "restoreBackupDescription": "Restore your database...",
+        "restoreButton": "Restore Database",
+        "restoring": "Restoring...",
+        "creatingBackup": "Creating Backup...",
+        "importantNotes": "Important Notes:"
+      }
+    },
+    "marketData": {
+      "title": "Market Data",
+      "description": "Configure your market data providers.",
+      "importButton": "Import",
+      "importDescription": "Import historical quotes",
+      "rebuildHistory": "Rebuild History",
+      "rebuildConfirmTitle": "Rebuild Full History?",
+      "rebuildConfirmDescription": "This will rebuild quote history from your first activity date (up to 5 years) and recalculate the portfolio. Use this to fix gaps or sync issues.",
+      "updateButton": "Update",
+      "builtInProviders": "Built-in Providers",
+      "customProviders": "Custom Providers",
+      "apiKeyRequired": "API Key Required",
+      "syncErrors": "Sync Errors",
+      "noBuiltInProviders": "No built-in providers configured.",
+      "settings": "Settings",
+      "capabilities": "Capabilities",
+      "instruments": "Instruments",
+      "coverage": "Coverage",
+      "features": "Features",
+      "website": "Website",
+      "priority": "Priority",
+      "priorityDescription": "Lower = higher priority",
+      "syncStatus": "Sync Status",
+      "assetsWithErrors": "assets with errors",
+      "noAssetsUsing": "No assets using this provider",
+      "lastSync": "Last sync:",
+      "pendingSync": "Pending sync",
+      "noCustomProviders": "No custom providers configured",
+      "addCustomProvider": "Add a custom data source to scrape prices from any website or API.",
+      "addProvider": "Add Provider",
+      "deleteCustomProvider": "Delete Custom Provider?",
+      "disabled": "Disabled",
+      "import": {
+        "title": "Import Historical Quotes",
+        "description": "Import historical market data from CSV files to fill gaps in your portfolio data",
+        "steps": {
+          "upload": "Upload & Validate",
+          "preview": "Preview Data",
+          "results": "Import Results"
+        },
+        "total": "Total:",
+        "valid": "Valid:",
+        "invalid": "Invalid:",
+        "duplicates": "Duplicates:",
+        "back": "Back",
+        "importButton": "Import {{n}} Quotes",
+        "startOver": "Start Over",
+        "clickToUpload": "Click to upload",
+        "drop": "drop",
+        "csvOnly": "CSV only",
+        "processing": "Processing file...",
+        "removeFile": "Remove File",
+        "validate": "Validate File",
+        "validating": "Validating...",
+        "overwriteNote": "Quotes with the same symbol and date will overwrite existing data."
+      }
+    },
+    "about": {
+      "title": "About",
+      "subtitle": "Application information",
+      "description": "A beautiful, simple, and secure personal finance and investment tracker that helps you take control of your wealth.",
+      "checkForUpdate": "Check for Update",
+      "website": "Website",
+      "docs": "Docs",
+      "github": "GitHub",
+      "databasePath": "Database path",
+      "logsDirectory": "Logs directory",
+      "unavailable": "Unavailable",
+      "copyDatabasePath": "Copy database path",
+      "copyLogsDirectory": "Copy logs directory",
+      "support": "Have questions or found a bug? Please email us at",
+      "emailUs": "Email Us",
+      "reportIssue": "Report Issue",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use",
+      "version": "Version {{version}}",
+      "copied": "Copied",
+      "copyFailed": "Copy failed",
+      "copiedToClipboard": "{{label}} copied to clipboard.",
+      "couldNotCopy": "Could not copy {{label}}."
+    }
+  },
+  "dashboard": {
+    "investments": "Investments",
+    "netWorth": "Net Worth",
+    "holdings": {
+      "title": "Holdings",
+      "topHoldings": "Top Holdings",
+      "empty": "No holdings yet.",
+      "addFirst": "Add your first transaction",
+      "viewAll": "View All",
+      "show": "Show",
+      "sortBy": "Sort by",
+      "display": "Display",
+      "totalReturn": "Total Return",
+      "dailyChange": "Daily Change",
+      "totalValue": "Total Value",
+      "gain": "Gain",
+      "symbol": "Symbol",
+      "name": "Name",
+      "moreHoldings_one": "+{{count}} more",
+      "moreHoldings_other": "+{{count}} more holdings"
+    },
+    "goals": {
+      "title": "Goals",
+      "empty": "No goals set.",
+      "createFirst": "Create your first goal",
+      "viewAll": "View All",
+      "moreGoals_one": "+{{count}} more goal",
+      "moreGoals_other": "+{{count}} more goals",
+      "noDeadline": "NO DEADLINE",
+      "due": "DUE"
+    },
+    "actions": {
+      "addAsset": "Add Asset",
+      "addLiability": "Add Liability",
+      "recordTransaction": "Record Transaction",
+      "syncBrokerAccounts": "Sync Broker Accounts",
+      "syncDevices": "Sync Devices",
+      "updatePrices": "Update Prices",
+      "rebuildFullHistory": "Rebuild Full History",
+      "verifyData": "Verify Data"
+    },
+    "accounts": {
+      "title": "Accounts",
+      "loadError": "Failed to load accounts",
+      "empty": "No accounts found.",
+      "addFirst": "Add your first account",
+      "account_one": "{{count}} account",
+      "account_other": "{{count}} accounts"
+    }
+  },
+  "login": {
+    "subtitle": "Your private portfolio tracker.",
+    "passwordPlaceholder": "Enter your password",
+    "signIn": "Sign In",
+    "signingIn": "Signing in..."
+  },
+  "onboarding": {
+    "back": "Back",
+    "continue": "Continue",
+    "getStarted": "Get Started",
+    "subscribeAndConnect": "Subscribe & Connect",
+    "step1": {
+      "subtitle": "Two ways to track your portfolio.",
+      "holdings": {
+        "title": "Holdings",
+        "subtitle": "Value Tracking",
+        "badge": "Best for low-maintenance tracking.",
+        "features": {
+          "netWorth": "Net worth & allocation",
+          "value": "Value & unrealized P&L",
+          "performance": "Price-based performance",
+          "setup": "Fast & lightweight setup"
+        },
+        "limit": "Limit: No cashflow-adjusted performance.",
+        "note": "Note: Requires maintaining holdings/positions."
+      },
+      "transactions": {
+        "title": "Transactions",
+        "subtitle": "Performance Tracking",
+        "badge": "Best for full performance analytics.",
+        "features": {
+          "performance": "True time-weighted returns",
+          "cashflow": "Cashflow-adjusted performance",
+          "dividends": "Dividend & income tracking",
+          "tax": "Tax lot management"
+        },
+        "limit": "Limit: Requires complete transaction history.",
+        "note": "Note: More setup effort upfront."
+      }
+    },
+    "step2": {
+      "currency": "Currency",
+      "timezone": "Timezone",
+      "selectCurrency": "Select Currency",
+      "searchCurrencies": "Search currencies...",
+      "selectTimezone": "Select Timezone",
+      "searchTimezones": "Search timezones...",
+      "currencyRequired": "Please select a base currency",
+      "timezoneRequired": "Please select a timezone"
+    },
+    "appearance": {
+      "theme": "Theme",
+      "font": "Font",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System",
+      "mono": "Mono",
+      "sans": "Sans",
+      "serif": "Serif",
+      "monoDescription": "Technical & precise",
+      "sansDescription": "Clean & modern",
+      "serifDescription": "Classic & elegant",
+      "tagline": "Invest with clarity"
+    },
+    "connect": {
+      "title": "Wealthfolio Connect",
+      "brokerageSync": "Brokerage Sync",
+      "deviceSync": "Device Sync",
+      "householdView": "Household View",
+      "learnMore": "Learn more about Connect"
     }
   }
 }

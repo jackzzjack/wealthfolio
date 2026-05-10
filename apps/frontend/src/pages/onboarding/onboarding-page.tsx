@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { usePlatform } from "@/hooks/use-platform";
 import { useSettings } from "@/hooks/use-settings";
 import { WEALTHFOLIO_CONNECT_PORTAL_URL } from "@/lib/constants";
@@ -16,6 +17,7 @@ const DESKTOP_MAX_STEPS = 4;
 const MOBILE_MAX_STEPS = 3;
 
 const OnboardingPage = () => {
+  const { t } = useTranslation();
   const { data: settings, isLoading: isSettingsLoading } = useSettings();
   const { isMobile } = usePlatform();
   const { updateSettings } = useSettingsContext();
@@ -119,7 +121,7 @@ const OnboardingPage = () => {
               <div className="order-2 sm:order-1">
                 <Button variant="ghost" onClick={handleBack} size="sm">
                   <Icons.ArrowLeft className="mr-1.5 h-4 w-4" />
-                  Back
+                  {t("onboarding.back")}
                 </Button>
               </div>
               <div className="order-1 flex flex-col gap-2 sm:order-2 sm:flex-row sm:gap-3">
@@ -130,7 +132,7 @@ const OnboardingPage = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Subscribe & Connect
+                      {t("onboarding.subscribeAndConnect")}
                       <Icons.ExternalLink className="ml-1.5 h-4 w-4" />
                     </a>
                   </Button>
@@ -140,7 +142,7 @@ const OnboardingPage = () => {
                   className="from-primary to-primary/90 bg-linear-to-r order-1 sm:order-2"
                   onClick={() => updateSettings({ onboardingCompleted: true })}
                 >
-                  Get Started
+                  {t("onboarding.getStarted")}
                   <Icons.ArrowRight className="ml-1.5 h-4 w-4" />
                 </Button>
               </div>
@@ -151,7 +153,7 @@ const OnboardingPage = () => {
                 {currentStep > 1 && (
                   <Button variant="ghost" onClick={handleBack} size="sm">
                     <Icons.ArrowLeft className="mr-1.5 h-4 w-4" />
-                    Back
+                    {t("onboarding.back")}
                   </Button>
                 )}
               </div>
@@ -160,7 +162,7 @@ const OnboardingPage = () => {
                 disabled={!isStepValid}
                 className="from-primary to-primary/90 bg-linear-to-r"
               >
-                Continue
+                {t("onboarding.continue")}
                 <Icons.ArrowRight className="ml-1.5 h-4 w-4" />
               </Button>
             </div>

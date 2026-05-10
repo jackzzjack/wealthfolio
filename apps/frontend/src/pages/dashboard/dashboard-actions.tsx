@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { ActionPalette, type ActionPaletteGroup } from "@/components/action-palette";
 import { syncService } from "@/features/devices-sync";
 import { useSyncStatus } from "@/features/devices-sync/hooks";
@@ -21,6 +22,7 @@ interface DashboardActionsProps {
 }
 
 export function DashboardActions({ onAddAsset, onAddLiability }: DashboardActionsProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -44,19 +46,19 @@ export function DashboardActions({ onAddAsset, onAddLiability }: DashboardAction
         ? [
             {
               icon: Icons.Plus,
-              label: "Add Asset",
+              label: t("dashboard.actions.addAsset"),
               onClick: onAddAsset,
             },
             {
               icon: Icons.Plus,
-              label: "Add Liability",
+              label: t("dashboard.actions.addLiability"),
               onClick: onAddLiability,
             },
           ]
         : [
             {
               icon: Icons.Plus,
-              label: "Record Transaction",
+              label: t("dashboard.actions.recordTransaction"),
               onClick: () => navigate("/activities/manage"),
             },
           ];
@@ -69,7 +71,7 @@ export function DashboardActions({ onAddAsset, onAddLiability }: DashboardAction
             ? [
                 {
                   icon: Icons.Download,
-                  label: "Sync Broker Accounts",
+                  label: t("dashboard.actions.syncBrokerAccounts"),
                   onClick: () => syncBrokerData(),
                 },
               ]
@@ -78,24 +80,24 @@ export function DashboardActions({ onAddAsset, onAddLiability }: DashboardAction
             ? [
                 {
                   icon: Icons.CloudSync,
-                  label: "Sync Devices",
+                  label: t("dashboard.actions.syncDevices"),
                   onClick: () => void syncService.triggerSyncCycle(),
                 },
               ]
             : []),
           {
             icon: Icons.Refresh,
-            label: "Update Prices",
+            label: t("dashboard.actions.updatePrices"),
             onClick: () => updatePortfolioMutation.mutate(),
           },
           {
             icon: Icons.History,
-            label: "Rebuild Full History",
+            label: t("dashboard.actions.rebuildFullHistory"),
             onClick: () => recalculatePortfolioMutation.mutate(),
           },
           {
             icon: Icons.ShieldCheck,
-            label: "Verify Data",
+            label: t("dashboard.actions.verifyData"),
             onClick: () => runHealthChecksMutation.mutate(),
           },
         ],

@@ -12,13 +12,507 @@
     "requiredForImport": "匯入必填",
     "selectAnAccount": "選擇帳戶"
   },
+  "common": {
+    "save": "儲存",
+    "cancel": "取消",
+    "delete": "刪除",
+    "edit": "編輯",
+    "add": "新增",
+    "back": "返回",
+    "continue": "繼續",
+    "search": "搜尋...",
+    "viewAll": "查看全部",
+    "update": "更新",
+    "close": "關閉",
+    "open": "開啟",
+    "hide": "隱藏",
+    "show": "顯示",
+    "restore": "還原",
+    "archive": "封存",
+    "import": "匯入",
+    "export": "匯出",
+    "loading": "載入中...",
+    "noResults": "找不到結果。",
+    "error": "錯誤",
+    "confirm": "確認",
+    "yes": "是",
+    "no": "否",
+    "actions": "操作",
+    "learnMore": "了解更多",
+    "thisActionCannotBeUndone": "此操作無法撤銷。"
+  },
+  "nav": {
+    "dashboard": "儀表板",
+    "insights": "洞察分析",
+    "holdings": "持倉",
+    "activities": "交易活動",
+    "goals": "目標",
+    "assistant": "AI 助手",
+    "settings": "設定",
+    "search": "搜尋...",
+    "logout": "登出",
+    "addons": "擴充功能",
+    "connect": "連接",
+    "toggleSidebar": "切換側欄",
+    "expandSidebar": "展開側欄",
+    "collapseSidebar": "收合側欄",
+    "openLauncher": "開啟啟動器",
+    "moreNavigation": "更多導覽"
+  },
   "settings": {
+    "title": "設定",
+    "sections": {
+      "preferences": "偏好設定",
+      "portfolio": "投資組合",
+      "data": "資料",
+      "connections": "連接",
+      "extensions": "擴充功能",
+      "about": "關於"
+    },
+    "nav": {
+      "general": {
+        "title": "一般",
+        "subtitle": "貨幣、匯率與更新"
+      },
+      "appearance": {
+        "title": "外觀",
+        "subtitle": "主題、字型與選單列"
+      },
+      "accounts": {
+        "title": "帳戶",
+        "subtitle": "投資與儲蓄帳戶"
+      },
+      "contributionLimits": {
+        "title": "投資限額",
+        "subtitle": "按年份與帳戶的限額"
+      },
+      "securities": {
+        "title": "證券",
+        "subtitle": "管理證券定義"
+      },
+      "taxonomies": {
+        "title": "分類",
+        "subtitle": "資產分類階層"
+      },
+      "exports": {
+        "title": "備份與匯出",
+        "subtitle": "備份與資料匯出"
+      },
+      "connect": {
+        "title": "Wealthfolio Connect",
+        "subtitle": "券商與裝置連結"
+      },
+      "marketData": {
+        "title": "市場資料",
+        "subtitle": "提供者、同步與匯入"
+      },
+      "aiProviders": {
+        "title": "AI 提供者",
+        "subtitle": "設定 AI 投資組合洞察"
+      },
+      "addons": {
+        "title": "擴充套件",
+        "subtitle": "以功能擴充 Wealthfolio"
+      },
+      "about": {
+        "title": "關於",
+        "subtitle": "應用程式資訊"
+      }
+    },
     "appearance": {
+      "title": "外觀",
+      "description": "自訂應用程式外觀。",
+      "fontFamily": {
+        "label": "字型",
+        "description": "選擇整個介面使用的字型。",
+        "placeholder": "選擇字型",
+        "required": "請選擇字型。"
+      },
+      "theme": {
+        "label": "主題",
+        "description": "選擇應用程式的偏好主題。",
+        "required": "請選擇主題。"
+      },
+      "menuBar": {
+        "label": "顯示選單列",
+        "description": "切換顯示應用程式選單列。"
+      },
       "language": {
         "label": "語言",
         "description": "選擇整個介面使用的語言。",
         "save": "儲存語言"
       }
+    },
+    "general": {
+      "title": "一般",
+      "description": "管理一般應用程式設定與偏好。",
+      "baseCurrency": {
+        "label": "基礎貨幣",
+        "description": "選擇您的投資組合基礎貨幣。",
+        "save": "儲存貨幣",
+        "required": "請選擇基礎貨幣。"
+      },
+      "timezone": {
+        "label": "時區",
+        "description": "選擇用於日期、每日資料和年度投資限額的時區。",
+        "save": "儲存時區",
+        "required": "請選擇時區。"
+      }
+    },
+    "accounts": {
+      "title": "帳戶",
+      "description": "管理您的投資與儲蓄帳戶。",
+      "addAccount": "新增帳戶",
+      "searchPlaceholder": "搜尋帳戶...",
+      "tabs": {
+        "all": "全部",
+        "active": "活躍",
+        "hidden": "隱藏",
+        "archived": "封存"
+      },
+      "empty": {
+        "title": "尚未新增帳戶！",
+        "description": "您還沒有任何帳戶。開始新增您的投資帳戶。",
+        "action": "新增帳戶"
+      },
+      "noResults": "沒有符合搜尋的帳戶。",
+      "clearSearch": "清除搜尋",
+      "activeAccounts": "活躍帳戶",
+      "hiddenAndArchived": "隱藏與封存",
+      "form": {
+        "updateTitle": "更新帳戶",
+        "addTitle": "新增帳戶",
+        "updateDescription": "更新帳戶資訊",
+        "addDescription": "新增投資帳戶以追蹤。",
+        "accountName": "帳戶名稱",
+        "accountNamePlaceholder": "帳戶顯示名稱",
+        "accountGroup": "帳戶群組",
+        "accountGroupPlaceholder": "退休金、401K、RRSP、TFSA...",
+        "accountType": "帳戶類型",
+        "accountTypePlaceholder": "選擇帳戶類型",
+        "accountTypeDescription": "選擇最符合的帳戶類型。",
+        "currency": "貨幣",
+        "trackingMode": "追蹤模式",
+        "trackingModeDescription": "選擇追蹤此帳戶的方式。這會影響您輸入的資料和可用的指標。",
+        "transactionsMode": "交易",
+        "transactionsModeDescription": "追蹤每筆交易以進行績效分析",
+        "holdingsMode": "持倉",
+        "holdingsModeDescription": "以快照方式直接新增持倉",
+        "performanceWarning": "沒有交易記錄，績效指標將受限。",
+        "hideAccount": "隱藏此帳戶",
+        "hideAccountDescription": "保留在總計與歷史中",
+        "archiveAccount": "封存此帳戶",
+        "archiveAccountDescription": "從投資組合移除，稍後可還原",
+        "switchToTransactions": "切換至交易模式",
+        "switchToTransactionsWarning": "您的帳戶價值與績效歷史將完全從交易重建。持倉快照將不再使用。",
+        "switchChecklist": {
+          "title": "請確保您的交易記錄完整",
+          "item1": "所有買入、賣出、存款和提款均已記錄",
+          "item2": "日期、數量和價格正確",
+          "item3": "歷史中的空白將導致餘額和報酬不正確"
+        },
+        "keepHoldings": "保留持倉",
+        "confirmSwitch": "切換至交易"
+      },
+      "item": {
+        "holdings": "持倉",
+        "needsSetup": "需要設定",
+        "transactions": "交易",
+        "holdingsDescription": "以快照方式直接新增持倉",
+        "chooseTracking": "選擇追蹤此帳戶的方式",
+        "transactionsDescription": "追蹤每筆交易以進行績效分析",
+        "archived": "已封存",
+        "hidden": "已隱藏"
+      },
+      "operations": {
+        "deleteConfirm": "確定要刪除此帳戶及相關交易活動嗎？",
+        "archiveTitle": "封存此帳戶？",
+        "archiveDescription": "封存將從您的總投資組合歷史和淨值計算中移除此帳戶。歷史圖表將重新計算，不含此帳戶的資料。您之後可以還原。"
+      }
+    },
+    "contributionLimits": {
+      "title": "投資限額",
+      "description": "管理您的投資限額。",
+      "addLimit": "新增限額",
+      "currentYear": "當年度",
+      "empty": {
+        "title": "{{year}} 年沒有投資限額！",
+        "description": "您目前沒有當年度的投資限額。開始新增您的投資限額。",
+        "action": "新增投資限額"
+      },
+      "togglePreviousYears": "顯示/隱藏往年",
+      "form": {
+        "updateTitle": "更新投資限額",
+        "addTitle": "新增投資限額",
+        "updateDescription": "更新投資限額資訊",
+        "addDescription": "新增投資限額。",
+        "groupName": "群組名稱",
+        "groupNamePlaceholder": "例如：TFSA、401(k)、RRSP",
+        "groupNameDescription": "投資限額群組名稱",
+        "limitAmount": "限額金額",
+        "limitAmountPlaceholder": "例如：6,000.00",
+        "limitAmountDescription": "允許的最高投資金額",
+        "year": "年份",
+        "yearPlaceholder": "例如：2024",
+        "startDate": "開始日期",
+        "endDate": "結束日期",
+        "dateNote": "日期預設為所選年份的 1 月 1 日至 12 月 31 日",
+        "saving": "儲存中...",
+        "updating": "更新中..."
+      },
+      "item": {
+        "limitReached": "已達限額",
+        "overLimit": "超出限額 {{amount}}",
+        "remaining": "剩餘 {{amount}}",
+        "completed": "已完成"
+      }
+    },
+    "exports": {
+      "title": "資料匯出與備份",
+      "description": "匯出您的財務資料，並以進階選項管理資料庫備份。",
+      "tabs": {
+        "backupRestore": "備份與還原",
+        "dataExport": "資料匯出"
+      },
+      "form": {
+        "title": "資料匯出",
+        "description": "以各種格式匯出特定資料類型，用於分析或外部使用。",
+        "chooseFormat": "選擇您偏好的格式",
+        "accounts": "帳戶",
+        "activities": "交易活動",
+        "goals": "目標",
+        "portfolioHistory": "投資組合歷史",
+        "accountsDescription": "您的財務帳戶",
+        "activitiesDescription": "詳細交易記錄與日誌",
+        "goalsDescription": "財務目標與進度追蹤",
+        "portfolioHistoryDescription": "您的投資組合隨時間的績效，包括估值、獲利和現金流活動。",
+        "customizeExport": "自訂匯出",
+        "csv": "CSV",
+        "json": "JSON",
+        "sqlite": "SQLite",
+        "csvDescription": "簡單、廣泛相容的試算表格式",
+        "jsonDescription": "易於程式化存取的結構化資料",
+        "sqliteDescription": "緊湊、獨立的資料庫檔案",
+        "fullSqlite": "匯出完整 SQLite 資料庫",
+        "fullSqliteDescription": "含 WAL/SHM 檔案的完整資料庫備份 - 選擇備份位置",
+        "exporting": "正在匯出 {{item}}..."
+      },
+      "backup": {
+        "title": "資料庫備份與還原",
+        "description": "建立完整資料庫備份並從先前的備份還原。",
+        "createBackup": "建立備份",
+        "createBackupDescription": "建立完整備份...",
+        "backupButton": "備份資料庫",
+        "restoreBackup": "還原備份",
+        "restoreBackupDescription": "還原您的資料庫...",
+        "restoreButton": "還原資料庫",
+        "restoring": "還原中...",
+        "creatingBackup": "建立備份中...",
+        "importantNotes": "重要注意事項："
+      }
+    },
+    "marketData": {
+      "title": "市場資料",
+      "description": "設定您的市場資料提供者。",
+      "importButton": "匯入",
+      "importDescription": "匯入歷史報價",
+      "rebuildHistory": "重建歷史",
+      "rebuildConfirmTitle": "重建完整歷史？",
+      "rebuildConfirmDescription": "這將從您的第一筆交易日期重建報價歷史（最多 5 年）並重新計算投資組合。用於修復缺口或同步問題。",
+      "updateButton": "更新",
+      "builtInProviders": "內建提供者",
+      "customProviders": "自訂提供者",
+      "apiKeyRequired": "需要 API 金鑰",
+      "syncErrors": "同步錯誤",
+      "noBuiltInProviders": "未設定內建提供者。",
+      "settings": "設定",
+      "capabilities": "功能",
+      "instruments": "工具",
+      "coverage": "涵蓋範圍",
+      "features": "特色",
+      "website": "網站",
+      "priority": "優先順序",
+      "priorityDescription": "數字越小，優先順序越高",
+      "syncStatus": "同步狀態",
+      "assetsWithErrors": "個資產有錯誤",
+      "noAssetsUsing": "沒有資產使用此提供者",
+      "lastSync": "上次同步：",
+      "pendingSync": "等待同步",
+      "noCustomProviders": "未設定自訂提供者",
+      "addCustomProvider": "新增自訂資料來源，從任何網站或 API 抓取價格。",
+      "addProvider": "新增提供者",
+      "deleteCustomProvider": "刪除自訂提供者？",
+      "disabled": "已停用",
+      "import": {
+        "title": "匯入歷史報價",
+        "description": "從 CSV 檔案匯入歷史市場資料，填補投資組合資料的缺口",
+        "steps": {
+          "upload": "上傳並驗證",
+          "preview": "預覽資料",
+          "results": "匯入結果"
+        },
+        "total": "總計：",
+        "valid": "有效：",
+        "invalid": "無效：",
+        "duplicates": "重複：",
+        "back": "返回",
+        "importButton": "匯入 {{n}} 筆報價",
+        "startOver": "重新開始",
+        "clickToUpload": "點擊上傳",
+        "drop": "拖放",
+        "csvOnly": "僅限 CSV",
+        "processing": "處理檔案中...",
+        "removeFile": "移除檔案",
+        "validate": "驗證檔案",
+        "validating": "驗證中...",
+        "overwriteNote": "相同代號和日期的報價將覆蓋現有資料。"
+      }
+    },
+    "about": {
+      "title": "關於",
+      "subtitle": "應用程式資訊",
+      "description": "一款美觀、簡單且安全的個人財務與投資追蹤器，幫助您掌握財富。",
+      "checkForUpdate": "檢查更新",
+      "website": "官方網站",
+      "docs": "說明文件",
+      "github": "GitHub",
+      "databasePath": "資料庫路徑",
+      "logsDirectory": "日誌目錄",
+      "unavailable": "無法使用",
+      "copyDatabasePath": "複製資料庫路徑",
+      "copyLogsDirectory": "複製日誌目錄",
+      "support": "有問題或發現錯誤？請寄信至",
+      "emailUs": "寄信給我們",
+      "reportIssue": "回報問題",
+      "privacyPolicy": "隱私權政策",
+      "termsOfUse": "使用條款",
+      "version": "版本 {{version}}",
+      "copied": "已複製",
+      "copyFailed": "複製失敗",
+      "copiedToClipboard": "{{label}} 已複製到剪貼簿。",
+      "couldNotCopy": "無法複製 {{label}}。"
+    }
+  },
+  "dashboard": {
+    "investments": "投資",
+    "netWorth": "淨值",
+    "holdings": {
+      "title": "持倉",
+      "topHoldings": "主要持倉",
+      "empty": "尚無持倉。",
+      "addFirst": "新增第一筆交易",
+      "viewAll": "查看全部",
+      "show": "顯示",
+      "sortBy": "排序方式",
+      "display": "顯示方式",
+      "totalReturn": "總報酬",
+      "dailyChange": "當日變化",
+      "totalValue": "總值",
+      "gain": "獲利",
+      "symbol": "代號",
+      "name": "名稱",
+      "moreHoldings_one": "+{{count}} 個",
+      "moreHoldings_other": "+{{count}} 個持倉"
+    },
+    "goals": {
+      "title": "目標",
+      "empty": "尚未設定目標。",
+      "createFirst": "建立第一個目標",
+      "viewAll": "查看全部",
+      "moreGoals_one": "+{{count}} 個目標",
+      "moreGoals_other": "+{{count}} 個目標",
+      "noDeadline": "無期限",
+      "due": "到期"
+    },
+    "actions": {
+      "addAsset": "新增資產",
+      "addLiability": "新增負債",
+      "recordTransaction": "記錄交易",
+      "syncBrokerAccounts": "同步券商帳戶",
+      "syncDevices": "同步裝置",
+      "updatePrices": "更新價格",
+      "rebuildFullHistory": "重建完整歷史",
+      "verifyData": "驗證資料"
+    },
+    "accounts": {
+      "title": "帳戶",
+      "loadError": "載入帳戶失敗",
+      "empty": "找不到帳戶。",
+      "addFirst": "新增第一個帳戶",
+      "account_one": "{{count}} 個帳戶",
+      "account_other": "{{count}} 個帳戶"
+    }
+  },
+  "login": {
+    "subtitle": "您的私人投資組合追蹤器。",
+    "passwordPlaceholder": "輸入密碼",
+    "signIn": "登入",
+    "signingIn": "登入中..."
+  },
+  "onboarding": {
+    "back": "返回",
+    "continue": "繼續",
+    "getStarted": "開始使用",
+    "subscribeAndConnect": "訂閱並連接",
+    "step1": {
+      "subtitle": "兩種追蹤投資組合的方式。",
+      "holdings": {
+        "title": "持倉",
+        "subtitle": "價值追蹤",
+        "badge": "最適合低維護追蹤。",
+        "features": {
+          "netWorth": "淨值與配置",
+          "value": "價值與未實現損益",
+          "performance": "基於價格的績效",
+          "setup": "快速輕量設定"
+        },
+        "limit": "限制：無現金流調整績效。",
+        "note": "注意：需要維護持倉/部位。"
+      },
+      "transactions": {
+        "title": "交易",
+        "subtitle": "績效追蹤",
+        "badge": "最適合完整績效分析。",
+        "features": {
+          "performance": "真實時間加權報酬",
+          "cashflow": "現金流調整績效",
+          "dividends": "股息與收入追蹤",
+          "tax": "稅務批次管理"
+        },
+        "limit": "限制：需要完整的交易記錄。",
+        "note": "注意：前期設定工作較多。"
+      }
+    },
+    "step2": {
+      "currency": "貨幣",
+      "timezone": "時區",
+      "selectCurrency": "選擇貨幣",
+      "searchCurrencies": "搜尋貨幣...",
+      "selectTimezone": "選擇時區",
+      "searchTimezones": "搜尋時區...",
+      "currencyRequired": "請選擇基礎貨幣",
+      "timezoneRequired": "請選擇時區"
+    },
+    "appearance": {
+      "theme": "主題",
+      "font": "字型",
+      "light": "淺色",
+      "dark": "深色",
+      "system": "系統",
+      "mono": "等寬",
+      "sans": "無襯線",
+      "serif": "有襯線",
+      "monoDescription": "技術與精確",
+      "sansDescription": "簡潔與現代",
+      "serifDescription": "經典與優雅",
+      "tagline": "清晰投資"
+    },
+    "connect": {
+      "title": "Wealthfolio Connect",
+      "brokerageSync": "券商同步",
+      "deviceSync": "裝置同步",
+      "householdView": "家庭檢視",
+      "learnMore": "了解更多 Connect"
     }
   }
 }

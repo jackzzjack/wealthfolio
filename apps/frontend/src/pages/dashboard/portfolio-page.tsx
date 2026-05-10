@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { HealthStatusIndicator } from "@/components/health-status-icon";
 import { SwipablePage, SwipablePageView } from "@/components/page";
 import { PrivacyToggle } from "@/components/privacy-toggle";
@@ -33,6 +34,7 @@ const PageLoader = () => (
 );
 
 export default function PortfolioPage() {
+  const { t } = useTranslation();
   const { isFocusMode, toggleFocusMode } = useNavigationMode();
 
   // Alternative asset quick-add modal state
@@ -98,7 +100,7 @@ export default function PortfolioPage() {
     () => [
       {
         value: "investments",
-        label: "Investments",
+        label: t("dashboard.investments"),
         icon: Icons.TrendingUp,
         content: (
           <Suspense fallback={<PageLoader />}>
@@ -109,7 +111,7 @@ export default function PortfolioPage() {
       },
       {
         value: "net-worth",
-        label: "Net Worth",
+        label: t("dashboard.netWorth"),
         icon: Icons.Wallet,
         content: (
           <Suspense fallback={<PageLoader />}>
