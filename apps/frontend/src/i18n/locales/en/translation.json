@@ -1153,6 +1153,34 @@
       "orDrop": "or drop",
       "csvOnly": "CSV only"
     },
+    "import": {
+      "steps": {
+        "upload": "Upload",
+        "mapping": "Mapping",
+        "assets": "Review Assets",
+        "reviewActivities": "Review Activities",
+        "reviewHoldings": "Review Holdings",
+        "import": "Import"
+      },
+      "nextLabels": {
+        "configureMapping": "Configure Mapping",
+        "reviewAssets": "Review Assets",
+        "reviewHoldings": "Review Holdings",
+        "reviewActivities": "Review Activities",
+        "continueToImport": "Continue to Import",
+        "revalidateAndContinue": "Revalidate & Continue",
+        "continue": "Continue"
+      },
+      "titles": {
+        "importHoldings": "Import Holdings",
+        "importActivities": "Import Activities"
+      },
+      "disabled": {
+        "title": "CSV import disabled",
+        "description": "Holdings CSV import is disabled for connected accounts using Holdings tracking."
+      },
+      "errorBoundaryTitle": "Something went wrong."
+    },
     "mutations": {
       "failedAction": "Failed {{action}} activity",
       "failedUpdatingActivity": "Failed updating activity",

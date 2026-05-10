@@ -12,6 +12,8 @@ import { Icons } from "@wealthfolio/ui/components/ui/icons";
 import { AnimatePresence, motion } from "motion/react";
 import React, { useCallback, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 // Context
 import {
@@ -59,14 +61,6 @@ import { findMappedActivityType, validateTickerSymbol } from "./utils/validation
 // Step Configuration
 // ─────────────────────────────────────────────────────────────────────────────
 
-const STEPS: WizardStep[] = [
-  { id: "upload", label: "Upload" },
-  { id: "mapping", label: "Mapping" },
-  { id: "assets", label: "Review Assets" },
-  { id: "review", label: "Review Activities" },
-  { id: "confirm", label: "Import" },
-];
-
 const STEP_COMPONENTS: Record<ImportStep, React.ComponentType> = {
   upload: UploadStep,
   mapping: MappingStepUnified,
@@ -85,14 +79,6 @@ const HOLDINGS_STEP_COMPONENTS: Record<ImportStep, React.ComponentType> = {
   confirm: HoldingsConfirmStep,
   result: ContextResultStep,
 };
-
-const HOLDINGS_STEPS: WizardStep[] = [
-  { id: "upload", label: "Upload" },
-  { id: "mapping", label: "Mapping" },
-  { id: "assets", label: "Review Assets" },
-  { id: "review", label: "Review Holdings" },
-  { id: "confirm", label: "Import" },
-];
 
 // Holdings import required fields
 const HOLDINGS_REQUIRED_FIELDS: HoldingsFormat[] = [
@@ -301,6 +287,7 @@ function useStepValidation(isHoldingsMode: boolean, accounts?: Account[]) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 function ImportWizardContent() {
+  const { t } = useTranslation();
   const { state, dispatch, validateDrafts, previewAssets } = useImportContext();
   const navigate = useNavigate();
   const { isMobile } = usePlatform();
@@ -329,7 +316,26 @@ function ImportWizardContent() {
   const canProceed = useStepValidation(isHoldingsMode, accounts);
 
   // Select the appropriate steps and components based on mode
-  const steps = isHoldingsMode ? HOLDINGS_STEPS : STEPS;
+  const steps: WizardStep[] = useMemo(
+    () =>
+      isHoldingsMode
+        ? [
+            { id: "upload", label: t("activity.import.steps.upload") },
+            { id: "mapping", label: t("activity.import.steps.mapping") },
+            { id: "assets", label: t("activity.import.steps.assets") },
+            { id: "review", label: t("activity.import.steps.reviewHoldings") },
+            { id: "confirm", label: t("activity.import.steps.import") },
+          ]
+        : [
+            { id: "upload", label: t("activity.import.steps.upload") },
+            { id: "mapping", label: t("activity.import.steps.mapping") },
+            { id: "assets", label: t("activity.import.steps.assets") },
+            { id: "review", label: t("activity.import.steps.reviewActivities") },
+            { id: "confirm", label: t("activity.import.steps.import") },
+          ],
+    [isHoldingsMode, t],
+  );
+
   const stepComponents = isHoldingsMode ? HOLDINGS_STEP_COMPONENTS : STEP_COMPONENTS;
 
   // Step navigation
@@ -489,22 +495,26 @@ function ImportWizardContent() {
   const getNextLabel = useCallback(() => {
     switch (state.step) {
       case "upload":
-        return "Configure Mapping";
+        return t("activity.import.nextLabels.configureMapping");
       case "mapping":
-        return "Review Assets";
+        return t("activity.import.nextLabels.reviewAssets");
       case "assets":
-        return isHoldingsMode ? "Review Holdings" : "Review Activities";
+        return isHoldingsMode
+          ? t("activity.import.nextLabels.reviewHoldings")
+          : t("activity.import.nextLabels.reviewActivities");
       case "review":
         return state.lastValidatedRevision === state.draftRevision
-          ? "Continue to Import"
-          : "Revalidate & Continue";
+          ? t("activity.import.nextLabels.continueToImport")
+          : t("activity.import.nextLabels.revalidateAndContinue");
       default:
-        return "Continue";
+        return t("activity.import.nextLabels.continue");
     }
-  }, [state.step, isHoldingsMode, state.lastValidatedRevision, state.draftRevision]);
+  }, [state.step, isHoldingsMode, state.lastValidatedRevision, state.draftRevision, t]);
 
   // Page title
-  const pageTitle = isHoldingsMode ? "Import Holdings" : "Import Activities";
+  const pageTitle = isHoldingsMode
+    ? t("activity.import.titles.importHoldings")
+    : t("activity.import.titles.importActivities");
 
   if (selectedAccount && !isCsvImportAllowed) {
     return (
@@ -512,11 +522,11 @@ function ImportWizardContent() {
         <PageHeader heading={pageTitle} onBack={() => navigate(-1)} />
         <PageContent>
           <div className="mx-auto max-w-3xl space-y-4 py-6">
-            <AlertFeedback variant="warning" title="CSV import disabled">
-              Holdings CSV import is disabled for connected accounts using Holdings tracking.
+            <AlertFeedback variant="warning" title={t("activity.import.disabled.title")}>
+              {t("activity.import.disabled.description")}
             </AlertFeedback>
             <Button variant="outline" onClick={() => navigate(`/account/${selectedAccount.id}`)}>
-              Go to Account
+              {t("activity.page.goToAccount")}
             </Button>
           </div>
         </PageContent>
@@ -540,7 +550,7 @@ function ImportWizardContent() {
                 className="hidden sm:flex"
               >
                 <Icons.X className="mr-2 h-4 w-4" />
-                Cancel
+                {t("common.cancel")}
               </Button>
             )}
           </div>
@@ -624,7 +634,12 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode }, Error
 
   override render() {
     if (this.state.hasError) {
-      return <AlertFeedback variant="error" title="Something went wrong." />;
+      return (
+        <AlertFeedback
+          variant="error"
+          title={i18n.t("activity.import.errorBoundaryTitle")}
+        />
+      );
     }
 
     return this.props.children;

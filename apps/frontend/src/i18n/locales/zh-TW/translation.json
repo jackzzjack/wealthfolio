@@ -1152,6 +1152,34 @@
       "orDrop": "或拖放至此",
       "csvOnly": "僅限 CSV"
     },
+    "import": {
+      "steps": {
+        "upload": "上傳",
+        "mapping": "欄位對照",
+        "assets": "審核資產",
+        "reviewActivities": "審核交易活動",
+        "reviewHoldings": "審核持倉",
+        "import": "匯入"
+      },
+      "nextLabels": {
+        "configureMapping": "配置對照",
+        "reviewAssets": "審核資產",
+        "reviewHoldings": "審核持倉",
+        "reviewActivities": "審核交易活動",
+        "continueToImport": "繼續匯入",
+        "revalidateAndContinue": "重新驗證並繼續",
+        "continue": "繼續"
+      },
+      "titles": {
+        "importHoldings": "匯入持倉",
+        "importActivities": "匯入交易活動"
+      },
+      "disabled": {
+        "title": "CSV 匯入已停用",
+        "description": "已連結且使用持倉追蹤模式的帳戶，已停用持倉 CSV 匯入。"
+      },
+      "errorBoundaryTitle": "發生錯誤。"
+    },
     "mutations": {
       "failedAction": "{{action}} 交易活動失敗",
       "failedUpdatingActivity": "更新交易活動失敗",
