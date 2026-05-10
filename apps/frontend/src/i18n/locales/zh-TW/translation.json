@@ -411,6 +411,7 @@
       "gain": "獲利",
       "symbol": "代號",
       "name": "名稱",
+      "shares": "股",
       "moreHoldings_one": "+{{count}} 個",
       "moreHoldings_other": "+{{count}} 個持倉"
     },
@@ -683,7 +684,14 @@
       "securityTypes": "證券類型",
       "noData": "無資料",
       "noHoldingsYet": "尚無持倉",
-      "addTransactionOrImport": "新增第一筆交易，或從 CSV 檔案快速匯入現有持倉以開始使用。"
+      "addTransactionOrImport": "新增第一筆交易，或從 CSV 檔案快速匯入現有持倉以開始使用。",
+      "holdingsInCurrency": "{{currency}} 持倉",
+      "assetClassLabel": "資產類別：{{category}}",
+      "holdingsInRegion": "{{region}} 持倉",
+      "riskCategoryLabel": "風險類別：{{category}}",
+      "typeLabel": "類型：{{category}}",
+      "holdingsInSector": "{{sector}} 產業持倉",
+      "taxonomyCategoryLabel": "{{taxonomy}}：{{category}}"
     }
   },
   "activity": {
@@ -975,6 +983,12 @@
       }
     },
     "dataGrid": {
+      "selectAllRows": "選取所有列",
+      "selectRow": "選取列",
+      "none": "無",
+      "external": "外部",
+      "auto": "自動",
+      "comment": "備註",
       "toolbar": {
         "saveAll": "全部儲存",
         "saving": "儲存中...",
@@ -995,6 +1009,19 @@
         "invalid": "無效",
         "pending": "待處理"
       }
+    },
+    "mutations": {
+      "failedAction": "{{action}} 交易活動失敗",
+      "failedUpdatingActivity": "更新交易活動失敗",
+      "transfersLinked": "轉帳已連結",
+      "transfersLinkedDescription": "這兩筆交易現已配對為內部轉帳。",
+      "failedToLinkTransfers": "連結轉帳失敗",
+      "transfersUnlinked": "轉帳已取消連結",
+      "transfersUnlinkedDescription": "這兩筆交易現在再次為外部轉帳。",
+      "failedToUnlinkTransfers": "取消連結轉帳失敗",
+      "duplicated": "已複製",
+      "someActivitiesFailedToSave": "部分交易活動儲存失敗",
+      "failedToSaveActivities": "儲存交易活動失敗"
     }
   },
   "account": {

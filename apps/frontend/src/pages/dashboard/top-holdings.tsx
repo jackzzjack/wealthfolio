@@ -45,6 +45,7 @@ function HoldingRow({
   showName,
   onClick,
 }: HoldingRowProps) {
+  const { t } = useTranslation();
   const symbol = holding.instrument?.symbol ?? holding.id;
   const parsedOption = parseOccSymbol(symbol);
   const symbolLabel = parsedOption ? parsedOption.underlying : symbol.split(".")[0];
@@ -52,7 +53,7 @@ function HoldingRow({
   const title = showName ? nameLabel : symbolLabel;
   const subtitle = parsedOption
     ? `${new Date(parsedOption.expiration + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })} $${parsedOption.strikePrice} ${parsedOption.optionType}`
-    : `${(holding.quantity ?? 0).toLocaleString(undefined, { maximumFractionDigits: 3 })} shares`;
+    : `${(holding.quantity ?? 0).toLocaleString(undefined, { maximumFractionDigits: 3 })} ${t("dashboard.holdings.shares")}`;
   const avatarSymbol = parsedOption ? parsedOption.underlying : symbol;
   const marketValue = holding.marketValue?.base ?? 0;
   const gainAmount = showTotalReturn
@@ -109,6 +110,7 @@ interface StackedAvatarsProps {
 }
 
 function StackedAvatars({ holdings, totalRemaining, onClick }: StackedAvatarsProps) {
+  const { t } = useTranslation();
   const displayedHoldings = holdings.slice(0, MAX_STACKED_AVATARS);
   const extraCount = totalRemaining - displayedHoldings.length;
 

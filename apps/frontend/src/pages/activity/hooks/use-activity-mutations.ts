@@ -17,12 +17,14 @@ import {
   ActivityUpdate,
 } from "@/lib/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { NewActivityFormValues } from "../components/forms/schemas";
 
 export function useActivityMutations(
   onSuccess?: (activity: { accountId?: string | null }) => void,
 ) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   const buildActivityAssetInput = ({
@@ -87,7 +89,7 @@ export function useActivityMutations(
     },
     onError: (error: string) => {
       logger.error(`Error ${action} activity: ${String(error)}`);
-      toast.error(`Failed ${action} activity`, {
+      toast.error(t("activity.mutations.failedAction", { action }), {
         description: String(error),
       });
     },
@@ -230,7 +232,7 @@ export function useActivityMutations(
       const result = await updateActivity(updatePayload);
 
       if (!result || typeof result !== "object" || !("id" in result)) {
-        throw new Error("Failed updating activity");
+        throw new Error(t("activity.mutations.failedUpdatingActivity"));
       }
 
       const serverError = (result as unknown as Record<string, unknown>).error;
@@ -253,13 +255,13 @@ export function useActivityMutations(
       linkTransferActivities(activityAId, activityBId),
     onSuccess: () => {
       queryClient.invalidateQueries();
-      toast.success("Transfers linked", {
-        description: "The two activities are now paired as an internal transfer.",
+      toast.success(t("activity.mutations.transfersLinked"), {
+        description: t("activity.mutations.transfersLinkedDescription"),
       });
     },
     onError: (error: string) => {
       logger.error(`Error linking transfers: ${String(error)}`);
-      toast.error("Failed to link transfers", {
+      toast.error(t("activity.mutations.failedToLinkTransfers"), {
         description: String(error),
       });
     },
@@ -270,13 +272,13 @@ export function useActivityMutations(
       unlinkTransferActivities(activityAId, activityBId),
     onSuccess: () => {
       queryClient.invalidateQueries();
-      toast.success("Transfers unlinked", {
-        description: "The two activities are external transfers again.",
+      toast.success(t("activity.mutations.transfersUnlinked"), {
+        description: t("activity.mutations.transfersUnlinkedDescription"),
       });
     },
     onError: (error: string) => {
       logger.error(`Error unlinking transfers: ${String(error)}`);
-      toast.error("Failed to unlink transfers", {
+      toast.error(t("activity.mutations.failedToUnlinkTransfers"), {
         description: String(error),
       });
     },
@@ -309,7 +311,7 @@ export function useActivityMutations(
       fee: restOfActivityData.fee,
       fxRate: restOfActivityData.fxRate ?? undefined,
       activityDate: date,
-      comment: "Duplicated",
+      comment: t("activity.mutations.duplicated"),
       asset: buildAssetResolutionInput({
         id: _assetId,
         symbol: assetSymbol,
@@ -359,7 +361,9 @@ export function useActivityMutations(
       // Show errors from partial failures
       if (result.errors?.length > 0) {
         const messages = result.errors.map((e) => e.message).join("; ");
-        toast.error("Some activities failed to save", { description: messages });
+        toast.error(t("activity.mutations.someActivitiesFailedToSave"), {
+          description: messages,
+        });
         logger.error(`Bulk save partial failure: ${JSON.stringify(result.errors)}`);
       }
 
@@ -370,7 +374,7 @@ export function useActivityMutations(
     },
     onError: (error: string) => {
       logger.error(`Error saving activities: ${String(error)}`);
-      toast.error("Failed to save activities", {
+      toast.error(t("activity.mutations.failedToSaveActivities"), {
         description: String(error),
       });
     },

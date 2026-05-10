@@ -411,6 +411,7 @@
       "gain": "Gain",
       "symbol": "Symbol",
       "name": "Name",
+      "shares": "shares",
       "moreHoldings_one": "+{{count}} more",
       "moreHoldings_other": "+{{count}} more holdings"
     },
@@ -683,7 +684,14 @@
       "securityTypes": "Security Types",
       "noData": "No data",
       "noHoldingsYet": "No holdings yet",
-      "addTransactionOrImport": "Get started by adding your first transaction or quickly import your existing holdings from a CSV file."
+      "addTransactionOrImport": "Get started by adding your first transaction or quickly import your existing holdings from a CSV file.",
+      "holdingsInCurrency": "Holdings in {{currency}}",
+      "assetClassLabel": "Asset Class: {{category}}",
+      "holdingsInRegion": "Holdings in {{region}}",
+      "riskCategoryLabel": "Risk Category: {{category}}",
+      "typeLabel": "Type: {{category}}",
+      "holdingsInSector": "Holdings in Sector: {{sector}}",
+      "taxonomyCategoryLabel": "{{taxonomy}}: {{category}}"
     }
   },
   "activity": {
@@ -975,6 +983,12 @@
       }
     },
     "dataGrid": {
+      "selectAllRows": "Select all rows",
+      "selectRow": "Select row",
+      "none": "None",
+      "external": "External",
+      "auto": "Auto",
+      "comment": "Comment",
       "toolbar": {
         "saveAll": "Save All",
         "saving": "Saving...",
@@ -995,6 +1009,19 @@
         "invalid": "Invalid",
         "pending": "Pending"
       }
+    },
+    "mutations": {
+      "failedAction": "Failed {{action}} activity",
+      "failedUpdatingActivity": "Failed updating activity",
+      "transfersLinked": "Transfers linked",
+      "transfersLinkedDescription": "The two activities are now paired as an internal transfer.",
+      "failedToLinkTransfers": "Failed to link transfers",
+      "transfersUnlinked": "Transfers unlinked",
+      "transfersUnlinkedDescription": "The two activities are external transfers again.",
+      "failedToUnlinkTransfers": "Failed to unlink transfers",
+      "duplicated": "Duplicated",
+      "someActivitiesFailedToSave": "Some activities failed to save",
+      "failedToSaveActivities": "Failed to save activities"
     }
   },
   "account": {
