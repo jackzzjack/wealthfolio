@@ -10,6 +10,7 @@ import { Button, Icons, Page, PageContent, PageHeader } from "@wealthfolio/ui";
 import { debounce } from "lodash";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { getActivityRestrictionLevel } from "@/lib/activity-restrictions";
 import { ActivityDeleteModal } from "./components/activity-delete-modal";
 import { ActivityDataGrid } from "./components/activity-data-grid/activity-data-grid";
@@ -28,6 +29,7 @@ import { AlternativeAssetQuickAddModal } from "@/pages/asset/alternative-assets"
 import { ActionPalette, type ActionPaletteGroup } from "@/components/action-palette";
 
 const ActivityPage = () => {
+  const { t } = useTranslation();
   const [showForm, setShowForm] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState<Partial<ActivityDetails> | undefined>();
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
@@ -192,22 +194,22 @@ const ActivityPage = () => {
         items: [
           {
             icon: Icons.Activity,
-            label: "Add Transaction",
+            label: t("activity.page.addTransaction"),
             onClick: () => handleEdit(undefined),
           },
           {
             icon: Icons.UploadSimple,
-            label: "Import from CSV",
+            label: t("activity.page.importFromCsv"),
             onClick: () => navigate("/import"),
           },
           {
             icon: Icons.Holdings,
-            label: "Transfer Holdings",
+            label: t("activity.page.transferHoldings"),
             onClick: () => setShowBulkHoldingsForm(true),
           },
           {
             icon: Icons.House,
-            label: "Add Personal Asset",
+            label: t("activity.page.addPersonalAsset"),
             onClick: () => setShowAlternativeAssetModal(true),
           },
         ],
@@ -228,7 +230,7 @@ const ActivityPage = () => {
           trigger={
             <Button size="sm">
               <Icons.Plus className="mr-2 h-4 w-4" />
-              Add Activities
+              {t("activity.page.addActivities")}
             </Button>
           }
         />
@@ -250,7 +252,7 @@ const ActivityPage = () => {
 
   return (
     <Page>
-      <PageHeader heading="Activity" actions={headerActions} />
+      <PageHeader heading={t("activity.page.title")} actions={headerActions} />
       <PageContent className="pb-2 md:pb-4 lg:pb-5">
         <div className="flex min-h-0 flex-1 flex-col space-y-4 overflow-hidden">
           {/* Unified Controls */}

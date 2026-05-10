@@ -1,5 +1,6 @@
 import { debounce } from "lodash";
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { ActivityType, ActivityTypeNames, INSTRUMENT_TYPE_OPTIONS } from "@/lib/constants";
 import { Account } from "@/lib/types";
@@ -53,6 +54,7 @@ export function ActivityViewControls({
   totalRowCount,
   isFetching,
 }: ActivityViewControlsProps) {
+  const { t } = useTranslation();
   const [localSearch, setLocalSearch] = useState(searchQuery);
 
   // Create a stable debounced search function
@@ -98,11 +100,11 @@ export function ActivityViewControls({
 
   const statusOptions = useMemo(
     () => [
-      { value: "all", label: "All Activities" },
-      { value: "pending", label: "Pending Review" },
-      { value: "validated", label: "Validated" },
+      { value: "all", label: t("activity.viewControls.allActivities") },
+      { value: "pending", label: t("activity.viewControls.pendingReview") },
+      { value: "validated", label: t("activity.viewControls.validated") },
     ],
-    [],
+    [t],
   );
 
   const hasActiveFilters =
@@ -125,14 +127,14 @@ export function ActivityViewControls({
         />
 
         <FacetedFilter
-          title="Account"
+          title={t("activity.viewControls.account")}
           options={accountOptions}
           selectedValues={new Set(selectedAccountIds)}
           onFilterChange={(values: Set<string>) => onAccountIdsChange(Array.from(values))}
         />
 
         <FacetedFilter
-          title="Type"
+          title={t("activity.viewControls.type")}
           options={activityOptions}
           selectedValues={new Set(selectedActivityTypes)}
           onFilterChange={(values: Set<string>) =>
@@ -141,14 +143,14 @@ export function ActivityViewControls({
         />
 
         <FacetedFilter
-          title="Instrument"
+          title={t("activity.viewControls.instrument")}
           options={instrumentTypeOptions}
           selectedValues={new Set(selectedInstrumentTypes)}
           onFilterChange={(values: Set<string>) => onInstrumentTypesChange(Array.from(values))}
         />
 
         <FacetedFilter
-          title="Status"
+          title={t("activity.viewControls.status")}
           options={statusOptions}
           selectedValues={new Set(statusFilter === "all" ? [] : [statusFilter])}
           onFilterChange={(values: Set<string>) => {
@@ -173,7 +175,7 @@ export function ActivityViewControls({
               onStatusFilterChange("all");
             }}
           >
-            Reset
+            {t("activity.viewControls.reset")}
             <Icons.Close className="ml-2 h-4 w-4" />
           </Button>
         ) : null}
@@ -186,10 +188,10 @@ export function ActivityViewControls({
             {isFetching ? (
               <span className="inline-flex items-center gap-1">
                 <Icons.Spinner className="h-4 w-4 animate-spin" />
-                Loading…
+                {t("activity.viewControls.loading")}
               </span>
             ) : (
-              `${totalFetched} / ${totalRowCount} activities`
+              `${totalFetched} / ${totalRowCount} ${t("activity.viewControls.activities")}`
             )}
           </span>
         )}

@@ -514,5 +514,661 @@
       "householdView": "Household View",
       "learnMore": "Learn more about Connect"
     }
+  },
+  "holdings": {
+    "page": {
+      "investments": "Investments",
+      "assets": "Assets",
+      "liabilities": "Liabilities",
+      "noHoldingsYet": "No holdings yet",
+      "noHoldingsDescription": "Get started by adding your first transaction or quickly import your existing holdings from a CSV file.",
+      "noHoldingsHoldingsMode": "Get started by updating your holdings or importing from a CSV file.",
+      "updateHoldings": "Update Holdings",
+      "importFromCsv": "Import from CSV",
+      "addTransaction": "Add Transaction",
+      "noAssetsYet": "No assets yet",
+      "noAssetsDescription": "Add your first property, vehicle, collectible, or other asset.",
+      "addAsset": "Add Asset",
+      "noLiabilitiesYet": "No liabilities yet",
+      "noLiabilitiesDescription": "Track your mortgages, loans, and other debts.",
+      "addLiability": "Add Liability",
+      "addActivity": "Add Activity",
+      "updatePrices": "Update Prices",
+      "openHoldingsFilters": "Open holdings filters"
+    },
+    "table": {
+      "position": "Position",
+      "qty": "Qty",
+      "quantity": "Quantity",
+      "todaysPrice": "Today's Price",
+      "bookCost": "Book Cost",
+      "totalValue": "Total Value",
+      "unrealizedGain": "Unrealized Gain",
+      "dayChange": "Day Change",
+      "assetType": "Asset Type",
+      "currency": "Currency",
+      "symbolName": "Symbol Name",
+      "total": "Total",
+      "daily": "Daily",
+      "classify": "Classify",
+      "viewDetails": "View Details",
+      "manual": "Manual",
+      "showInBaseCurrency": "Show values in Base Currency",
+      "showInAssetCurrency": "Show values in Asset Currency",
+      "contracts": "contracts",
+      "bonds": "bonds",
+      "shares": "shares",
+      "noPositionsFound": "No positions found",
+      "addActivitiesToSeePositions": "Add activities to see your positions here.",
+      "adjustSearchOrFilter": "Try adjusting your search or filter criteria."
+    },
+    "summaryBar": {
+      "assets": "Assets",
+      "debts": "Debts",
+      "netWorth": "Net Worth"
+    },
+    "grouped": {
+      "investments": "Investments",
+      "cash": "Cash",
+      "liabilities": "Liabilities",
+      "debt": "Debt"
+    },
+    "filterSheet": {
+      "displayOptions": "Display Options",
+      "sortBy": "Sort By",
+      "marketValue": "Market Value",
+      "symbol": "Symbol",
+      "returnView": "Return View",
+      "totalReturn": "Total Return",
+      "dailyReturn": "Daily Return",
+      "category": "Category",
+      "account": "Account",
+      "allPortfolio": "All Portfolio",
+      "assetType": "Asset Type",
+      "allTypes": "All Types",
+      "done": "Done"
+    },
+    "cashWidget": {
+      "cashBalance": "Cash Balance"
+    },
+    "netWorth": {
+      "title": "Net Worth",
+      "assets": "Assets",
+      "debts": "Debts",
+      "categoryBreakdown": "Category Breakdown",
+      "staleValuations": "Some valuations are older than 90 days.",
+      "lastUpdate": "Last update:",
+      "needsUpdatedValuations": "{{count}} asset needs updated valuations",
+      "needsUpdatedValuations_plural": "{{count}} assets need updated valuations",
+      "failedToLoad": "Failed to load net worth"
+    },
+    "composition": {
+      "title": "Composition",
+      "noHoldingsData": "No holdings data",
+      "noHoldingsDataDescription": "There is no holdings data available for your portfolio.",
+      "showFullNames": "Show full names",
+      "showSymbols": "Show symbols",
+      "marketValue": "Market Value",
+      "return": "Return"
+    },
+    "sectors": {
+      "title": "Sectors",
+      "noSectorsData": "No sectors data",
+      "noSectorsDataDescription": "There is no sector data available for your holdings."
+    },
+    "currency": {
+      "title": "Currency",
+      "noCurrencyData": "No currency data available"
+    },
+    "accounts": {
+      "title": "Accounts",
+      "noAccountData": "No account data available."
+    },
+    "allocationSheet": {
+      "allocation": "Allocation",
+      "holdingsIn": "Holdings in",
+      "couldNotLoad": "Could not load holdings for this category.",
+      "retry": "Retry",
+      "noHoldingsInCategory": "No holdings found in this category.",
+      "noAllocationData": "No allocation data available.",
+      "clear": "Clear"
+    },
+    "editMode": {
+      "snapshotDate": "Snapshot Date",
+      "editingExistingSnapshot": "Editing snapshot from this date (date cannot be changed)",
+      "snapshotDateDescription": "The date these holdings represent",
+      "symbol": "Symbol",
+      "shares": "Shares",
+      "avgCost": "Avg Cost",
+      "total": "Total",
+      "noHoldingsYet": "No holdings yet. Click below to add your first position.",
+      "addAnotherHolding": "Add Another Holding",
+      "cashBalances": "Cash Balances",
+      "cashBalancesDescription": "Add cash holdings by currency",
+      "currency": "Currency",
+      "amount": "Amount",
+      "noCashBalances": "No cash balances. Click below to add cash holdings.",
+      "addCashBalance": "Add Cash Balance",
+      "deleteSnapshot": "Delete Snapshot",
+      "saveChanges": "Save Changes",
+      "saving": "Saving...",
+      "deleting": "Deleting...",
+      "discardChanges": "Discard changes?",
+      "unsavedChangesWarning": "You have unsaved changes. Are you sure you want to discard them?",
+      "keepEditing": "Keep Editing",
+      "discard": "Discard",
+      "deleteSnapshotTitle": "Delete snapshot?",
+      "deleteSnapshotDescription": "This will permanently delete the holdings snapshot from {{date}}. The portfolio valuations will be recalculated without this data point. This action cannot be undone.",
+      "searchForSymbol": "Search for symbol...",
+      "selectCurrency": "Select currency",
+      "holdingsUpdatedSuccessfully": "Holdings updated successfully",
+      "snapshotDeletedSuccessfully": "Snapshot deleted successfully"
+    },
+    "alternative": {
+      "asset": "Asset",
+      "value": "Value",
+      "gain": "Gain",
+      "lastValued": "Last Valued",
+      "updateValue": "Update Value",
+      "valueHistory": "Value History",
+      "editDetails": "Edit Details",
+      "deleteAsset": "Delete Asset",
+      "deleteAssetDescription": "Are you sure you want to delete {{name}}? This will remove all valuation history and cannot be undone.",
+      "deleting": "Deleting..."
+    },
+    "insights": {
+      "classes": "Classes",
+      "regions": "Regions",
+      "riskComposition": "Risk Composition",
+      "securityTypes": "Security Types",
+      "noData": "No data",
+      "noHoldingsYet": "No holdings yet",
+      "addTransactionOrImport": "Get started by adding your first transaction or quickly import your existing holdings from a CSV file."
+    }
+  },
+  "activity": {
+    "page": {
+      "title": "Activity",
+      "addActivities": "Add Activities",
+      "addTransaction": "Add Transaction",
+      "importFromCsv": "Import from CSV",
+      "transferHoldings": "Transfer Holdings",
+      "addPersonalAsset": "Add Personal Asset"
+    },
+    "manager": {
+      "title": "Add Activity",
+      "addToAccount": "Add a new transaction to {{account}}",
+      "createTransaction": "Create a new transaction or activity for your account",
+      "learnMore": "Learn more",
+      "syncedAccount": "Synced Account",
+      "syncedAccountDescription": "This account uses Holdings tracking with broker sync. Holdings are updated automatically when you sync.",
+      "holdingsTrackingMode": "Holdings Tracking Mode",
+      "holdingsTrackingDescription": "This account uses Holdings tracking. To modify positions, use the Update button on the account page.",
+      "goToAccount": "Go to Account",
+      "activityType": "Activity Type:"
+    },
+    "table": {
+      "type": "Type",
+      "date": "Date",
+      "symbol": "Symbol",
+      "quantity": "Quantity",
+      "priceAmount": "Price/Amount",
+      "fee": "Fee",
+      "total": "Total",
+      "account": "Account",
+      "currency": "Currency",
+      "noActivityFound": "No activity found.",
+      "toggleColumns": "Toggle columns"
+    },
+    "tableMobile": {
+      "noActivitiesFound": "No activities found",
+      "adjustSearchOrFilter": "Try adjusting your search or filter criteria.",
+      "date": "Date",
+      "type": "Type",
+      "contracts": "Contracts",
+      "shares": "Shares",
+      "ratio": "Ratio",
+      "amount": "Amount",
+      "premium": "Premium",
+      "price": "Price",
+      "fee": "Fee",
+      "totalValue": "Total Value",
+      "account": "Account"
+    },
+    "viewControls": {
+      "account": "Account",
+      "type": "Type",
+      "instrument": "Instrument",
+      "status": "Status",
+      "allActivities": "All Activities",
+      "pendingReview": "Pending Review",
+      "validated": "Validated",
+      "reset": "Reset",
+      "loading": "Loading…",
+      "activities": "activities"
+    },
+    "mobileControls": {
+      "searchPlaceholder": "Search...",
+      "detailedView": "Detailed view",
+      "compactView": "Compact view"
+    },
+    "mobileFilterSheet": {
+      "title": "Filter Activities",
+      "account": "Account",
+      "allAccounts": "All Accounts",
+      "activityType": "Activity Type",
+      "allTypes": "All Types",
+      "done": "Done"
+    },
+    "pagination": {
+      "loadMore": "Load more...",
+      "loading": "Loading…",
+      "activities": "activities"
+    },
+    "delete": {
+      "title": "Are you sure you want to delete this activity?",
+      "description": "This action cannot be undone.",
+      "deleting": "Deleting"
+    },
+    "operations": {
+      "moreDetails": "More details",
+      "edit": "Edit",
+      "duplicate": "Duplicate",
+      "delete": "Delete"
+    },
+    "detailSheet": {
+      "title": "Activity Details",
+      "cashTransaction": "Cash Transaction",
+      "date": "Date",
+      "amount": "Amount",
+      "transaction": "Transaction",
+      "type": "Type",
+      "subtype": "Subtype",
+      "dateTime": "Date & Time",
+      "account": "Account",
+      "optionContract": "Option Contract",
+      "underlying": "Underlying",
+      "strikePrice": "Strike Price",
+      "expiration": "Expiration",
+      "occSymbol": "OCC Symbol",
+      "financialDetails": "Financial Details",
+      "contracts": "Contracts",
+      "quantity": "Quantity",
+      "premiumShare": "Premium/Share",
+      "unitPrice": "Unit Price",
+      "totalPremium": "Total Premium",
+      "fee": "Fee",
+      "fxRate": "FX Rate",
+      "currency": "Currency",
+      "accountCurrency": "Account Currency",
+      "notes": "Notes",
+      "recordInfo": "Record Info",
+      "created": "Created",
+      "updated": "Updated",
+      "needsReview": "Needs Review",
+      "posted": "Posted",
+      "pending": "Pending",
+      "draft": "Draft",
+      "void": "Void"
+    },
+    "typePicker": {
+      "buy": "Buy",
+      "sell": "Sell",
+      "deposit": "Deposit",
+      "withdrawal": "Withdrawal",
+      "dividend": "Dividend",
+      "transfer": "Transfer",
+      "split": "Split",
+      "fee": "Fee",
+      "interest": "Interest",
+      "tax": "Tax",
+      "expandToShowAll": "Expand to show all types",
+      "collapse": "Collapse"
+    },
+    "form": {
+      "date": "Date",
+      "notes": "Notes",
+      "notesPlaceholder": "Add an optional note...",
+      "fee": "Fee",
+      "cancel": "Cancel",
+      "advancedOptions": "Advanced Options",
+      "currency": "Currency",
+      "fxRate": "FX Rate",
+      "subtype": "Subtype",
+      "selectSubtype": "Select subtype",
+      "none": "None",
+      "assetCurrency": "Asset currency",
+      "accountCurrency": "Account currency",
+      "baseCurrency": "Base currency",
+      "buy": {
+        "title": "Buy",
+        "addBuy": "Add Buy",
+        "buyToOpen": "Buy to Open",
+        "update": "Update",
+        "quantity": "Quantity",
+        "contracts": "Contracts",
+        "bonds": "Bonds",
+        "price": "Price",
+        "premiumShare": "Premium/Share",
+        "totalDebit": "Total Debit",
+        "tradeDetails": "Trade Details",
+        "contractMultiplier": "Contract Multiplier"
+      },
+      "sell": {
+        "title": "Sell",
+        "addSell": "Add Sell",
+        "sellToClose": "Sell to Close",
+        "update": "Update"
+      },
+      "deposit": {
+        "title": "Deposit",
+        "addDeposit": "Add Deposit",
+        "update": "Update",
+        "amount": "Amount"
+      },
+      "withdrawal": {
+        "title": "Withdrawal",
+        "addWithdrawal": "Add Withdrawal",
+        "update": "Update",
+        "amount": "Amount"
+      },
+      "dividend": {
+        "title": "Dividend",
+        "addDividend": "Add Dividend",
+        "update": "Update",
+        "amount": "Amount"
+      },
+      "interest": {
+        "title": "Interest",
+        "addInterest": "Add Interest",
+        "update": "Update",
+        "amount": "Amount"
+      },
+      "transfer": {
+        "title": "Transfer",
+        "addTransferIn": "Add Transfer In",
+        "addTransferOut": "Add Transfer Out",
+        "update": "Update",
+        "transferIn": "Transfer In",
+        "transferOut": "Transfer Out",
+        "amount": "Amount",
+        "fromAccount": "From Account",
+        "toAccount": "To Account",
+        "selectAccount": "Select account..."
+      },
+      "fee": {
+        "title": "Fee",
+        "addFee": "Add Fee",
+        "update": "Update",
+        "amount": "Amount"
+      },
+      "tax": {
+        "title": "Tax",
+        "addTax": "Add Tax",
+        "update": "Update",
+        "amount": "Amount"
+      },
+      "split": {
+        "title": "Split",
+        "addSplit": "Add Split",
+        "update": "Update",
+        "ratio": "Split Ratio",
+        "ratioDescription": "Enter the new shares per old share ratio (e.g., 4 for 4:1 split)",
+        "ratioPlaceholder": "e.g., 4"
+      },
+      "bulkHoldings": {
+        "title": "Transfer Holdings",
+        "description": "Transfer holdings between accounts by uploading a CSV file.",
+        "upload": "Upload CSV",
+        "preview": "Preview",
+        "confirm": "Confirm Transfer",
+        "dropzone": "Drag and drop a CSV file here, or click to select",
+        "csvOnly": "CSV files only",
+        "sourceAccount": "Source Account",
+        "destinationAccount": "Destination Account",
+        "selectAccount": "Select account",
+        "date": "Transfer Date",
+        "holdings": "Holdings to Transfer",
+        "symbol": "Symbol",
+        "quantity": "Quantity",
+        "price": "Price",
+        "cancel": "Cancel",
+        "transferring": "Transferring...",
+        "transfer": "Transfer"
+      },
+      "cashBalanceWarning": {
+        "insufficientFunds": "Insufficient Funds:",
+        "recordDeposits": "Record cash deposits to cover the shortfall, or use \"Add Holding\" (bypasses cash tracking)."
+      },
+      "linkTransfer": {
+        "linkTitle": "Link as internal transfer",
+        "unlinkTitle": "Unlink internal transfer",
+        "linkDescription": "These two activities will be paired and treated as a single internal transfer between your accounts.",
+        "unlinkDescription": "These two activities will become external transfers again.",
+        "source": "Source",
+        "destination": "Destination",
+        "transferIn": "Transfer In",
+        "transferOut": "Transfer Out",
+        "linkTransfers": "Link transfers",
+        "unlinkTransfers": "Unlink transfers"
+      },
+      "fields": {
+        "account": "Account",
+        "selectAccount": "Select an account",
+        "symbol": "Symbol",
+        "searchSymbol": "Search for a symbol...",
+        "assetType": "Asset Type",
+        "stock": "Stock",
+        "option": "Option",
+        "bond": "Bond",
+        "customAsset": "Custom Asset"
+      },
+      "mobileForm": {
+        "newActivity": "New Activity",
+        "editActivity": "Edit Activity",
+        "selectType": "Select Type",
+        "details": "Details",
+        "next": "Next",
+        "back": "Back",
+        "save": "Save",
+        "saving": "Saving..."
+      }
+    },
+    "dataGrid": {
+      "toolbar": {
+        "saveAll": "Save All",
+        "saving": "Saving...",
+        "unsavedChanges": "unsaved changes",
+        "addRow": "Add Row",
+        "deleteSelected": "Delete Selected",
+        "filterType": "Filter by type",
+        "filterAccount": "Filter by account",
+        "clearFilters": "Clear filters"
+      },
+      "pagination": {
+        "rowsPerPage": "Rows per page",
+        "page": "Page",
+        "of": "of"
+      },
+      "status": {
+        "valid": "Valid",
+        "invalid": "Invalid",
+        "pending": "Pending"
+      }
+    }
+  },
+  "account": {
+    "page": {
+      "holdings": "Holdings",
+      "snapshots": "Snapshots",
+      "activities": "Activities",
+      "performance": "Performance",
+      "metrics": "Metrics",
+      "addTransaction": "Add Transaction",
+      "updateHoldings": "Update Holdings",
+      "transferHoldings": "Transfer Holdings",
+      "recalculate": "Recalculate",
+      "showMarkers": "Show Markers",
+      "hideMarkers": "Hide Markers",
+      "editHoldings": "Edit Holdings",
+      "activitiesOnDate": "Activities on {{date}}",
+      "noActivitiesOnDate": "No activities found for this date.",
+      "loadingActivities": "Loading activities..."
+    },
+    "metrics": {
+      "title": "Performance Metrics",
+      "totalValue": "Total Value",
+      "totalReturn": "Total Return",
+      "annualizedReturn": "Annualized Return",
+      "periodGain": "Period Gain",
+      "periodReturn": "Period Return",
+      "unrealizedGain": "Unrealized Gain",
+      "realizedGain": "Realized Gain",
+      "dividendIncome": "Dividend Income",
+      "bookCost": "Book Cost",
+      "cashBalance": "Cash Balance",
+      "totalContributions": "Total Contributions",
+      "netContributions": "Net Contributions",
+      "dayChange": "Day Change",
+      "volatility": "Volatility",
+      "maxDrawdown": "Max Drawdown",
+      "annualizedVolatility": "Annualized Volatility",
+      "sharpeRatio": "Sharpe Ratio"
+    },
+    "contributionLimit": {
+      "title": "Contribution Limit",
+      "noLimit": "No contribution limit configured for this account.",
+      "contributed": "Contributed",
+      "remaining": "Remaining",
+      "limit": "Limit",
+      "overLimit": "Over limit"
+    },
+    "snapshotHistory": {
+      "title": "Snapshot History",
+      "date": "Date",
+      "totalValue": "Total Value",
+      "holdings": "Holdings",
+      "noSnapshots": "No snapshots recorded.",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteConfirm": "Are you sure you want to delete this snapshot?",
+      "addSnapshot": "Add Snapshot"
+    },
+    "performanceGrid": {
+      "symbol": "Symbol",
+      "name": "Name",
+      "quantity": "Quantity",
+      "bookCost": "Book Cost",
+      "marketValue": "Market Value",
+      "unrealizedGain": "Unrealized Gain",
+      "totalReturn": "Total Return",
+      "dayChange": "Day Change",
+      "currency": "Currency",
+      "noHoldings": "No holdings to display."
+    }
+  },
+  "income": {
+    "page": {
+      "title": "Income",
+      "allTimeIncome": "All Time Income",
+      "lastYearIncome": "Last Year Income",
+      "thisYearIncome": "This Year Income",
+      "yearOverYearGrowth": "Year-over-year growth",
+      "cumulativeIncomeSinceInception": "Cumulative income since inception",
+      "monthlyAverage": "Monthly Average",
+      "dividends": "Dividends",
+      "interest": "Interest",
+      "topDividendStocks": "Top Dividend Stocks",
+      "incomeByMonth": "Income by Month",
+      "noIncomeData": "No income data available",
+      "noIncomeDataDescription": "There is no income data for the selected period. Try selecting a different time range or check back later.",
+      "yearToDate": "Year to Date",
+      "lastYear": "Last Year",
+      "allTime": "All Time",
+      "ytd": "YTD",
+      "lastYrShort": "Last Yr",
+      "allShort": "All",
+      "dividendPercentage": "Dividend %",
+      "interestPercentage": "Interest %",
+      "byCurrency": "By Currency",
+      "failedToLoad": "Failed to load income summary:"
+    },
+    "historyChart": {
+      "monthlyIncome": "Monthly Income",
+      "currentYear": "Current Year",
+      "previousYear": "Previous Year",
+      "noData": "No data"
+    },
+    "mobileFilterSheet": {
+      "title": "Filter Income",
+      "account": "Account",
+      "done": "Done"
+    }
+  },
+  "performance": {
+    "page": {
+      "title": "Performance",
+      "allPortfolio": "All Portfolio",
+      "addAccount": "Add Account",
+      "addBenchmark": "Add Benchmark",
+      "noPerformanceData": "No performance data",
+      "selectAccountsToCompare": "Select accounts to compare their performance over time.",
+      "calculating": "Calculating...",
+      "errorCalculating": "Error calculating performance data",
+      "retry": "Retry",
+      "totalReturn": "Total Return",
+      "annualizedReturn": "Annualized Return",
+      "volatility": "Volatility",
+      "maxDrawdown": "Max Drawdown"
+    }
+  },
+  "health": {
+    "page": {
+      "title": "Portfolio Health",
+      "runChecks": "Run Checks",
+      "running": "Running...",
+      "noIssues": "No issues found",
+      "allGood": "Your portfolio data looks good.",
+      "issues": "issues",
+      "issue": "issue",
+      "dismiss": "Dismiss",
+      "fix": "Fix",
+      "fixing": "Fixing...",
+      "dismissing": "Dismissing..."
+    },
+    "severity": {
+      "info": "Info",
+      "warning": "Warning",
+      "error": "Error",
+      "critical": "Critical"
+    },
+    "category": {
+      "prices": "Prices",
+      "fxRates": "FX Rates",
+      "categories": "Categories",
+      "data": "Data",
+      "accounts": "Accounts",
+      "settings": "Settings"
+    },
+    "issueDetail": {
+      "title": "Issue Details",
+      "affected": "Affected",
+      "resolution": "Resolution",
+      "close": "Close"
+    }
+  },
+  "netWorth": {
+    "chart": {
+      "title": "Net Worth Over Time",
+      "noData": "No net worth data available.",
+      "value": "Value"
+    }
+  },
+  "insights": {
+    "portfolio": {
+      "title": "Portfolio Insights",
+      "noInsights": "No insights available.",
+      "generating": "Generating insights..."
+    }
   }
 }

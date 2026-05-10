@@ -15,6 +15,7 @@ import { cn, safeDivide } from "@/lib/utils";
 import { useSettingsContext } from "@/lib/settings-provider";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface HoldingsGroupedTableProps {
   holdings: Holding[];
@@ -50,6 +51,7 @@ export function HoldingsGroupedTable({
   showConvertedValues,
   isLoading,
 }: HoldingsGroupedTableProps) {
+  const { t } = useTranslation();
   const { settings } = useSettingsContext();
   const baseCurrency = settings?.baseCurrency ?? "USD";
   const { isBalanceHidden } = useBalancePrivacy();
@@ -135,7 +137,12 @@ export function HoldingsGroupedTable({
                     collapsedGroups.has(group.name) && "-rotate-90",
                   )}
                 />
-                <span className="font-medium">{group.name}</span>
+                <span className="font-medium">{
+                  group.name === "Investments" ? t("holdings.grouped.investments") :
+                  group.name === "Cash" ? t("holdings.grouped.cash") :
+                  group.name === "Liabilities" ? t("holdings.grouped.liabilities") :
+                  group.name
+                }</span>
                 <span className="text-muted-foreground text-sm">({group.holdings.length})</span>
               </div>
               <AmountDisplay
@@ -184,6 +191,7 @@ function HoldingRow({
   navigate,
   isIndented = false,
 }: HoldingRowProps) {
+  const { t } = useTranslation();
   const symbol = holding.instrument?.symbol ?? holding.id;
 
   const handleNavigate = () => {
@@ -227,7 +235,7 @@ function HoldingRow({
               <span className="truncate font-medium">{symbol}</span>
               {holding.isLiability && (
                 <Badge variant="destructive" className="text-xs">
-                  Debt
+                  {t("holdings.grouped.debt")}
                 </Badge>
               )}
             </div>

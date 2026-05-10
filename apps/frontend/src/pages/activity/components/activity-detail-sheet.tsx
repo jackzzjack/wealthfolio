@@ -13,6 +13,7 @@ import {
 } from "@wealthfolio/ui";
 import { AmountDisplay } from "@wealthfolio/ui/components/financial/amount-display";
 import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 interface ActivityDetailSheetProps {
   activity: ActivityDetails | null;
@@ -20,16 +21,6 @@ interface ActivityDetailSheetProps {
   onOpenChange: (open: boolean) => void;
 }
 
-// Status display configuration
-const STATUS_CONFIG: Record<
-  string,
-  { label: string; variant: "default" | "secondary" | "outline" | "destructive" }
-> = {
-  [ActivityStatus.POSTED]: { label: "Posted", variant: "default" },
-  [ActivityStatus.PENDING]: { label: "Pending", variant: "secondary" },
-  [ActivityStatus.DRAFT]: { label: "Draft", variant: "outline" },
-  [ActivityStatus.VOID]: { label: "Void", variant: "destructive" },
-};
 
 interface DetailRowProps {
   label: string;
@@ -68,6 +59,18 @@ function DetailSection({ title, icon, children }: DetailSectionProps) {
 }
 
 export function ActivityDetailSheet({ activity, open, onOpenChange }: ActivityDetailSheetProps) {
+  const { t } = useTranslation();
+
+  const STATUS_CONFIG: Record<
+    string,
+    { label: string; variant: "default" | "secondary" | "outline" | "destructive" }
+  > = {
+    [ActivityStatus.POSTED]: { label: t("activity.detailSheet.posted"), variant: "default" },
+    [ActivityStatus.PENDING]: { label: t("activity.detailSheet.pending"), variant: "secondary" },
+    [ActivityStatus.DRAFT]: { label: t("activity.detailSheet.draft"), variant: "outline" },
+    [ActivityStatus.VOID]: { label: t("activity.detailSheet.void"), variant: "destructive" },
+  };
+
   if (!activity) return null;
 
   const statusConfig = activity.status

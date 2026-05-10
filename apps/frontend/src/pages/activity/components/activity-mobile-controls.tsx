@@ -3,6 +3,7 @@ import { ActivityType } from "@/lib/constants";
 import { Account } from "@/lib/types";
 import { useState } from "react";
 import { ActivityMobileFilterSheet } from "./activity-mobile-filter-sheet";
+import { useTranslation } from "react-i18next";
 
 interface ActivityMobileControlsProps {
   accounts: Account[];
@@ -27,6 +28,7 @@ export function ActivityMobileControls({
   isCompactView,
   onCompactViewChange,
 }: ActivityMobileControlsProps) {
+  const { t } = useTranslation();
   const [isFilterSheetOpen, setIsFilterSheetOpen] = useState(false);
 
   const hasActiveFilters = selectedAccountIds.length > 0 || selectedActivityTypes.length > 0;
@@ -35,7 +37,7 @@ export function ActivityMobileControls({
     <>
       <div className="flex shrink-0 items-center gap-2 pt-2">
         <Input
-          placeholder="Search..."
+          placeholder={t("activity.mobileControls.searchPlaceholder")}
           value={searchQuery}
           onChange={(e) => onSearchQueryChange(e.target.value)}
           className="bg-secondary/30 h-10 flex-1 rounded-full border-none md:h-12"
@@ -45,7 +47,7 @@ export function ActivityMobileControls({
           size="icon"
           className="size-9 flex-shrink-0"
           onClick={() => onCompactViewChange(!isCompactView)}
-          title={isCompactView ? "Detailed view" : "Compact view"}
+          title={isCompactView ? t("activity.mobileControls.detailedView") : t("activity.mobileControls.compactView")}
         >
           {isCompactView ? (
             <Icons.Rows3 className="h-4 w-4" />

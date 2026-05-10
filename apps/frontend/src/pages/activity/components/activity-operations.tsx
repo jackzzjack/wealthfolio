@@ -11,6 +11,7 @@ import type { Activity, ActivityDetails } from "@/lib/types";
 import { Row } from "@tanstack/react-table";
 import { useState } from "react";
 import { ActivityDetailSheet } from "./activity-detail-sheet";
+import { useTranslation } from "react-i18next";
 
 export interface ActivityOperationsProps<TData> {
   row?: Row<TData>;
@@ -27,6 +28,7 @@ export function ActivityOperations<TData>({
   onDelete,
   onDuplicate,
 }: ActivityOperationsProps<TData>) {
+  const { t } = useTranslation();
   const activity = activityProp ?? (row?.original as ActivityDetails);
   const [detailSheetOpen, setDetailSheetOpen] = useState(false);
 
@@ -40,16 +42,16 @@ export function ActivityOperations<TData>({
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => setDetailSheetOpen(true)}>
             <Icons.Info className="mr-2 h-4 w-4" />
-            More details
+            {t("activity.operations.moreDetails")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => onEdit(activity)}>
             <Icons.Pencil className="mr-2 h-4 w-4" />
-            Edit
+            {t("activity.operations.edit")}
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => onDuplicate(activity)}>
             <Icons.Copy className="mr-2 h-4 w-4" />
-            Duplicate
+            {t("activity.operations.duplicate")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
@@ -57,7 +59,7 @@ export function ActivityOperations<TData>({
             onSelect={() => onDelete(activity)}
           >
             <Icons.Trash className="mr-2 h-4 w-4" />
-            Delete
+            {t("activity.operations.delete")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

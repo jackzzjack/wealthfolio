@@ -18,6 +18,7 @@ import { TickerAvatar } from "@/components/ticker-avatar";
 import type { TaxonomyAllocation, CategoryAllocation, HoldingSummary } from "@/lib/types";
 import { QueryKeys } from "@/lib/query-keys";
 import { CompactAllocationStrip } from "./compact-allocation-strip";
+import { useTranslation } from "react-i18next";
 
 interface AllocationDetailSheetProps {
   isOpen: boolean;
@@ -36,6 +37,7 @@ export function AllocationDetailSheet({
   baseCurrency,
   initialCategoryId,
 }: AllocationDetailSheetProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
   const [selectedCategoryName, setSelectedCategoryName] = useState<string | null>(null);
@@ -181,7 +183,7 @@ export function AllocationDetailSheet({
         }}
       >
         <SheetHeader className="mt-4">
-          <SheetTitle>{allocation?.taxonomyName ?? "Allocation"}</SheetTitle>
+          <SheetTitle>{allocation?.taxonomyName ?? t("holdings.allocationSheet.allocation")}</SheetTitle>
         </SheetHeader>
 
         <div className="flex-1 space-y-4 overflow-y-auto py-4">
@@ -305,11 +307,11 @@ export function AllocationDetailSheet({
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <h3 className="text-sm font-medium">
-                  Holdings in{" "}
+                  {t("holdings.allocationSheet.holdingsIn")}{" "}
                   <span style={{ color: selectedColor ?? undefined }}>{selectedCategoryName}</span>
                 </h3>
                 <Button variant="ghost" size="sm" onClick={handleClearSelection}>
-                  Clear
+                  {t("holdings.allocationSheet.clear")}
                 </Button>
               </div>
 
@@ -333,7 +335,7 @@ export function AllocationDetailSheet({
                 <div className="space-y-3 py-4 text-center">
                   <div className="space-y-1">
                     <p className="text-muted-foreground text-sm">
-                      Could not load holdings for this category.
+                      {t("holdings.allocationSheet.couldNotLoad")}
                     </p>
                     {holdingsQueryError?.message && (
                       <p className="text-muted-foreground text-xs">{holdingsQueryError.message}</p>
@@ -344,7 +346,7 @@ export function AllocationDetailSheet({
                     size="sm"
                     onClick={() => void refetchAllocationHoldings()}
                   >
-                    Retry
+                    {t("holdings.allocationSheet.retry")}
                   </Button>
                 </div>
               ) : holdings && holdings.length > 0 ? (
@@ -377,21 +379,21 @@ export function AllocationDetailSheet({
                 </div>
               ) : (
                 <p className="text-muted-foreground py-4 text-center text-sm">
-                  No holdings found in this category.
+                  {t("holdings.allocationSheet.noHoldingsInCategory")}
                 </p>
               )}
             </div>
           )}
 
           {!hasData && (
-            <p className="text-muted-foreground py-8 text-center">No allocation data available.</p>
+            <p className="text-muted-foreground py-8 text-center">{t("holdings.allocationSheet.noAllocationData")}</p>
           )}
         </div>
 
         <SheetFooter className="border-t pt-4">
           <SheetClose asChild>
             <Button variant="outline" className="w-full">
-              Close
+              {t("common.close")}
             </Button>
           </SheetClose>
         </SheetFooter>

@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect, useLayoutEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@wealthfolio/ui/components/ui/button";
 import { Card, CardContent } from "@wealthfolio/ui/components/ui/card";
 import { Icons } from "@wealthfolio/ui/components/ui/icons";
@@ -71,6 +72,7 @@ export const HoldingsEditMode = ({
   onClose,
   existingSnapshotDate,
 }: HoldingsEditModeProps) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -322,7 +324,7 @@ export const HoldingsEditMode = ({
       queryClient.invalidateQueries({ queryKey: [QueryKeys.latestValuations] });
       // Invalidate manual snapshots query
       queryClient.invalidateQueries({ queryKey: QueryKeys.manualSnapshots(account.id) });
-      toast.success("Holdings updated successfully");
+      toast.success(t("holdings.editMode.holdingsUpdatedSuccessfully"));
       onClose();
     } catch (error) {
       console.error("Failed to save holdings:", error);
@@ -353,7 +355,7 @@ export const HoldingsEditMode = ({
       queryClient.invalidateQueries({ queryKey: [QueryKeys.HISTORY_VALUATION] });
       queryClient.invalidateQueries({ queryKey: [QueryKeys.latestValuations] });
       queryClient.invalidateQueries({ queryKey: QueryKeys.manualSnapshots(account.id) });
-      toast.success("Snapshot deleted successfully");
+      toast.success(t("holdings.editMode.snapshotDeletedSuccessfully"));
       onClose();
     } catch (error) {
       console.error("Failed to delete snapshot:", error);
@@ -399,11 +401,11 @@ export const HoldingsEditMode = ({
             <CardContent className="space-y-4 pt-4">
               {/* Snapshot Date */}
               <div className="pb-2">
-                <Label className="text-sm font-medium">Snapshot Date</Label>
+                <Label className="text-sm font-medium">{t("holdings.editMode.snapshotDate")}</Label>
                 <p className="text-muted-foreground mb-2 text-xs">
                   {isEditingExistingSnapshot
-                    ? "Editing snapshot from this date (date cannot be changed)"
-                    : "The date these holdings represent"}
+                    ? t("holdings.editMode.editingExistingSnapshot")
+                    : t("holdings.editMode.snapshotDateDescription")}
                 </p>
                 <DatePickerInput
                   value={snapshotDate}
@@ -414,10 +416,10 @@ export const HoldingsEditMode = ({
 
               {/* Table Header */}
               <div className="text-muted-foreground grid grid-cols-12 gap-2 border-b pb-2 text-xs font-medium">
-                <div className="col-span-5">Symbol</div>
-                <div className="col-span-2 text-right">Shares</div>
-                <div className="col-span-2 text-right">Avg Cost</div>
-                <div className="col-span-2 text-right">Total</div>
+                <div className="col-span-5">{t("holdings.editMode.symbol")}</div>
+                <div className="col-span-2 text-right">{t("holdings.editMode.shares")}</div>
+                <div className="col-span-2 text-right">{t("holdings.editMode.avgCost")}</div>
+                <div className="col-span-2 text-right">{t("holdings.editMode.total")}</div>
                 <div className="col-span-1"></div>
               </div>
 
@@ -425,7 +427,7 @@ export const HoldingsEditMode = ({
               <div className="space-y-1">
                 {editableHoldings.length === 0 && !showAddHolding ? (
                   <div className="text-muted-foreground py-8 text-center text-sm">
-                    No holdings yet. Click below to add your first position.
+                    {t("holdings.editMode.noHoldingsYet")}
                   </div>
                 ) : (
                   editableHoldings.map((holding) => {
@@ -513,7 +515,7 @@ export const HoldingsEditMode = ({
                     <div className="flex-1">
                       <TickerSearchInput
                         onSelectResult={handleAddHolding}
-                        placeholder="Search for symbol..."
+                        placeholder={t("holdings.editMode.searchForSymbol")}
                         defaultCurrency={account.currency}
                         open={isAddHoldingPickerOpen}
                         onOpenChange={setIsAddHoldingPickerOpen}
@@ -529,7 +531,7 @@ export const HoldingsEditMode = ({
                       }}
                       className="h-8"
                     >
-                      Cancel
+                      {t("common.cancel")}
                     </Button>
                   </div>
                 )}
@@ -545,7 +547,7 @@ export const HoldingsEditMode = ({
                   className="border-muted-foreground/25 text-muted-foreground hover:border-muted-foreground/50 hover:text-foreground h-10 w-full border border-dashed"
                 >
                   <Icons.PlusCircle className="mr-2 h-4 w-4" />
-                  Add Another Holding
+                  {t("holdings.editMode.addAnotherHolding")}
                 </Button>
               )}
             </CardContent>
@@ -556,16 +558,16 @@ export const HoldingsEditMode = ({
             <CardContent className="space-y-4 pt-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="font-medium">Cash Balances</h4>
-                  <p className="text-muted-foreground text-xs">Add cash holdings by currency</p>
+                  <h4 className="font-medium">{t("holdings.editMode.cashBalances")}</h4>
+                  <p className="text-muted-foreground text-xs">{t("holdings.editMode.cashBalancesDescription")}</p>
                 </div>
               </div>
 
               {/* Cash Table Header */}
               {cashBalances.length > 0 && (
                 <div className="text-muted-foreground grid grid-cols-12 gap-2 border-b pb-2 text-xs font-medium">
-                  <div className="col-span-6">Currency</div>
-                  <div className="col-span-5 text-right">Amount</div>
+                  <div className="col-span-6">{t("holdings.editMode.currency")}</div>
+                  <div className="col-span-5 text-right">{t("holdings.editMode.amount")}</div>
                   <div className="col-span-1"></div>
                 </div>
               )}
@@ -574,7 +576,7 @@ export const HoldingsEditMode = ({
               <div className="space-y-1">
                 {cashBalances.length === 0 && !showAddCurrency ? (
                   <div className="text-muted-foreground py-4 text-center text-sm">
-                    No cash balances. Click below to add cash holdings.
+                    {t("holdings.editMode.noCashBalances")}
                   </div>
                 ) : (
                   cashBalances.map((cash) => (
@@ -624,7 +626,7 @@ export const HoldingsEditMode = ({
                   <div className="flex items-center gap-2 py-2">
                     <div className="w-[160px]">
                       <CurrencyInput
-                        placeholder="Select currency"
+                        placeholder={t("holdings.editMode.selectCurrency")}
                         valueDisplay="code"
                         autoFocusSearch={true}
                         open={isAddCurrencyPickerOpen}
@@ -644,7 +646,7 @@ export const HoldingsEditMode = ({
                       }}
                       className="h-8"
                     >
-                      Cancel
+                      {t("common.cancel")}
                     </Button>
                   </div>
                 )}
@@ -660,7 +662,7 @@ export const HoldingsEditMode = ({
                   className="border-muted-foreground/25 text-muted-foreground hover:border-muted-foreground/50 hover:text-foreground h-10 w-full border border-dashed"
                 >
                   <Icons.PlusCircle className="mr-2 h-4 w-4" />
-                  Add Cash Balance
+                  {t("holdings.editMode.addCashBalance")}
                 </Button>
               )}
             </CardContent>
@@ -681,24 +683,24 @@ export const HoldingsEditMode = ({
                 className="text-destructive hover:bg-destructive hover:text-destructive-foreground"
               >
                 <Icons.Trash className="mr-2 h-4 w-4" />
-                Delete Snapshot
+                {t("holdings.editMode.deleteSnapshot")}
               </Button>
             )}
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" onClick={handleCancel} disabled={isSaving || isDeleting}>
-              Cancel
+              {t("common.cancel")}
             </Button>
             <Button onClick={handleSave} disabled={isSaving || isDeleting || !hasChanges}>
               {isSaving ? (
                 <>
                   <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
-                  Saving...
+                  {t("holdings.editMode.saving")}
                 </>
               ) : (
                 <>
                   <Icons.Check className="mr-2 h-4 w-4" />
-                  Save Changes
+                  {t("holdings.editMode.saveChanges")}
                 </>
               )}
             </Button>
@@ -710,14 +712,14 @@ export const HoldingsEditMode = ({
       <AlertDialog open={showDiscardDialog} onOpenChange={setShowDiscardDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Discard changes?</AlertDialogTitle>
+            <AlertDialogTitle>{t("holdings.editMode.discardChanges")}</AlertDialogTitle>
             <AlertDialogDescription>
-              You have unsaved changes. Are you sure you want to discard them?
+              {t("holdings.editMode.unsavedChangesWarning")}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Keep Editing</AlertDialogCancel>
-            <AlertDialogAction onClick={onClose}>Discard</AlertDialogAction>
+            <AlertDialogCancel>{t("holdings.editMode.keepEditing")}</AlertDialogCancel>
+            <AlertDialogAction onClick={onClose}>{t("holdings.editMode.discard")}</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -726,15 +728,13 @@ export const HoldingsEditMode = ({
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete snapshot?</AlertDialogTitle>
+            <AlertDialogTitle>{t("holdings.editMode.deleteSnapshotTitle")}</AlertDialogTitle>
             <AlertDialogDescription>
-              This will permanently delete the holdings snapshot from{" "}
-              <strong>{existingSnapshotDate}</strong>. The portfolio valuations will be recalculated
-              without this data point. This action cannot be undone.
+              {t("holdings.editMode.deleteSnapshotDescription", { date: existingSnapshotDate })}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={isDeleting}>{t("common.cancel")}</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteSnapshot}
               disabled={isDeleting}
@@ -743,10 +743,10 @@ export const HoldingsEditMode = ({
               {isDeleting ? (
                 <>
                   <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
-                  Deleting...
+                  {t("holdings.editMode.deleting")}
                 </>
               ) : (
-                "Delete Snapshot"
+                t("holdings.editMode.deleteSnapshot")
               )}
             </AlertDialogAction>
           </AlertDialogFooter>

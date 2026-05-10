@@ -514,5 +514,661 @@
       "householdView": "家庭檢視",
       "learnMore": "了解更多 Connect"
     }
+  },
+  "holdings": {
+    "page": {
+      "investments": "投資",
+      "assets": "資產",
+      "liabilities": "負債",
+      "noHoldingsYet": "尚無持倉",
+      "noHoldingsDescription": "新增第一筆交易，或從 CSV 檔案快速匯入現有持倉。",
+      "noHoldingsHoldingsMode": "更新持倉或從 CSV 檔案匯入以開始使用。",
+      "updateHoldings": "更新持倉",
+      "importFromCsv": "從 CSV 匯入",
+      "addTransaction": "新增交易",
+      "noAssetsYet": "尚無資產",
+      "noAssetsDescription": "新增您的第一個不動產、車輛、收藏品或其他資產。",
+      "addAsset": "新增資產",
+      "noLiabilitiesYet": "尚無負債",
+      "noLiabilitiesDescription": "追蹤您的房貸、貸款和其他債務。",
+      "addLiability": "新增負債",
+      "addActivity": "新增交易活動",
+      "updatePrices": "更新價格",
+      "openHoldingsFilters": "開啟持倉篩選"
+    },
+    "table": {
+      "position": "部位",
+      "qty": "數量",
+      "quantity": "數量",
+      "todaysPrice": "今日價格",
+      "bookCost": "成本",
+      "totalValue": "總市值",
+      "unrealizedGain": "未實現損益",
+      "dayChange": "今日變化",
+      "assetType": "資產類型",
+      "currency": "貨幣",
+      "symbolName": "代號名稱",
+      "total": "總計",
+      "daily": "每日",
+      "classify": "分類",
+      "viewDetails": "查看詳情",
+      "manual": "手動",
+      "showInBaseCurrency": "以基礎貨幣顯示",
+      "showInAssetCurrency": "以資產貨幣顯示",
+      "contracts": "合約",
+      "bonds": "債券",
+      "shares": "股數",
+      "noPositionsFound": "找不到部位",
+      "addActivitiesToSeePositions": "新增交易活動以查看您的部位。",
+      "adjustSearchOrFilter": "請嘗試調整搜尋或篩選條件。"
+    },
+    "summaryBar": {
+      "assets": "資產",
+      "debts": "負債",
+      "netWorth": "淨值"
+    },
+    "grouped": {
+      "investments": "投資",
+      "cash": "現金",
+      "liabilities": "負債",
+      "debt": "債務"
+    },
+    "filterSheet": {
+      "displayOptions": "顯示選項",
+      "sortBy": "排序方式",
+      "marketValue": "市值",
+      "symbol": "代號",
+      "returnView": "報酬檢視",
+      "totalReturn": "總報酬",
+      "dailyReturn": "每日報酬",
+      "category": "類別",
+      "account": "帳戶",
+      "allPortfolio": "全部投資組合",
+      "assetType": "資產類型",
+      "allTypes": "所有類型",
+      "done": "完成"
+    },
+    "cashWidget": {
+      "cashBalance": "現金餘額"
+    },
+    "netWorth": {
+      "title": "淨值",
+      "assets": "資產",
+      "debts": "負債",
+      "categoryBreakdown": "類別明細",
+      "staleValuations": "部分估值已超過 90 天未更新。",
+      "lastUpdate": "最後更新：",
+      "needsUpdatedValuations": "{{count}} 個資產需要更新估值",
+      "needsUpdatedValuations_plural": "{{count}} 個資產需要更新估值",
+      "failedToLoad": "載入淨值失敗"
+    },
+    "composition": {
+      "title": "組成",
+      "noHoldingsData": "無持倉資料",
+      "noHoldingsDataDescription": "您的投資組合目前沒有持倉資料。",
+      "showFullNames": "顯示全名",
+      "showSymbols": "顯示代號",
+      "marketValue": "市值",
+      "return": "報酬"
+    },
+    "sectors": {
+      "title": "產業",
+      "noSectorsData": "無產業資料",
+      "noSectorsDataDescription": "您的持倉目前沒有產業資料。"
+    },
+    "currency": {
+      "title": "貨幣",
+      "noCurrencyData": "無貨幣資料"
+    },
+    "accounts": {
+      "title": "帳戶",
+      "noAccountData": "無帳戶資料。"
+    },
+    "allocationSheet": {
+      "allocation": "配置",
+      "holdingsIn": "持倉於",
+      "couldNotLoad": "無法載入此類別的持倉。",
+      "retry": "重試",
+      "noHoldingsInCategory": "此類別中找不到持倉。",
+      "noAllocationData": "無配置資料。",
+      "clear": "清除"
+    },
+    "editMode": {
+      "snapshotDate": "快照日期",
+      "editingExistingSnapshot": "正在編輯此日期的快照（日期不可更改）",
+      "snapshotDateDescription": "這些持倉所代表的日期",
+      "symbol": "代號",
+      "shares": "股數",
+      "avgCost": "平均成本",
+      "total": "總計",
+      "noHoldingsYet": "尚無持倉。請點擊下方新增第一個部位。",
+      "addAnotherHolding": "新增另一個持倉",
+      "cashBalances": "現金餘額",
+      "cashBalancesDescription": "按貨幣新增現金持倉",
+      "currency": "貨幣",
+      "amount": "金額",
+      "noCashBalances": "尚無現金餘額。請點擊下方新增現金持倉。",
+      "addCashBalance": "新增現金餘額",
+      "deleteSnapshot": "刪除快照",
+      "saveChanges": "儲存變更",
+      "saving": "儲存中...",
+      "deleting": "刪除中...",
+      "discardChanges": "放棄變更？",
+      "unsavedChangesWarning": "您有未儲存的變更。確定要放棄嗎？",
+      "keepEditing": "繼續編輯",
+      "discard": "放棄",
+      "deleteSnapshotTitle": "刪除快照？",
+      "deleteSnapshotDescription": "這將永久刪除 {{date}} 的持倉快照。投資組合估值將在不含此資料點的情況下重新計算。此操作無法撤銷。",
+      "searchForSymbol": "搜尋代號...",
+      "selectCurrency": "選擇貨幣",
+      "holdingsUpdatedSuccessfully": "持倉更新成功",
+      "snapshotDeletedSuccessfully": "快照刪除成功"
+    },
+    "alternative": {
+      "asset": "資產",
+      "value": "價值",
+      "gain": "獲利",
+      "lastValued": "最後估值",
+      "updateValue": "更新價值",
+      "valueHistory": "價值歷史",
+      "editDetails": "編輯詳情",
+      "deleteAsset": "刪除資產",
+      "deleteAssetDescription": "確定要刪除 {{name}}？這將移除所有估值歷史且無法撤銷。",
+      "deleting": "刪除中..."
+    },
+    "insights": {
+      "classes": "資產類別",
+      "regions": "地區",
+      "riskComposition": "風險組成",
+      "securityTypes": "證券類型",
+      "noData": "無資料",
+      "noHoldingsYet": "尚無持倉",
+      "addTransactionOrImport": "新增第一筆交易，或從 CSV 檔案快速匯入現有持倉以開始使用。"
+    }
+  },
+  "activity": {
+    "page": {
+      "title": "交易活動",
+      "addActivities": "新增交易活動",
+      "addTransaction": "新增交易",
+      "importFromCsv": "從 CSV 匯入",
+      "transferHoldings": "轉移持倉",
+      "addPersonalAsset": "新增個人資產"
+    },
+    "manager": {
+      "title": "新增交易活動",
+      "addToAccount": "新增交易至 {{account}}",
+      "createTransaction": "為您的帳戶建立新的交易或活動",
+      "learnMore": "了解更多",
+      "syncedAccount": "已同步帳戶",
+      "syncedAccountDescription": "此帳戶使用持倉追蹤並與券商同步。同步時持倉會自動更新。",
+      "holdingsTrackingMode": "持倉追蹤模式",
+      "holdingsTrackingDescription": "此帳戶使用持倉追蹤。若要修改部位，請使用帳戶頁面上的更新按鈕。",
+      "goToAccount": "前往帳戶",
+      "activityType": "交易類型："
+    },
+    "table": {
+      "type": "類型",
+      "date": "日期",
+      "symbol": "代號",
+      "quantity": "數量",
+      "priceAmount": "價格/金額",
+      "fee": "手續費",
+      "total": "總計",
+      "account": "帳戶",
+      "currency": "貨幣",
+      "noActivityFound": "找不到交易活動。",
+      "toggleColumns": "切換欄位"
+    },
+    "tableMobile": {
+      "noActivitiesFound": "找不到交易活動",
+      "adjustSearchOrFilter": "請嘗試調整搜尋或篩選條件。",
+      "date": "日期",
+      "type": "類型",
+      "contracts": "合約",
+      "shares": "股數",
+      "ratio": "比例",
+      "amount": "金額",
+      "premium": "權利金",
+      "price": "價格",
+      "fee": "手續費",
+      "totalValue": "總值",
+      "account": "帳戶"
+    },
+    "viewControls": {
+      "account": "帳戶",
+      "type": "類型",
+      "instrument": "商品",
+      "status": "狀態",
+      "allActivities": "所有活動",
+      "pendingReview": "待審核",
+      "validated": "已驗證",
+      "reset": "重設",
+      "loading": "載入中…",
+      "activities": "筆活動"
+    },
+    "mobileControls": {
+      "searchPlaceholder": "搜尋...",
+      "detailedView": "詳細檢視",
+      "compactView": "精簡檢視"
+    },
+    "mobileFilterSheet": {
+      "title": "篩選交易活動",
+      "account": "帳戶",
+      "allAccounts": "所有帳戶",
+      "activityType": "交易類型",
+      "allTypes": "所有類型",
+      "done": "完成"
+    },
+    "pagination": {
+      "loadMore": "載入更多...",
+      "loading": "載入中…",
+      "activities": "筆活動"
+    },
+    "delete": {
+      "title": "確定要刪除此交易活動嗎？",
+      "description": "此操作無法撤銷。",
+      "deleting": "刪除中"
+    },
+    "operations": {
+      "moreDetails": "更多詳情",
+      "edit": "編輯",
+      "duplicate": "複製",
+      "delete": "刪除"
+    },
+    "detailSheet": {
+      "title": "交易活動詳情",
+      "cashTransaction": "現金交易",
+      "date": "日期",
+      "amount": "金額",
+      "transaction": "交易",
+      "type": "類型",
+      "subtype": "子類型",
+      "dateTime": "日期與時間",
+      "account": "帳戶",
+      "optionContract": "選擇權合約",
+      "underlying": "標的",
+      "strikePrice": "履約價",
+      "expiration": "到期日",
+      "occSymbol": "OCC 代號",
+      "financialDetails": "財務詳情",
+      "contracts": "合約數",
+      "quantity": "數量",
+      "premiumShare": "每股權利金",
+      "unitPrice": "單價",
+      "totalPremium": "總權利金",
+      "fee": "手續費",
+      "fxRate": "匯率",
+      "currency": "貨幣",
+      "accountCurrency": "帳戶貨幣",
+      "notes": "備註",
+      "recordInfo": "記錄資訊",
+      "created": "建立時間",
+      "updated": "更新時間",
+      "needsReview": "需要審核",
+      "posted": "已過帳",
+      "pending": "待處理",
+      "draft": "草稿",
+      "void": "已作廢"
+    },
+    "typePicker": {
+      "buy": "買入",
+      "sell": "賣出",
+      "deposit": "存款",
+      "withdrawal": "提款",
+      "dividend": "股息",
+      "transfer": "轉帳",
+      "split": "股票分割",
+      "fee": "手續費",
+      "interest": "利息",
+      "tax": "稅",
+      "expandToShowAll": "展開顯示所有類型",
+      "collapse": "收合"
+    },
+    "form": {
+      "date": "日期",
+      "notes": "備註",
+      "notesPlaceholder": "新增選填備註...",
+      "fee": "手續費",
+      "cancel": "取消",
+      "advancedOptions": "進階選項",
+      "currency": "貨幣",
+      "fxRate": "匯率",
+      "subtype": "子類型",
+      "selectSubtype": "選擇子類型",
+      "none": "無",
+      "assetCurrency": "資產貨幣",
+      "accountCurrency": "帳戶貨幣",
+      "baseCurrency": "基礎貨幣",
+      "buy": {
+        "title": "買入",
+        "addBuy": "新增買入",
+        "buyToOpen": "買入開倉",
+        "update": "更新",
+        "quantity": "數量",
+        "contracts": "合約數",
+        "bonds": "債券數",
+        "price": "價格",
+        "premiumShare": "每股權利金",
+        "totalDebit": "總借記",
+        "tradeDetails": "交易詳情",
+        "contractMultiplier": "合約乘數"
+      },
+      "sell": {
+        "title": "賣出",
+        "addSell": "新增賣出",
+        "sellToClose": "賣出平倉",
+        "update": "更新"
+      },
+      "deposit": {
+        "title": "存款",
+        "addDeposit": "新增存款",
+        "update": "更新",
+        "amount": "金額"
+      },
+      "withdrawal": {
+        "title": "提款",
+        "addWithdrawal": "新增提款",
+        "update": "更新",
+        "amount": "金額"
+      },
+      "dividend": {
+        "title": "股息",
+        "addDividend": "新增股息",
+        "update": "更新",
+        "amount": "金額"
+      },
+      "interest": {
+        "title": "利息",
+        "addInterest": "新增利息",
+        "update": "更新",
+        "amount": "金額"
+      },
+      "transfer": {
+        "title": "轉帳",
+        "addTransferIn": "新增轉入",
+        "addTransferOut": "新增轉出",
+        "update": "更新",
+        "transferIn": "轉入",
+        "transferOut": "轉出",
+        "amount": "金額",
+        "fromAccount": "來源帳戶",
+        "toAccount": "目標帳戶",
+        "selectAccount": "選擇帳戶..."
+      },
+      "fee": {
+        "title": "手續費",
+        "addFee": "新增手續費",
+        "update": "更新",
+        "amount": "金額"
+      },
+      "tax": {
+        "title": "稅",
+        "addTax": "新增稅",
+        "update": "更新",
+        "amount": "金額"
+      },
+      "split": {
+        "title": "股票分割",
+        "addSplit": "新增分割",
+        "update": "更新",
+        "ratio": "分割比例",
+        "ratioDescription": "輸入每舊股換新股的比例（例如 4:1 分割輸入 4）",
+        "ratioPlaceholder": "例如：4"
+      },
+      "bulkHoldings": {
+        "title": "轉移持倉",
+        "description": "透過上傳 CSV 檔案在帳戶之間轉移持倉。",
+        "upload": "上傳 CSV",
+        "preview": "預覽",
+        "confirm": "確認轉移",
+        "dropzone": "拖放 CSV 檔案至此，或點擊選擇",
+        "csvOnly": "僅限 CSV 檔案",
+        "sourceAccount": "來源帳戶",
+        "destinationAccount": "目標帳戶",
+        "selectAccount": "選擇帳戶",
+        "date": "轉移日期",
+        "holdings": "要轉移的持倉",
+        "symbol": "代號",
+        "quantity": "數量",
+        "price": "價格",
+        "cancel": "取消",
+        "transferring": "轉移中...",
+        "transfer": "轉移"
+      },
+      "cashBalanceWarning": {
+        "insufficientFunds": "資金不足：",
+        "recordDeposits": "記錄現金存款以補足差額，或使用「新增持倉」（跳過現金追蹤）。"
+      },
+      "linkTransfer": {
+        "linkTitle": "連結為內部轉帳",
+        "unlinkTitle": "取消連結內部轉帳",
+        "linkDescription": "這兩筆活動將配對並視為帳戶間的單一內部轉帳。",
+        "unlinkDescription": "這兩筆活動將恢復為外部轉帳。",
+        "source": "來源",
+        "destination": "目標",
+        "transferIn": "轉入",
+        "transferOut": "轉出",
+        "linkTransfers": "連結轉帳",
+        "unlinkTransfers": "取消連結轉帳"
+      },
+      "fields": {
+        "account": "帳戶",
+        "selectAccount": "選擇帳戶",
+        "symbol": "代號",
+        "searchSymbol": "搜尋代號...",
+        "assetType": "資產類型",
+        "stock": "股票",
+        "option": "選擇權",
+        "bond": "債券",
+        "customAsset": "自訂資產"
+      },
+      "mobileForm": {
+        "newActivity": "新增交易活動",
+        "editActivity": "編輯交易活動",
+        "selectType": "選擇類型",
+        "details": "詳情",
+        "next": "下一步",
+        "back": "返回",
+        "save": "儲存",
+        "saving": "儲存中..."
+      }
+    },
+    "dataGrid": {
+      "toolbar": {
+        "saveAll": "全部儲存",
+        "saving": "儲存中...",
+        "unsavedChanges": "筆未儲存的變更",
+        "addRow": "新增列",
+        "deleteSelected": "刪除所選",
+        "filterType": "依類型篩選",
+        "filterAccount": "依帳戶篩選",
+        "clearFilters": "清除篩選"
+      },
+      "pagination": {
+        "rowsPerPage": "每頁列數",
+        "page": "頁",
+        "of": "共"
+      },
+      "status": {
+        "valid": "有效",
+        "invalid": "無效",
+        "pending": "待處理"
+      }
+    }
+  },
+  "account": {
+    "page": {
+      "holdings": "持倉",
+      "snapshots": "快照",
+      "activities": "交易活動",
+      "performance": "績效",
+      "metrics": "指標",
+      "addTransaction": "新增交易",
+      "updateHoldings": "更新持倉",
+      "transferHoldings": "轉移持倉",
+      "recalculate": "重新計算",
+      "showMarkers": "顯示標記",
+      "hideMarkers": "隱藏標記",
+      "editHoldings": "編輯持倉",
+      "activitiesOnDate": "{{date}} 的交易活動",
+      "noActivitiesOnDate": "此日期找不到交易活動。",
+      "loadingActivities": "載入交易活動中..."
+    },
+    "metrics": {
+      "title": "績效指標",
+      "totalValue": "總市值",
+      "totalReturn": "總報酬",
+      "annualizedReturn": "年化報酬",
+      "periodGain": "期間獲利",
+      "periodReturn": "期間報酬",
+      "unrealizedGain": "未實現損益",
+      "realizedGain": "已實現損益",
+      "dividendIncome": "股息收入",
+      "bookCost": "成本",
+      "cashBalance": "現金餘額",
+      "totalContributions": "總投入",
+      "netContributions": "淨投入",
+      "dayChange": "今日變化",
+      "volatility": "波動率",
+      "maxDrawdown": "最大回撤",
+      "annualizedVolatility": "年化波動率",
+      "sharpeRatio": "夏普比率"
+    },
+    "contributionLimit": {
+      "title": "投資限額",
+      "noLimit": "此帳戶未設定投資限額。",
+      "contributed": "已投入",
+      "remaining": "剩餘",
+      "limit": "限額",
+      "overLimit": "超出限額"
+    },
+    "snapshotHistory": {
+      "title": "快照歷史",
+      "date": "日期",
+      "totalValue": "總市值",
+      "holdings": "持倉",
+      "noSnapshots": "尚無記錄快照。",
+      "edit": "編輯",
+      "delete": "刪除",
+      "deleteConfirm": "確定要刪除此快照嗎？",
+      "addSnapshot": "新增快照"
+    },
+    "performanceGrid": {
+      "symbol": "代號",
+      "name": "名稱",
+      "quantity": "數量",
+      "bookCost": "成本",
+      "marketValue": "市值",
+      "unrealizedGain": "未實現損益",
+      "totalReturn": "總報酬",
+      "dayChange": "今日變化",
+      "currency": "貨幣",
+      "noHoldings": "無持倉可顯示。"
+    }
+  },
+  "income": {
+    "page": {
+      "title": "收入",
+      "allTimeIncome": "歷史總收入",
+      "lastYearIncome": "去年收入",
+      "thisYearIncome": "今年收入",
+      "yearOverYearGrowth": "年比年成長",
+      "cumulativeIncomeSinceInception": "自成立以來的累計收入",
+      "monthlyAverage": "月均值",
+      "dividends": "股息",
+      "interest": "利息",
+      "topDividendStocks": "主要股息股票",
+      "incomeByMonth": "每月收入",
+      "noIncomeData": "無收入資料",
+      "noIncomeDataDescription": "所選期間沒有收入資料。請嘗試選擇不同時間範圍或稍後再查看。",
+      "yearToDate": "年初至今",
+      "lastYear": "去年",
+      "allTime": "全部",
+      "ytd": "YTD",
+      "lastYrShort": "去年",
+      "allShort": "全部",
+      "dividendPercentage": "股息比例",
+      "interestPercentage": "利息比例",
+      "byCurrency": "依貨幣",
+      "failedToLoad": "載入收入摘要失敗："
+    },
+    "historyChart": {
+      "monthlyIncome": "月收入",
+      "currentYear": "今年",
+      "previousYear": "去年",
+      "noData": "無資料"
+    },
+    "mobileFilterSheet": {
+      "title": "篩選收入",
+      "account": "帳戶",
+      "done": "完成"
+    }
+  },
+  "performance": {
+    "page": {
+      "title": "績效",
+      "allPortfolio": "全部投資組合",
+      "addAccount": "新增帳戶",
+      "addBenchmark": "新增基準",
+      "noPerformanceData": "無績效資料",
+      "selectAccountsToCompare": "選擇帳戶以比較其績效表現。",
+      "calculating": "計算中...",
+      "errorCalculating": "計算績效資料時發生錯誤",
+      "retry": "重試",
+      "totalReturn": "總報酬",
+      "annualizedReturn": "年化報酬",
+      "volatility": "波動率",
+      "maxDrawdown": "最大回撤"
+    }
+  },
+  "health": {
+    "page": {
+      "title": "投資組合健康狀況",
+      "runChecks": "執行檢查",
+      "running": "執行中...",
+      "noIssues": "未發現問題",
+      "allGood": "您的投資組合資料狀況良好。",
+      "issues": "個問題",
+      "issue": "個問題",
+      "dismiss": "忽略",
+      "fix": "修復",
+      "fixing": "修復中...",
+      "dismissing": "忽略中..."
+    },
+    "severity": {
+      "info": "資訊",
+      "warning": "警告",
+      "error": "錯誤",
+      "critical": "嚴重"
+    },
+    "category": {
+      "prices": "價格",
+      "fxRates": "匯率",
+      "categories": "類別",
+      "data": "資料",
+      "accounts": "帳戶",
+      "settings": "設定"
+    },
+    "issueDetail": {
+      "title": "問題詳情",
+      "affected": "受影響項目",
+      "resolution": "解決方案",
+      "close": "關閉"
+    }
+  },
+  "netWorth": {
+    "chart": {
+      "title": "淨值趨勢",
+      "noData": "無淨值資料。",
+      "value": "價值"
+    }
+  },
+  "insights": {
+    "portfolio": {
+      "title": "投資組合洞察",
+      "noInsights": "無洞察資料。",
+      "generating": "生成中..."
+    }
   }
 }

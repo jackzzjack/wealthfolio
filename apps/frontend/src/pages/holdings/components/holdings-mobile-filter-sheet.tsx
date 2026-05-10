@@ -13,6 +13,7 @@ import { Account, HoldingCategoryFilterId } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useSettingsContext } from "@/lib/settings-provider";
 import { AnimatedToggleGroup, ScrollArea, Separator } from "@wealthfolio/ui";
+import { useTranslation } from "react-i18next";
 
 interface HoldingsMobileFilterSheetProps {
   open: boolean;
@@ -49,6 +50,7 @@ export const HoldingsMobileFilterSheet = ({
   setCategoryFilter,
   typeOptions,
 }: HoldingsMobileFilterSheetProps) => {
+  const { t } = useTranslation();
   const { settings } = useSettingsContext();
   const baseCurrency = settings?.baseCurrency ?? "USD";
 
@@ -59,7 +61,7 @@ export const HoldingsMobileFilterSheet = ({
         className="flex h-[85vh] flex-col rounded-t-xl pb-[max(env(safe-area-inset-bottom),0.75rem)]"
       >
         <SheetHeader className="text-left">
-          <SheetTitle>Display Options</SheetTitle>
+          <SheetTitle>{t("holdings.filterSheet.displayOptions")}</SheetTitle>
         </SheetHeader>
         <ScrollArea className="flex-1 py-4">
           <div className="space-y-6">
@@ -67,14 +69,14 @@ export const HoldingsMobileFilterSheet = ({
             <div className="grid grid-cols-1 gap-6">
               <div className="space-y-3">
                 <h4 className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
-                  Sort By
+                  {t("holdings.filterSheet.sortBy")}
                 </h4>
                 <AnimatedToggleGroup<"symbol" | "marketValue">
                   value={sortBy}
                   onValueChange={setSortBy}
                   items={[
-                    { value: "marketValue", label: "Market Value" },
-                    { value: "symbol", label: "Symbol" },
+                    { value: "marketValue", label: t("holdings.filterSheet.marketValue") },
+                    { value: "symbol", label: t("holdings.filterSheet.symbol") },
                   ]}
                   size="sm"
                   className="inline-flex w-auto"
@@ -83,14 +85,14 @@ export const HoldingsMobileFilterSheet = ({
 
               <div className="space-y-3">
                 <h4 className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
-                  Return View
+                  {t("holdings.filterSheet.returnView")}
                 </h4>
                 <AnimatedToggleGroup
                   value={showTotalReturn ? "total" : "daily"}
                   onValueChange={(value) => setShowTotalReturn(value === "total")}
                   items={[
-                    { value: "total", label: "Total Return" },
-                    { value: "daily", label: "Daily Return" },
+                    { value: "total", label: t("holdings.filterSheet.totalReturn") },
+                    { value: "daily", label: t("holdings.filterSheet.dailyReturn") },
                   ]}
                   size="sm"
                   className="inline-flex w-auto"
@@ -104,7 +106,7 @@ export const HoldingsMobileFilterSheet = ({
             {setCategoryFilter && (
               <div className="space-y-3">
                 <h4 className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
-                  Category
+                  {t("holdings.filterSheet.category")}
                 </h4>
                 <div className="overflow-hidden rounded-lg border">
                   {HOLDING_CATEGORY_FILTERS.map((filter, index) => (
@@ -137,7 +139,7 @@ export const HoldingsMobileFilterSheet = ({
             {showAccountFilter && (
               <div className="space-y-3">
                 <h4 className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
-                  Account
+                  {t("holdings.filterSheet.account")}
                 </h4>
                 <div className="overflow-hidden rounded-lg border">
                   <div
@@ -164,7 +166,7 @@ export const HoldingsMobileFilterSheet = ({
                   >
                     <span className="flex items-center gap-2">
                       <Icons.LayoutDashboard className="text-muted-foreground h-4 w-4" />
-                      All Portfolio
+                      {t("holdings.filterSheet.allPortfolio")}
                     </span>
                     {selectedAccount?.id === PORTFOLIO_ACCOUNT_ID && (
                       <Icons.Check className="text-primary h-4 w-4" />
@@ -201,7 +203,7 @@ export const HoldingsMobileFilterSheet = ({
             {typeOptions && typeOptions.length > 0 && (
               <div className="space-y-3">
                 <h4 className="text-muted-foreground text-xs font-medium uppercase tracking-wider">
-                  Asset Type
+                  {t("holdings.filterSheet.assetType")}
                 </h4>
                 <div className="overflow-hidden rounded-lg border">
                   <div
@@ -214,7 +216,7 @@ export const HoldingsMobileFilterSheet = ({
                       onOpenChange(false);
                     }}
                   >
-                    <span>All Types</span>
+                    <span>{t("holdings.filterSheet.allTypes")}</span>
                     {selectedTypes.length === 0 && <Icons.Check className="text-primary h-4 w-4" />}
                   </div>
                   {typeOptions.map((type) => (
@@ -246,7 +248,7 @@ export const HoldingsMobileFilterSheet = ({
         </ScrollArea>
         <SheetFooter className="mt-auto">
           <SheetClose asChild>
-            <Button className="w-full">Done</Button>
+            <Button className="w-full">{t("holdings.filterSheet.done")}</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

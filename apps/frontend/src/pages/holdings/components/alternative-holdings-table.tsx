@@ -25,6 +25,7 @@ import { useMemo, useState } from "react";
 import { useBalancePrivacy } from "@/hooks/use-balance-privacy";
 import type { AlternativeAssetHolding } from "@/lib/types";
 import { ALTERNATIVE_ASSET_KIND_DISPLAY_NAMES } from "@/lib/types";
+import { useTranslation } from "react-i18next";
 
 interface AlternativeHoldingsTableProps {
   holdings: AlternativeAssetHolding[];
@@ -51,6 +52,7 @@ export function AlternativeHoldingsTable({
   onRowClick,
   isDeleting = false,
 }: AlternativeHoldingsTableProps) {
+  const { t } = useTranslation();
   const { isBalanceHidden } = useBalancePrivacy();
   const [assetToDelete, setAssetToDelete] = useState<AlternativeAssetHolding | null>(null);
 
@@ -66,7 +68,7 @@ export function AlternativeHoldingsTable({
       {
         id: "name",
         accessorKey: "name",
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Asset" />,
+        header: ({ column }) => <DataTableColumnHeader column={column} title={t("holdings.alternative.asset")} />,
         cell: ({ row }) => {
           const holding = row.original;
           const kindDisplay =
@@ -113,7 +115,7 @@ export function AlternativeHoldingsTable({
         id: "marketValue",
         accessorKey: "marketValue",
         header: ({ column }) => (
-          <DataTableColumnHeader column={column} title="Value" className="justify-end" />
+          <DataTableColumnHeader column={column} title={t("holdings.alternative.value")} className="justify-end" />
         ),
         cell: ({ row }) => {
           const holding = row.original;
@@ -141,7 +143,7 @@ export function AlternativeHoldingsTable({
         id: "gain",
         accessorKey: "unrealizedGain",
         header: ({ column }) => (
-          <DataTableColumnHeader column={column} title="Gain" className="justify-end" />
+          <DataTableColumnHeader column={column} title={t("holdings.alternative.gain")} className="justify-end" />
         ),
         cell: ({ row }) => {
           const holding = row.original;
@@ -183,7 +185,7 @@ export function AlternativeHoldingsTable({
         id: "valuationDate",
         accessorKey: "valuationDate",
         header: ({ column }) => (
-          <DataTableColumnHeader column={column} title="Last Valued" className="justify-end" />
+          <DataTableColumnHeader column={column} title={t("holdings.alternative.lastValued")} className="justify-end" />
         ),
         cell: ({ row }) => {
           const holding = row.original;
@@ -220,19 +222,19 @@ export function AlternativeHoldingsTable({
                   {onUpdateValue && (
                     <DropdownMenuItem onClick={() => onUpdateValue(holding)}>
                       <Icons.DollarSign className="mr-2 h-4 w-4" />
-                      Update Value
+                      {t("holdings.alternative.updateValue")}
                     </DropdownMenuItem>
                   )}
                   {onViewHistory && (
                     <DropdownMenuItem onClick={() => onViewHistory(holding)}>
                       <Icons.History className="mr-2 h-4 w-4" />
-                      Value History
+                      {t("holdings.alternative.valueHistory")}
                     </DropdownMenuItem>
                   )}
                   {onEdit && (
                     <DropdownMenuItem onClick={() => onEdit(holding)}>
                       <Icons.Pencil className="mr-2 h-4 w-4" />
-                      Edit Details
+                      {t("holdings.alternative.editDetails")}
                     </DropdownMenuItem>
                   )}
                   {onDelete && (
@@ -243,7 +245,7 @@ export function AlternativeHoldingsTable({
                         onSelect={() => setAssetToDelete(holding)}
                       >
                         <Icons.Trash className="mr-2 h-4 w-4" />
-                        Delete
+                        {t("common.delete")}
                       </DropdownMenuItem>
                     </>
                   )}
@@ -295,15 +297,13 @@ export function AlternativeHoldingsTable({
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Asset</AlertDialogTitle>
+            <AlertDialogTitle>{t("holdings.alternative.deleteAsset")}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete{" "}
-              <span className="font-semibold">{assetToDelete?.name}</span>? This will remove all
-              valuation history and cannot be undone.
+              {t("holdings.alternative.deleteAssetDescription", { name: assetToDelete?.name })}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={isDeleting}>{t("common.cancel")}</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirmDelete}
               disabled={isDeleting}
@@ -312,10 +312,10 @@ export function AlternativeHoldingsTable({
               {isDeleting ? (
                 <>
                   <Icons.Spinner className="mr-2 h-4 w-4 animate-spin" />
-                  Deleting...
+                  {t("holdings.alternative.deleting")}
                 </>
               ) : (
-                "Delete"
+                t("common.delete")
               )}
             </AlertDialogAction>
           </AlertDialogFooter>
