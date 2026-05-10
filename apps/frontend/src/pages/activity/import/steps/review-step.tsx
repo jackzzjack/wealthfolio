@@ -3,6 +3,7 @@ import { Button } from "@wealthfolio/ui/components/ui/button";
 import { ProgressIndicator } from "@wealthfolio/ui/components/ui/progress-indicator";
 import { FacetedFilter } from "@wealthfolio/ui";
 import { useCallback, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ImportAlert } from "../components/import-alert";
 import { ImportReviewGrid } from "../components/import-review-grid";
 import {
@@ -88,6 +89,7 @@ function findDuplicateContextRowIndexes(drafts: DraftActivity[]): number[] {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function ReviewStep() {
+  const { t } = useTranslation();
   const { state, dispatch, validateDrafts } = useImportContext();
   const { parsedRows, mapping, draftActivities } = state;
   const isValidating = state.isValidating;
@@ -125,11 +127,11 @@ export function ReviewStep() {
     }
 
     const statuses = [
-      { label: "Errors", value: "error", count: filterStats.errors },
-      { label: "Warnings", value: "warning", count: filterStats.warnings },
-      { label: "Duplicates", value: "duplicate", count: filterStats.duplicates },
-      { label: "Skipped", value: "skipped", count: filterStats.skipped },
-      { label: "Valid", value: "valid", count: filterStats.valid },
+      { label: t("activity.review.errors"), value: "error", count: filterStats.errors },
+      { label: t("activity.review.warnings"), value: "warning", count: filterStats.warnings },
+      { label: t("activity.review.duplicates"), value: "duplicate", count: filterStats.duplicates },
+      { label: t("activity.review.skipped"), value: "skipped", count: filterStats.skipped },
+      { label: t("activity.dataGrid.status.valid"), value: "valid", count: filterStats.valid },
     ].filter((o) => o.count > 0);
 
     return {
@@ -144,7 +146,7 @@ export function ReviewStep() {
       ),
       statuses,
     };
-  }, [draftActivities, filterStats]);
+  }, [draftActivities, filterStats, t]);
 
   // Apply all filters on top of drafts passed to the grid
   const { facetFilteredDrafts, nonSelectableRowIndexes } = useMemo(() => {
@@ -286,7 +288,11 @@ export function ReviewStep() {
     return (
       <div className="flex flex-col items-center justify-center py-12">
         <ProgressIndicator
-          message={isValidating ? "Validating activities..." : "Processing activities..."}
+          message={
+            isValidating
+              ? t("activity.review.validatingActivities")
+              : t("activity.review.processingActivities")
+          }
           className="border-none shadow-none"
         />
       </div>
@@ -298,8 +304,8 @@ export function ReviewStep() {
     return (
       <ImportAlert
         variant="destructive"
-        title="No Data"
-        description="No CSV data available. Please go back and upload a file."
+        title={t("activity.review.noData")}
+        description={t("activity.review.noCsvData")}
       />
     );
   }
@@ -309,8 +315,8 @@ export function ReviewStep() {
     return (
       <ImportAlert
         variant="warning"
-        title="Missing Mapping"
-        description="Column mappings are not configured. Please go back and configure the mapping."
+        title={t("activity.review.missingMapping")}
+        description={t("activity.review.missingMappingDescription")}
       />
     );
   }
@@ -330,14 +336,14 @@ export function ReviewStep() {
       {state.validationError ? (
         <ImportAlert
           variant="destructive"
-          title="Backend validation failed"
+          title={t("activity.review.backendValidationFailed")}
           description={state.validationError}
         />
       ) : isStale ? (
         <ImportAlert
           variant="warning"
-          title="Review validation is out of date"
-          description="You changed one or more activities after the last backend validation. Revalidate before continuing to import."
+          title={t("activity.review.validationOutOfDate")}
+          description={t("activity.review.validationOutOfDateDescription")}
         >
           <Button
             variant="outline"
@@ -345,7 +351,7 @@ export function ReviewStep() {
             className="mt-2"
             onClick={() => void validateDrafts(draftActivities)}
           >
-            Revalidate
+            {t("activity.review.revalidate")}
           </Button>
         </ImportAlert>
       ) : hasIssues ? (
@@ -353,13 +359,16 @@ export function ReviewStep() {
           variant={hasErrors ? "destructive" : "warning"}
           title={
             hasErrors
-              ? `${filterStats.errors} ${filterStats.errors === 1 ? "row needs fixing" : "rows need fixing"}`
-              : `${warningCount} ${warningCount === 1 ? "warning" : "warnings"} to review`
+              ? t("activity.review.rowsNeedFixing", { count: filterStats.errors })
+              : t("activity.review.warningsToReview", { count: warningCount })
           }
           description={
             hasErrors
-              ? `${validCount} of ${filterStats.all} rows are valid and ready to import. Fix errors below, or skip them to continue.`
-              : `All ${filterStats.all} activities are importable. Review warnings below or proceed.`
+              ? t("activity.review.validRowsReady", {
+                  valid: validCount,
+                  total: filterStats.all,
+                })
+              : t("activity.review.allActivitiesImportable", { count: filterStats.all })
           }
         >
           <div className="mt-2 flex flex-wrap gap-2">
@@ -369,7 +378,7 @@ export function ReviewStep() {
                 className="border-destructive/50 text-destructive hover:bg-destructive/10 cursor-pointer"
                 onClick={() => setStatusFilter(new Set(["error"]))}
               >
-                {filterStats.errors} errors
+                {t("activity.review.errorCount", { count: filterStats.errors })}
               </Badge>
             )}
             {filterStats.warnings > 0 && (
@@ -378,7 +387,7 @@ export function ReviewStep() {
                 className="cursor-pointer border-yellow-500/50 text-yellow-700 hover:bg-yellow-500/10 dark:text-yellow-400"
                 onClick={() => setStatusFilter(new Set(["warning"]))}
               >
-                {filterStats.warnings} warnings
+                {t("activity.review.warningCount", { count: filterStats.warnings })}
               </Badge>
             )}
             {filterStats.duplicates > 0 && (
@@ -387,7 +396,7 @@ export function ReviewStep() {
                 className="cursor-pointer border-yellow-500/50 text-yellow-700 hover:bg-yellow-500/10 dark:text-yellow-400"
                 onClick={() => setStatusFilter(new Set(["duplicate"]))}
               >
-                {filterStats.duplicates} duplicates
+                {t("activity.review.duplicateCount", { count: filterStats.duplicates })}
               </Badge>
             )}
           </div>
@@ -395,41 +404,46 @@ export function ReviewStep() {
       ) : hasSkipped ? (
         <ImportAlert
           variant="success"
-          title={`${importCount} of ${filterStats.all} activities will be imported`}
-          description={`${filterStats.skipped} ${filterStats.skipped === 1 ? "activity is" : "activities are"} excluded. Your data is ready for import.`}
+          title={t("activity.review.activitiesWillBeImported", {
+            importCount,
+            total: filterStats.all,
+          })}
+          description={t("activity.review.activitiesExcludedReady", { count: filterStats.skipped })}
         />
       ) : (
         <ImportAlert
           variant="success"
-          title={`All ${filterStats.all} activities are valid`}
-          description="Your data is ready for import. You can still review and make adjustments if needed."
+          title={t("activity.review.allActivitiesValid", { count: filterStats.all })}
+          description={t("activity.review.dataReadyForImport")}
         />
       )}
 
       {/* Filter bar */}
       <div className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-muted-foreground mr-1 text-sm">{filterStats.all} activities</span>
+          <span className="text-muted-foreground mr-1 text-sm">
+            {t("activity.review.activitiesCount", { count: filterStats.all })}
+          </span>
           <FacetedFilter
-            title="Type"
+            title={t("activity.table.type")}
             options={facetedOptions.types}
             selectedValues={typeFilter}
             onFilterChange={setTypeFilter}
           />
           <FacetedFilter
-            title="Symbol"
+            title={t("activity.table.symbol")}
             options={facetedOptions.symbols}
             selectedValues={symbolFilter}
             onFilterChange={setSymbolFilter}
           />
           <FacetedFilter
-            title="Account"
+            title={t("activity.table.account")}
             options={facetedOptions.accounts}
             selectedValues={accountFilter}
             onFilterChange={setAccountFilter}
           />
           <FacetedFilter
-            title="Status"
+            title={t("activity.viewControls.status")}
             options={facetedOptions.statuses}
             selectedValues={statusFilter}
             onFilterChange={setStatusFilter}
@@ -441,7 +455,7 @@ export function ReviewStep() {
               className="text-muted-foreground h-7 text-xs"
               onClick={clearAllFilters}
             >
-              Clear filters
+              {t("activity.dataGrid.toolbar.clearFilters")}
             </Button>
           )}
         </div>
