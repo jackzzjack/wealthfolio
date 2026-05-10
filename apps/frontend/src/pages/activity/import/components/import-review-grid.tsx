@@ -1,58 +1,44 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { ColumnDef, RowSelectionState } from "@tanstack/react-table";
 import {
   DataGrid,
   useDataGrid,
+  ColumnDef,
+  RowSelectionState,
   Checkbox,
+} from "@wealthfolio/ui/components/ui/data-grid/data-grid";
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-  type SymbolSearchResult,
-} from "@wealthfolio/ui";
-
+} from "@wealthfolio/ui/components/ui/tooltip";
+import {
+  DraftActivity,
+  DraftActivityStatus,
+  SymbolSearchResult,
+} from "@/lib/types";
 import {
   ActivityType,
-  ActivityTypeNames,
-  INSTRUMENT_TYPE_OPTIONS,
   SUBTYPES_BY_ACTIVITY_TYPE,
-  SUBTYPE_DISPLAY_NAMES,
+  INSTRUMENT_TYPE_OPTIONS,
 } from "@/lib/constants";
-import { needsImportAssetResolution } from "@/lib/activity-utils";
-import { ActivityTypeBadge } from "../../components/activity-type-badge";
-import type { DraftActivity, DraftActivityStatus } from "../context";
-import { ImportToolbar, ImportContextMenu } from "./import-toolbar";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+} from "react";
 import { useAccounts } from "@/hooks/use-accounts";
 import { searchTicker } from "@/adapters";
 import { CreateCustomAssetDialog } from "@/components/create-custom-asset-dialog";
 import { useSettingsContext } from "@/lib/settings-provider";
 import { useTranslation } from "react-i18next";
-
-const UNIT_PRICE_HELP_TEXT =
-  "For buys and sells, enter the trade price. For staking rewards and in-kind dividends, enter the fair market value per unit at receipt; it sets income amount and cost basis.";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────────────────────────────────────
-
-export interface ImportReviewGridProps {
-  drafts: DraftActivity[];
-  nonSelectableRowIndexes?: number[];
-  onDraftUpdate: (rowIndex: number, updates: Partial<DraftActivity>) => void;
-  selectedRows: number[];
-  onSelectionChange: (selectedRows: number[]) => void;
-  // Bulk action handlers
-  onBulkSkip?: (rowIndexes: number[]) => void;
-  onBulkUnskip?: (rowIndexes: number[]) => void;
-  onBulkForceImport?: (rowIndexes: number[]) => void;
-  onBulkSetCurrency?: (rowIndexes: number[], currency: string) => void;
-  onBulkSetAccount?: (rowIndexes: number[], accountId: string) => void;
-  /** Override the grid height (default: "calc(100vh - 360px)"). */
-  gridHeight?: string | number;
-}
+import { ImportToolbar, ImportContextMenu } from "./import-toolbar";
+import { ActivityTypeBadge } from "../../activity-type-badge";
+import { needsImportAssetResolution } from "@/lib/activity-utils";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Status Display Configuration
+// Constants & Utils
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface StatusConfig {
@@ -83,52 +69,38 @@ const STATUS_CONFIG: Record<DraftActivityStatus, StatusConfig> = {
   },
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Cell Components
-// ─────────────────────────────────────────────────────────────────────────────
+const STATUS_DOT_COLOR: Record<DraftActivityStatus, string> = {
+  valid: "bg-green-500",
+  warning: "bg-yellow-500",
+  error: "bg-red-500",
+  skipped: "bg-gray-400",
+  duplicate: "bg-blue-500",
+};
 
+/**
+ * Builds the title text for the status indicator tooltip
+ */
 function getStatusTitle(
   status: DraftActivityStatus,
-  skipReason?: string,
-  duplicateOfId?: string,
-  duplicateOfLineNumber?: number,
+  skipReason?: string | null,
+  duplicateOfId?: string | null,
   errors?: Record<string, string[]>,
   warnings?: Record<string, string[]>,
+  t?: (key: string) => string,
 ): string | undefined {
-  if (status === "valid") return undefined;
-  if (status === "skipped" && skipReason) return skipReason;
-  if (typeof duplicateOfLineNumber === "number") {
-    return `Duplicate of line ${duplicateOfLineNumber} in this import batch`;
-  }
-  if (duplicateOfId) return "Duplicate of an existing activity in your portfolio";
-  if (errors) {
-    const errorDetails = Object.entries(errors)
-      .flatMap(([field, msgs]) => msgs.map((msg) => `${field}: ${msg}`))
-      .join("\n");
-    if (errorDetails) {
-      return errorDetails;
-    }
-  }
-  if (warnings) {
-    const warningDetails = Object.entries(warnings)
-      .flatMap(([field, msgs]) =>
-        msgs.map((msg) => (field.startsWith("_") ? msg : `${field}: ${msg}`)),
-      )
-      .join("\n");
-    if (warningDetails) {
-      return warningDetails;
-    }
-  }
-  return STATUS_CONFIG[status].label;
-}
+  if (status === "skipped") return skipReason || t?.("activity.review.skipped") || "Skipped";
+  if (status === "duplicate" && duplicateOfId)
+    return t?.("activity.importGrid.duplicateOfExisting") || "Duplicate of an existing activity in your portfolio";
 
-const STATUS_DOT_COLOR: Record<DraftActivityStatus, string> = {
-  valid: "",
-  error: "bg-red-500",
-  warning: "bg-yellow-500",
-  duplicate: "bg-blue-500",
-  skipped: "bg-gray-400",
-};
+  // Summarize errors and warnings if any
+  const errorCount = Object.values(errors || {}).flat().length;
+  const warningCount = Object.values(warnings || {}).flat().length;
+
+  if (errorCount > 0) return `${errorCount} error(s)`;
+  if (warningCount > 0) return `${warningCount} warning(s)`;
+
+  return t?.(`activity.dataGrid.status.${status}`) || status;
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Column Definitions
@@ -212,7 +184,7 @@ function useImportReviewColumns({
         enableSorting: false,
         enableResizing: false,
         enableHiding: false,
-        enablePinning: false,
+        enablePinning: true,
       },
       // 2. Status indicator (row number + validation status)
       {
@@ -223,7 +195,6 @@ function useImportReviewColumns({
             status,
             skipReason,
             duplicateOfId,
-            duplicateOfLineNumber,
             errors,
             warnings,
             rowIndex,
@@ -236,9 +207,9 @@ function useImportReviewColumns({
                 status,
                 skipReason,
                 duplicateOfId,
-                duplicateOfLineNumber,
                 errors,
                 warnings,
+                t,
               );
           const dotColor = isForcedDuplicate ? "bg-amber-500" : STATUS_DOT_COLOR[status];
           const dot = dotColor ? (
@@ -275,13 +246,13 @@ function useImportReviewColumns({
         enableSorting: false,
         enableResizing: false,
         enableHiding: false,
-        enablePinning: false,
+        enablePinning: true,
       },
       // 3. Date & Time
       {
         id: "activityDate",
         accessorKey: "activityDate",
-        header: "Date & Time",
+        header: t("activity.detailSheet.dateTime"),
         size: 180,
         meta: { cell: { variant: "datetime" } },
       },
@@ -289,7 +260,7 @@ function useImportReviewColumns({
       {
         id: "accountId",
         accessorKey: "accountId",
-        header: "Account",
+        header: t("activity.table.account"),
         size: 180,
         meta: { cell: { variant: "select", options: accountOptions } },
       },
@@ -299,7 +270,7 @@ function useImportReviewColumns({
       {
         id: "activityType",
         accessorKey: "activityType",
-        header: "Type",
+        header: t("activity.table.type"),
         size: 150,
         enablePinning: false,
         meta: {
@@ -320,7 +291,7 @@ function useImportReviewColumns({
       {
         id: "subtype",
         accessorKey: "subtype",
-        header: "Subtype",
+        header: t("activity.detailSheet.subtype"),
         size: 180,
         enableSorting: false,
         enableHiding: true,
@@ -330,7 +301,7 @@ function useImportReviewColumns({
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             options: getSubtypeOptions as any,
             allowEmpty: true,
-            emptyLabel: "None",
+            emptyLabel: t("activity.form.none"),
           },
         },
       },
@@ -338,7 +309,7 @@ function useImportReviewColumns({
       {
         id: "isExternal",
         accessorKey: "isExternal",
-        header: "External",
+        header: t("activity.importGrid.external"),
         size: 80,
         enableSorting: false,
         enableHiding: true,
@@ -361,7 +332,7 @@ function useImportReviewColumns({
       {
         id: "symbol",
         accessorKey: "symbol",
-        header: "Symbol",
+        header: t("activity.table.symbol"),
         size: 140,
         meta: {
           cell: {
@@ -387,14 +358,17 @@ function useImportReviewColumns({
         meta: {
           cell: {
             variant: "select",
-            options: [...INSTRUMENT_TYPE_OPTIONS],
+            options: [...INSTRUMENT_TYPE_OPTIONS].map((opt) => ({
+              ...opt,
+              label: t(`activity.instrumentTypes.${opt.value}`, { defaultValue: opt.label }),
+            })),
             allowEmpty: true,
             emptyLabel: t("activity.dataGrid.auto"),
           },
         },
       },
 
-      // === Numbers (grouped, right-aligned) ===
+      // === Values ===
       // 10. Quantity
       {
         id: "quantity",
@@ -404,7 +378,7 @@ function useImportReviewColumns({
         enableSorting: false,
         meta: { cell: { variant: "number", step: 0.000001, valueType: "string" } },
       },
-      // 9. Price
+      // 11. Unit Price
       {
         id: "unitPrice",
         accessorKey: "unitPrice",
@@ -412,11 +386,15 @@ function useImportReviewColumns({
         size: 120,
         enableSorting: false,
         meta: {
-          helpText: UNIT_PRICE_HELP_TEXT,
-          cell: { variant: "number", step: 0.000001, valueType: "string" },
+          cell: {
+            variant: "number",
+            step: 0.000001,
+            valueType: "string",
+            helpText: t("activity.importGrid.unitPriceHelpText"),
+          },
         },
       },
-      // 10. Amount
+      // 12. Amount
       {
         id: "amount",
         accessorKey: "amount",
@@ -425,7 +403,7 @@ function useImportReviewColumns({
         enableSorting: false,
         meta: { cell: { variant: "number", step: 0.000001, valueType: "string" } },
       },
-      // 11. Currency
+      // 13. Currency
       {
         id: "currency",
         accessorKey: "currency",
@@ -434,7 +412,7 @@ function useImportReviewColumns({
         enableSorting: false,
         meta: { cell: { variant: "currency" } },
       },
-      // 12. Fee
+      // 14. Fee
       {
         id: "fee",
         accessorKey: "fee",
@@ -443,7 +421,7 @@ function useImportReviewColumns({
         enableSorting: false,
         meta: { cell: { variant: "number", step: 0.000001, valueType: "string" } },
       },
-      // 13. FX Rate
+      // 15. FX Rate
       {
         id: "fxRate",
         accessorKey: "fxRate",
@@ -453,8 +431,8 @@ function useImportReviewColumns({
         meta: { cell: { variant: "number", step: 0.000001, valueType: "string" } },
       },
 
-      // === Notes ===
-      // 14. Comment
+      // === Metadata ===
+      // 16. Comment
       {
         id: "comment",
         accessorKey: "comment",
@@ -480,6 +458,20 @@ function useImportReviewColumns({
 // Main Component
 // ─────────────────────────────────────────────────────────────────────────────
 
+export interface ImportReviewGridProps {
+  drafts: DraftActivity[];
+  nonSelectableRowIndexes?: number[];
+  onDraftUpdate: (rowIndex: number, updates: Partial<DraftActivity>) => void;
+  selectedRows: number[];
+  onSelectionChange: (selectedRows: number[]) => void;
+  onBulkSkip: (rowIndexes: number[]) => void;
+  onBulkUnskip: (rowIndexes: number[]) => void;
+  onBulkForceImport?: (rowIndexes: number[]) => void;
+  onBulkSetCurrency: (rowIndexes: number[], currency: string) => void;
+  onBulkSetAccount: (rowIndexes: number[], accountId: string) => void;
+  gridHeight?: string;
+}
+
 export function ImportReviewGrid({
   drafts,
   nonSelectableRowIndexes = [],
@@ -493,6 +485,7 @@ export function ImportReviewGrid({
   onBulkSetAccount,
   gridHeight,
 }: ImportReviewGridProps) {
+  const { t } = useTranslation();
   const { settings } = useSettingsContext();
   const fallbackCurrency = settings?.baseCurrency ?? "USD";
   const nonSelectableRowIndexSet = useMemo(
@@ -514,51 +507,16 @@ export function ImportReviewGrid({
     symbol: string;
   }>({ open: false, rowIndex: -1, symbol: "" });
 
-  // Handle context menu (right-click)
-  const handleContextMenu = useCallback(
-    (e: React.MouseEvent) => {
-      // Only show context menu if there are selected rows
-      if (selectedRows.length > 0) {
-        e.preventDefault();
-        setContextMenu({
-          open: true,
-          x: e.clientX,
-          y: e.clientY,
-        });
-      }
-    },
-    [selectedRows.length],
-  );
+  const { accounts } = useAccounts({ filterActive: true, includeArchived: false });
 
-  // Close context menu
-  const handleContextMenuOpenChange = useCallback((open: boolean) => {
-    setContextMenu((prev) => ({ ...prev, open }));
-  }, []);
+  // ── Handlers ───────────────────────────────────────────────────────────────
 
-  // Handle horizontal scroll with mouse wheel (Shift + wheel or just wheel)
-  const handleWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
-    const target = e.currentTarget.querySelector<HTMLElement>('[data-slot="grid"]');
-    if (!target) return;
-
-    // If user is scrolling horizontally with trackpad (deltaX), let it happen naturally
-    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-      return;
-    }
-
-    // Convert vertical scroll to horizontal when Shift is pressed
-    if (e.shiftKey && e.deltaY !== 0) {
-      e.preventDefault();
-      target.scrollLeft += e.deltaY;
-    }
-  }, []);
-
-  // Bulk action handlers
   const handleSkip = useCallback(() => {
-    onBulkSkip?.(selectedRows);
+    onBulkSkip(selectedRows);
   }, [onBulkSkip, selectedRows]);
 
   const handleUnskip = useCallback(() => {
-    onBulkUnskip?.(selectedRows);
+    onBulkUnskip(selectedRows);
   }, [onBulkUnskip, selectedRows]);
 
   const handleForceImport = useCallback(() => {
@@ -567,14 +525,14 @@ export function ImportReviewGrid({
 
   const handleSetCurrency = useCallback(
     (currency: string) => {
-      onBulkSetCurrency?.(selectedRows, currency);
+      onBulkSetCurrency(selectedRows, currency);
     },
     [onBulkSetCurrency, selectedRows],
   );
 
   const handleSetAccount = useCallback(
     (accountId: string) => {
-      onBulkSetAccount?.(selectedRows, accountId);
+      onBulkSetAccount(selectedRows, accountId);
     },
     [onBulkSetAccount, selectedRows],
   );
@@ -583,15 +541,37 @@ export function ImportReviewGrid({
     onSelectionChange([]);
   }, [onSelectionChange]);
 
-  // Get accounts for the account selector
-  const { accounts } = useAccounts({ filterActive: true, includeArchived: false });
+  const handleContextMenu = (e: React.MouseEvent) => {
+    if (selectedRows.length === 0) return;
+    e.preventDefault();
+    setContextMenu({ open: true, x: e.clientX, y: e.y });
+  };
 
-  // Symbol search handler
-  const handleSymbolSearch = useCallback(async (query: string): Promise<SymbolSearchResult[]> => {
-    return searchTicker(query);
+  const handleContextMenuOpenChange = (open: boolean) => {
+    setContextMenu((prev) => ({ ...prev, open }));
+  };
+
+  const handleWheel = (e: React.WheelEvent) => {
+    if (contextMenu.open) {
+      setContextMenu((prev) => ({ ...prev, open: false }));
+    }
+  };
+
+  // ── Symbol Search & Selection ──────────────────────────────────────────────
+
+  // Handle symbol search from grid
+  const handleSymbolSearch = useCallback(async (query: string) => {
+    if (query.length < 1) return [];
+    try {
+      const results = await searchTicker(query);
+      return results;
+    } catch (err) {
+      console.error("Failed to search symbol:", err);
+      return [];
+    }
   }, []);
 
-  // Symbol selection handler - update draft with symbol and currency from search result
+  // Handle symbol selection from grid search results
   const handleSymbolSelect = useCallback(
     (rowIndex: number, _symbol: string, result?: SymbolSearchResult) => {
       if (!result) return;

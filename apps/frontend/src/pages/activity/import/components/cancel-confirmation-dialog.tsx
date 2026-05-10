@@ -9,6 +9,7 @@ import {
 } from "@wealthfolio/ui/components/ui/alert-dialog";
 import { Button } from "@wealthfolio/ui/components/ui/button";
 import { Icons } from "@wealthfolio/ui/components/ui/icons";
+import { useTranslation } from "react-i18next";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
@@ -30,9 +31,10 @@ export function CancelConfirmationDialog({
   open,
   onOpenChange,
   onConfirm,
-  title = "Cancel Import?",
-  description = "Are you sure you want to cancel? All progress will be lost and you'll need to start over.",
+  title,
+  description,
 }: CancelConfirmationDialogProps) {
+  const { t } = useTranslation();
   const handleConfirm = () => {
     onOpenChange(false);
     onConfirm();
@@ -44,15 +46,17 @@ export function CancelConfirmationDialog({
         <AlertDialogHeader>
           <AlertDialogTitle className="flex items-center gap-2">
             <Icons.AlertTriangle className="h-5 w-5 text-amber-500" />
-            {title}
+            {title ?? t("activity.cancelDialog.title")}
           </AlertDialogTitle>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
+          <AlertDialogDescription>
+            {description ?? t("activity.cancelDialog.description")}
+          </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Continue Importing</AlertDialogCancel>
+          <AlertDialogCancel>{t("activity.cancelDialog.continueImporting")}</AlertDialogCancel>
           <Button variant="destructive" onClick={handleConfirm}>
             <Icons.X className="mr-2 h-4 w-4" />
-            Cancel Import
+            {t("activity.cancelDialog.cancelImport")}
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>

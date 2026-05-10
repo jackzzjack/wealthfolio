@@ -1121,7 +1121,36 @@
       "noCurrenciesFound": "找不到貨幣",
       "noAccountsAvailable": "沒有可用帳戶",
       "clearSelection": "清除選取",
-      "willBeImportedOverridesDuplicateDetection": "將會匯入 - 覆蓋重複檢測"
+      "willBeImportedOverridesDuplicateDetection": "將會匯入 - 覆蓋重複檢測",
+      "unitPriceHelpText": "對於買入和賣出，輸入交易價格。對於質押獎勵和以股代息，輸入收到時的每單位公允市場價值；它設定收入金額和成本基礎。",
+      "duplicateOfExisting": "與您投資組合中現有的交易活動重複",
+      "external": "外部"
+    },
+    "cancelDialog": {
+      "title": "取消匯入？",
+      "description": "您確定要取消嗎？所有進度都將遺失，您需要重新開始。",
+      "continueImporting": "繼續匯入",
+      "cancelImport": "取消匯入"
+    },
+    "csvViewer": {
+      "status": "狀態",
+      "error": "錯誤",
+      "valid": "有效",
+      "lineNumber": "行號",
+      "validationErrors": "驗證錯誤",
+      "csvContent": "CSV 內容",
+      "emptyLine": "空行",
+      "csvFile": "CSV 檔案",
+      "lines": "{{count}} 行",
+      "emptyFile": "空檔案",
+      "noContentFound": "找不到內容"
+    },
+    "dropzone": {
+      "removeFile": "移除檔案",
+      "processingFile": "正在處理檔案...",
+      "clickToUpload": "點擊上傳",
+      "orDrop": "或拖放至此",
+      "csvOnly": "僅限 CSV"
     },
     "mutations": {
       "failedAction": "{{action}} 交易活動失敗",

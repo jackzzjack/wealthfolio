@@ -1121,7 +1121,37 @@
       "noCurrenciesFound": "No currencies found",
       "noAccountsAvailable": "No accounts available",
       "clearSelection": "Clear selection",
-      "willBeImportedOverridesDuplicateDetection": "Will be imported - overrides duplicate detection"
+      "willBeImportedOverridesDuplicateDetection": "Will be imported - overrides duplicate detection",
+      "unitPriceHelpText": "For buys and sells, enter the trade price. For staking rewards and in-kind dividends, enter the fair market value per unit at receipt; it sets income amount and cost basis.",
+      "duplicateOfExisting": "Duplicate of an existing activity in your portfolio",
+      "external": "External"
+    },
+    "cancelDialog": {
+      "title": "Cancel Import?",
+      "description": "Are you sure you want to cancel? All progress will be lost and you'll need to start over.",
+      "continueImporting": "Continue Importing",
+      "cancelImport": "Cancel Import"
+    },
+    "csvViewer": {
+      "status": "Status",
+      "error": "Error",
+      "valid": "Valid",
+      "lineNumber": "Line Number",
+      "validationErrors": "Validation Errors",
+      "csvContent": "CSV Content",
+      "emptyLine": "empty line",
+      "csvFile": "CSV File",
+      "lines_one": "{{count}} line",
+      "lines_other": "{{count}} lines",
+      "emptyFile": "Empty file",
+      "noContentFound": "No content found"
+    },
+    "dropzone": {
+      "removeFile": "Remove File",
+      "processingFile": "Processing file...",
+      "clickToUpload": "Click to upload",
+      "orDrop": "or drop",
+      "csvOnly": "CSV only"
     },
     "mutations": {
       "failedAction": "Failed {{action}} activity",
