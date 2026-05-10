@@ -1,5 +1,6 @@
 import { TickerAvatar } from "@/components/ticker-avatar";
 import { Card } from "@wealthfolio/ui/components/ui/card";
+import { useTranslation } from "react-i18next";
 import {
   calculateActivityValue,
   formatSplitRatio,
@@ -36,15 +37,16 @@ export const ActivityTableMobile = ({
   handleDelete,
   onDuplicate,
 }: ActivityTableMobileProps) => {
+  const { t } = useTranslation();
   const { settings } = useSettingsContext();
   const appTimezone = settings?.timezone?.trim() || undefined;
 
   if (activities.length === 0) {
     return (
       <div className="flex h-48 flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
-        <h3 className="text-lg font-medium">No activities found</h3>
+        <h3 className="text-lg font-medium">{t("activity.tableMobile.noActivitiesFound")}</h3>
         <p className="text-muted-foreground text-sm">
-          Try adjusting your search or filter criteria.
+          {t("activity.tableMobile.adjustSearchOrFilter")}
         </p>
       </div>
     );
@@ -110,7 +112,7 @@ export const ActivityTableMobile = ({
                               <>
                                 <span>•</span>
                                 <span>
-                                  {activity.quantity} {isOptionActivity ? "contracts" : "shares"}
+                                  {activity.quantity} {isOptionActivity ? t("activity.tableMobile.contracts") : t("activity.tableMobile.shares")}
                                 </span>
                               </>
                             )}
@@ -183,7 +185,7 @@ export const ActivityTableMobile = ({
               <div className="space-y-1.5 text-sm">
                 {/* Date and Type */}
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">Date</span>
+                  <span className="text-muted-foreground">{t("activity.tableMobile.date")}</span>
                   <div className="text-right">
                     <p>{formattedDate.date}</p>
                     <p className="text-muted-foreground text-xs">{formattedDate.time}</p>
@@ -191,7 +193,7 @@ export const ActivityTableMobile = ({
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">Type</span>
+                  <span className="text-muted-foreground">{t("activity.tableMobile.type")}</span>
                   <ActivityTypeBadge
                     type={activity.activityType}
                     subtype={activity.subtype}
@@ -207,7 +209,7 @@ export const ActivityTableMobile = ({
                   activity.quantity && (
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">
-                        {isOptionActivity ? "Contracts" : "Shares"}
+                        {isOptionActivity ? t("activity.tableMobile.contracts") : t("activity.tableMobile.shares")}
                       </span>
                       <span className="font-medium">{activity.quantity}</span>
                     </div>
@@ -217,7 +219,7 @@ export const ActivityTableMobile = ({
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">
                     {activity.activityType === "SPLIT"
-                      ? "Ratio"
+                      ? t("activity.tableMobile.ratio")
                       : (isCashActivity(activity.activityType) &&
                             !isAssetBackedIncome &&
                             !isSecuritiesTransfer(
@@ -227,10 +229,10 @@ export const ActivityTableMobile = ({
                             )) ||
                           isCashTransfer(activity.activityType, symbol, activity.assetId) ||
                           (isIncomeActivity(activity.activityType) && !isAssetBackedIncome)
-                        ? "Amount"
+                        ? t("activity.tableMobile.amount")
                         : isOptionActivity
-                          ? "Premium"
-                          : "Price"}
+                          ? t("activity.tableMobile.premium")
+                          : t("activity.tableMobile.price")}
                   </span>
                   <span className="font-medium">
                     {activity.activityType === "FEE"
@@ -254,7 +256,7 @@ export const ActivityTableMobile = ({
                 {/* Fee (if applicable) */}
                 {Number(activity.fee) > 0 && activity.activityType !== "SPLIT" && (
                   <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">Fee</span>
+                    <span className="text-muted-foreground">{t("activity.tableMobile.fee")}</span>
                     <span className="font-medium">
                       {formatAmount(Number(activity.fee), activity.currency)}
                     </span>
@@ -264,7 +266,7 @@ export const ActivityTableMobile = ({
                 {/* Total Value */}
                 {activity.activityType !== "SPLIT" && (
                   <div className="flex items-center justify-between border-t pt-1.5">
-                    <span className="text-muted-foreground font-medium">Total Value</span>
+                    <span className="text-muted-foreground font-medium">{t("activity.tableMobile.totalValue")}</span>
                     <span className="font-semibold">
                       {formatAmount(displayValue, activity.currency)}
                     </span>
@@ -273,7 +275,7 @@ export const ActivityTableMobile = ({
 
                 {/* Account */}
                 <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">Account</span>
+                  <span className="text-muted-foreground">{t("activity.tableMobile.account")}</span>
                   <div className="text-right">
                     <p>{activity.accountName}</p>
                     <p className="text-muted-foreground text-xs">{activity.accountCurrency}</p>

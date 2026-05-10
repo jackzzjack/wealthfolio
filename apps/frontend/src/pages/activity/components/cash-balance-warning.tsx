@@ -3,8 +3,10 @@ import { Alert, AlertDescription, Icons } from "@wealthfolio/ui";
 import { ActivityType } from "@/lib/constants";
 import { useCashBalanceValidation } from "../hooks/use-cash-balance-validation";
 import { NewActivityFormValues } from "./forms/schemas";
+import { useTranslation } from "react-i18next";
 
 export function CashBalanceWarning() {
+  const { t } = useTranslation();
   const { watch } = useFormContext<NewActivityFormValues>();
   const activityType = watch("activityType");
   const { isValid, warning, isLoading, hasAccount, hasValues } = useCashBalanceValidation();
@@ -22,10 +24,9 @@ export function CashBalanceWarning() {
     <Alert variant="warning">
       <Icons.AlertTriangle className="h-4 w-4" />
       <AlertDescription className="text-sm">
-        <strong>Insufficient Funds:</strong> {warning}
+        <strong>{t("activity.form.cashBalanceWarning.insufficientFunds")}</strong> {warning}
         <p>
-          Record cash deposits to cover the shortfall, or use &quot;Add Holding&quot; (bypasses cash
-          tracking).
+          {t("activity.form.cashBalanceWarning.recordDeposits")}
         </p>
       </AlertDescription>
     </Alert>

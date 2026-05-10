@@ -72,6 +72,7 @@ export function ActivityDetailSheet({ activity, open, onOpenChange }: ActivityDe
   };
 
   if (!activity) return null;
+  // hooks called above, safe to return null here
 
   const statusConfig = activity.status
     ? STATUS_CONFIG[activity.status] || { label: activity.status, variant: "default" as const }
@@ -111,11 +112,11 @@ export function ActivityDetailSheet({ activity, open, onOpenChange }: ActivityDe
               <Icons.Receipt className="text-primary h-5 w-5" />
             </div>
             <div className="flex flex-col items-start">
-              <span>Activity Details</span>
+              <span>{t("activity.detailSheet.title")}</span>
               <span className="text-muted-foreground text-xs font-normal">
                 {parsedOption
                   ? parsedOption.underlying
-                  : activity.assetSymbol || "Cash Transaction"}
+                  : activity.assetSymbol || t("activity.detailSheet.cashTransaction")}
               </span>
             </div>
           </SheetTitle>
@@ -153,7 +154,7 @@ export function ActivityDetailSheet({ activity, open, onOpenChange }: ActivityDe
                 {activity.needsReview && (
                   <Badge variant="outline" className="border-amber-500 text-amber-600">
                     <Icons.AlertCircle className="mr-1 h-3 w-3" />
-                    Needs Review
+                    {t("activity.detailSheet.needsReview")}
                   </Badge>
                 )}
               </div>
@@ -161,11 +162,11 @@ export function ActivityDetailSheet({ activity, open, onOpenChange }: ActivityDe
             <Separator className="my-3" />
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <div className="text-muted-foreground text-xs">Date</div>
+                <div className="text-muted-foreground text-xs">{t("activity.detailSheet.date")}</div>
                 <div className="font-medium">{formatShortDate(activity.date)}</div>
               </div>
               <div className="text-right">
-                <div className="text-muted-foreground text-xs">Amount</div>
+                <div className="text-muted-foreground text-xs">{t("activity.detailSheet.amount")}</div>
                 <div className="text-lg font-bold">
                   <AmountDisplay value={Number(activity.amount)} currency={activity.currency} />
                 </div>
@@ -174,44 +175,44 @@ export function ActivityDetailSheet({ activity, open, onOpenChange }: ActivityDe
           </div>
 
           {/* Transaction Details */}
-          <DetailSection title="Transaction" icon={<Icons.ArrowLeftRight className="h-4 w-4" />}>
+          <DetailSection title={t("activity.detailSheet.transaction")} icon={<Icons.ArrowLeftRight className="h-4 w-4" />}>
             <DetailRow
-              label="Type"
+              label={t("activity.detailSheet.type")}
               value={
                 <Badge variant="outline">
                   {ActivityTypeNames[activity.activityType] || activity.activityType}
                 </Badge>
               }
             />
-            {subtypeDisplay && <DetailRow label="Subtype" value={subtypeDisplay} />}
-            <DetailRow label="Date & Time" value={formatDate(activity.date)} />
-            <DetailRow label="Account" value={activity.accountName} />
+            {subtypeDisplay && <DetailRow label={t("activity.detailSheet.subtype")} value={subtypeDisplay} />}
+            <DetailRow label={t("activity.detailSheet.dateTime")} value={formatDate(activity.date)} />
+            <DetailRow label={t("activity.detailSheet.account")} value={activity.accountName} />
           </DetailSection>
 
           {/* Option Contract Details */}
           {parsedOption && (
-            <DetailSection title="Option Contract" icon={<Icons.BarChart className="h-4 w-4" />}>
-              <DetailRow label="Underlying" value={parsedOption.underlying} />
+            <DetailSection title={t("activity.detailSheet.optionContract")} icon={<Icons.BarChart className="h-4 w-4" />}>
+              <DetailRow label={t("activity.detailSheet.underlying")} value={parsedOption.underlying} />
               <DetailRow
-                label="Type"
+                label={t("activity.detailSheet.type")}
                 value={<Badge variant="outline">{parsedOption.optionType}</Badge>}
               />
               <DetailRow
-                label="Strike Price"
+                label={t("activity.detailSheet.strikePrice")}
                 value={
                   <AmountDisplay value={parsedOption.strikePrice} currency={activity.currency} />
                 }
               />
-              <DetailRow label="Expiration" value={optionExpirationDisplay} />
-              <DetailRow label="OCC Symbol" value={activity.assetSymbol} />
+              <DetailRow label={t("activity.detailSheet.expiration")} value={optionExpirationDisplay} />
+              <DetailRow label={t("activity.detailSheet.occSymbol")} value={activity.assetSymbol} />
             </DetailSection>
           )}
 
           {/* Financial Details */}
-          <DetailSection title="Financial Details" icon={<Icons.DollarSign className="h-4 w-4" />}>
+          <DetailSection title={t("activity.detailSheet.financialDetails")} icon={<Icons.DollarSign className="h-4 w-4" />}>
             {Number(activity.quantity) !== 0 && (
               <DetailRow
-                label={isOption ? "Contracts" : "Quantity"}
+                label={isOption ? t("activity.detailSheet.contracts") : t("activity.detailSheet.quantity")}
                 value={Number(activity.quantity).toLocaleString(undefined, {
                   maximumFractionDigits: 8,
                 })}
@@ -219,54 +220,54 @@ export function ActivityDetailSheet({ activity, open, onOpenChange }: ActivityDe
             )}
             {Number(activity.unitPrice) !== 0 && (
               <DetailRow
-                label={isOption ? "Premium/Share" : "Unit Price"}
+                label={isOption ? t("activity.detailSheet.premiumShare") : t("activity.detailSheet.unitPrice")}
                 value={
                   <AmountDisplay value={Number(activity.unitPrice)} currency={activity.currency} />
                 }
               />
             )}
             <DetailRow
-              label={isOption ? "Total Premium" : "Amount"}
+              label={isOption ? t("activity.detailSheet.totalPremium") : t("activity.detailSheet.amount")}
               value={<AmountDisplay value={Number(activity.amount)} currency={activity.currency} />}
             />
             {Number(activity.fee) !== 0 && (
               <DetailRow
-                label="Fee"
+                label={t("activity.detailSheet.fee")}
                 value={<AmountDisplay value={Number(activity.fee)} currency={activity.currency} />}
               />
             )}
             {activity.fxRate && (
               <DetailRow
-                label="FX Rate"
+                label={t("activity.detailSheet.fxRate")}
                 value={Number(activity.fxRate).toLocaleString(undefined, {
                   maximumFractionDigits: 8,
                 })}
               />
             )}
-            <DetailRow label="Currency" value={activity.currency} />
+            <DetailRow label={t("activity.detailSheet.currency")} value={activity.currency} />
             {activity.accountCurrency !== activity.currency && (
-              <DetailRow label="Account Currency" value={activity.accountCurrency} />
+              <DetailRow label={t("activity.detailSheet.accountCurrency")} value={activity.accountCurrency} />
             )}
           </DetailSection>
 
           {/* Comment */}
           {activity.comment && (
-            <DetailSection title="Notes" icon={<Icons.FileText className="h-4 w-4" />}>
+            <DetailSection title={t("activity.detailSheet.notes")} icon={<Icons.FileText className="h-4 w-4" />}>
               <p className="whitespace-pre-wrap text-sm">{activity.comment}</p>
             </DetailSection>
           )}
 
           {/* Metadata */}
-          <DetailSection title="Record Info" icon={<Icons.Info className="h-4 w-4" />}>
-            <DetailRow label="Created" value={formatDate(activity.createdAt)} />
-            <DetailRow label="Updated" value={formatDate(activity.updatedAt)} />
+          <DetailSection title={t("activity.detailSheet.recordInfo")} icon={<Icons.Info className="h-4 w-4" />}>
+            <DetailRow label={t("activity.detailSheet.created")} value={formatDate(activity.createdAt)} />
+            <DetailRow label={t("activity.detailSheet.updated")} value={formatDate(activity.updatedAt)} />
           </DetailSection>
         </div>
 
         {/* Mobile close button */}
         <div className="bg-background border-t p-4 md:hidden">
           <Button className="w-full" onClick={() => onOpenChange(false)}>
-            Close
+            {t("common.close")}
           </Button>
         </div>
       </SheetContent>

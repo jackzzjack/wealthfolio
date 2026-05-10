@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { TickerAvatar } from "@/components/ticker-avatar";
 import { parseOccSymbol } from "@/lib/occ-symbol";
@@ -66,6 +67,7 @@ export const ActivityTable = ({
   handleEdit,
   handleDelete,
 }: ActivityTableProps) => {
+  const { t } = useTranslation();
   const { duplicateActivityMutation } = useActivityMutations();
   const { settings } = useSettingsContext();
   const appTimezone = settings?.timezone?.trim() || undefined;
@@ -108,7 +110,7 @@ export const ActivityTable = ({
         id: "activityType",
         accessorKey: "activityType",
         enableHiding: false,
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Type" />,
+        header: ({ column }) => <DataTableColumnHeader column={column} title={t("activity.table.type")} />,
         cell: ({ row }) => {
           const activityType = row.getValue("activityType");
           return (
@@ -134,7 +136,7 @@ export const ActivityTable = ({
         id: "date",
         accessorKey: "date",
         enableHiding: false,
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Date" />,
+        header: ({ column }) => <DataTableColumnHeader column={column} title={t("activity.table.date")} />,
         cell: ({ row }) => {
           const dateVal = row.getValue("date");
           const formattedDate =
@@ -152,7 +154,7 @@ export const ActivityTable = ({
       {
         id: "assetSymbol",
         accessorKey: "assetSymbol",
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Symbol" />,
+        header: ({ column }) => <DataTableColumnHeader column={column} title={t("activity.table.symbol")} />,
         cell: ({ row }) => {
           const symbol = String(row.getValue("assetSymbol"));
           const assetId = row.original.assetId;
@@ -229,7 +231,7 @@ export const ActivityTable = ({
           <DataTableColumnHeader
             className="justify-end text-right"
             column={column}
-            title="Quantity"
+            title={t("activity.table.quantity")}
           />
         ),
         cell: ({ row }) => {
@@ -283,7 +285,7 @@ export const ActivityTable = ({
           <DataTableColumnHeader
             className="justify-end text-right"
             column={column}
-            title="Price/Amount"
+            title={t("activity.table.priceAmount")}
           />
         ),
         cell: ({ row }) => {
@@ -330,7 +332,7 @@ export const ActivityTable = ({
           label: "Fee",
         },
         header: ({ column }) => (
-          <DataTableColumnHeader className="justify-end text-right" column={column} title="Fee" />
+          <DataTableColumnHeader className="justify-end text-right" column={column} title={t("activity.table.fee")} />
         ),
         cell: ({ row }) => {
           const activityType = String(row.getValue("activityType"));
@@ -357,7 +359,7 @@ export const ActivityTable = ({
           label: "Total",
         },
         header: ({ column }) => (
-          <DataTableColumnHeader className="justify-end text-right" column={column} title="Total" />
+          <DataTableColumnHeader className="justify-end text-right" column={column} title={t("activity.table.total")} />
         ),
         cell: ({ row }) => {
           const activity = row.original;
@@ -380,7 +382,7 @@ export const ActivityTable = ({
         meta: {
           label: "Account",
         },
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Account" />,
+        header: ({ column }) => <DataTableColumnHeader column={column} title={t("activity.table.account")} />,
         cell: ({ row }) => {
           const accountName = row.getValue("account");
           const accountCurrency = row.getValue("accountCurrency");
@@ -402,7 +404,7 @@ export const ActivityTable = ({
         meta: {
           label: "Currency",
         },
-        header: ({ column }) => <DataTableColumnHeader column={column} title="Currency" />,
+        header: ({ column }) => <DataTableColumnHeader column={column} title={t("activity.table.currency")} />,
         cell: ({ row }) => <div>{row.getValue("currency")}</div>,
       },
       {
@@ -440,7 +442,7 @@ export const ActivityTable = ({
                     variant="outline"
                     size="icon"
                     className="h-8 w-8 rounded-lg"
-                    title="Toggle columns"
+                    title={t("activity.table.toggleColumns")}
                   >
                     <Icons.ChevronDown className="h-4 w-4" />
                   </Button>
@@ -507,7 +509,7 @@ export const ActivityTable = ({
   if (isLoading) {
     return (
       <div className="text-muted-foreground flex h-full items-center justify-center text-sm">
-        Loading...
+        {t("common.loading")}
       </div>
     );
   }
@@ -548,7 +550,7 @@ export const ActivityTable = ({
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No activity found.
+                  {t("activity.table.noActivityFound")}
                 </TableCell>
               </TableRow>
             )}
