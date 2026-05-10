@@ -3,8 +3,8 @@ import {
   useDataGrid,
   ColumnDef,
   RowSelectionState,
-  Checkbox,
-} from "@wealthfolio/ui/components/ui/data-grid/data-grid";
+} from "@wealthfolio/ui";
+import { Checkbox } from "@wealthfolio/ui/components/ui/checkbox";
 import {
   Tooltip,
   TooltipContent,
@@ -12,10 +12,12 @@ import {
   TooltipTrigger,
 } from "@wealthfolio/ui/components/ui/tooltip";
 import {
-  DraftActivity,
-  DraftActivityStatus,
   SymbolSearchResult,
 } from "@/lib/types";
+import {
+  DraftActivity,
+  DraftActivityStatus,
+} from "../context";
 import {
   ActivityType,
   SUBTYPES_BY_ACTIVITY_TYPE,
@@ -34,7 +36,7 @@ import { CreateCustomAssetDialog } from "@/components/create-custom-asset-dialog
 import { useSettingsContext } from "@/lib/settings-provider";
 import { useTranslation } from "react-i18next";
 import { ImportToolbar, ImportContextMenu } from "./import-toolbar";
-import { ActivityTypeBadge } from "../../activity-type-badge";
+import { ActivityTypeBadge } from "../../components/activity-type-badge";
 import { needsImportAssetResolution } from "@/lib/activity-utils";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -160,9 +162,9 @@ function useImportReviewColumns({
       // 1. Select
       {
         id: "select",
-        header: ({ table }) => (
+        header: ({ table }: { table: any }) => (
           <Checkbox
-            disabled={!table.getRowModel().rows.some((row) => row.getCanSelect())}
+            disabled={!table.getRowModel().rows.some((row: any) => row.getCanSelect())}
             checked={
               table.getIsAllRowsSelected() || (table.getIsSomeRowsSelected() && "indeterminate")
             }
@@ -170,7 +172,7 @@ function useImportReviewColumns({
             aria-label={t("activity.dataGrid.selectAllRows")}
           />
         ),
-        cell: ({ row }) => (
+        cell: ({ row }: { row: any }) => (
           <Checkbox
             disabled={!row.getCanSelect()}
             checked={row.getIsSelected()}
@@ -277,7 +279,7 @@ function useImportReviewColumns({
           cell: {
             variant: "select",
             options: activityTypeOptions,
-            valueRenderer: (value: string, _option, rowData) => (
+            valueRenderer: (value: string, _option: any, rowData: any) => (
               <ActivityTypeBadge
                 type={value as ActivityType}
                 subtype={(rowData as { subtype?: string } | undefined)?.subtype}
@@ -544,14 +546,14 @@ export function ImportReviewGrid({
   const handleContextMenu = (e: React.MouseEvent) => {
     if (selectedRows.length === 0) return;
     e.preventDefault();
-    setContextMenu({ open: true, x: e.clientX, y: e.y });
+    setContextMenu({ open: true, x: e.clientX, y: e.clientY });
   };
 
   const handleContextMenuOpenChange = (open: boolean) => {
     setContextMenu((prev) => ({ ...prev, open }));
   };
 
-  const handleWheel = (e: React.WheelEvent) => {
+  const handleWheel = (_e: React.WheelEvent) => {
     if (contextMenu.open) {
       setContextMenu((prev) => ({ ...prev, open: false }));
     }

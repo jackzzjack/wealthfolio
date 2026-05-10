@@ -125,7 +125,7 @@ export const ChatReviewGrid = memo(function ChatReviewGrid({
           onBulkSkip={handleBulkSkip}
           onBulkUnskip={handleBulkUnskip}
           onBulkForceImport={handleBulkForceImport}
-          gridHeight={400}
+          gridHeight="400px"
         />
       </div>
     </div>
