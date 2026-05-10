@@ -395,6 +395,8 @@ function ImportCsvToolUIContentImpl({
           onBulkSkip={session.bulkSkip}
           onBulkUnskip={session.bulkUnskip}
           onBulkForceImport={session.bulkForceImport}
+          onBulkSetCurrency={session.onBulkSetCurrency}
+          onBulkSetAccount={session.onBulkSetAccount}
         />
 
         <div className="flex flex-wrap items-center justify-between gap-2 pt-2">

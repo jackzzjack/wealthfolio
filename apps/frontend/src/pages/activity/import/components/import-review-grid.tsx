@@ -1,9 +1,8 @@
 import {
   DataGrid,
   useDataGrid,
-  ColumnDef,
-  RowSelectionState,
 } from "@wealthfolio/ui";
+import type { ColumnDef, RowSelectionState } from "@tanstack/react-table";
 import { Checkbox } from "@wealthfolio/ui/components/ui/checkbox";
 import {
   Tooltip,
@@ -42,34 +41,6 @@ import { needsImportAssetResolution } from "@/lib/activity-utils";
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants & Utils
 // ─────────────────────────────────────────────────────────────────────────────
-
-interface StatusConfig {
-  label: string;
-  bgClassName: string;
-}
-
-const STATUS_CONFIG: Record<DraftActivityStatus, StatusConfig> = {
-  valid: {
-    label: "valid",
-    bgClassName: "bg-green-100 dark:bg-green-900/30",
-  },
-  warning: {
-    label: "warning",
-    bgClassName: "bg-yellow-100 dark:bg-yellow-900/30",
-  },
-  error: {
-    label: "error",
-    bgClassName: "bg-red-100 dark:bg-red-900/30",
-  },
-  skipped: {
-    label: "skipped",
-    bgClassName: "bg-muted/50",
-  },
-  duplicate: {
-    label: "duplicate",
-    bgClassName: "bg-blue-100 dark:bg-blue-900/30",
-  },
-};
 
 const STATUS_DOT_COLOR: Record<DraftActivityStatus, string> = {
   valid: "bg-green-500",
@@ -110,8 +81,8 @@ function getStatusTitle(
 
 interface UseImportReviewColumnsOptions {
   accounts: { id: string; name: string }[];
-  onSymbolSearch: (query: string) => Promise<SymbolSearchResult[]>;
-  onSymbolSelect?: (rowIndex: number, symbol: string, result?: SymbolSearchResult) => void;
+  onSymbolSearch: (query: string) => Promise<any[]>;
+  onSymbolSelect?: (rowIndex: number, symbol: string, result?: any) => void;
   onCreateCustomAsset?: (rowIndex: number, symbol: string) => void;
 }
 
@@ -168,7 +139,7 @@ function useImportReviewColumns({
             checked={
               table.getIsAllRowsSelected() || (table.getIsSomeRowsSelected() && "indeterminate")
             }
-            onCheckedChange={(checked) => table.toggleAllRowsSelected(Boolean(checked))}
+            onCheckedChange={(checked: boolean | "indeterminate") => table.toggleAllRowsSelected(Boolean(checked))}
             aria-label={t("activity.dataGrid.selectAllRows")}
           />
         ),
@@ -176,7 +147,7 @@ function useImportReviewColumns({
           <Checkbox
             disabled={!row.getCanSelect()}
             checked={row.getIsSelected()}
-            onCheckedChange={(checked) => row.toggleSelected(Boolean(checked))}
+            onCheckedChange={(checked: boolean | "indeterminate") => row.toggleSelected(Boolean(checked))}
             aria-label={t("activity.dataGrid.selectRow")}
           />
         ),
@@ -192,7 +163,7 @@ function useImportReviewColumns({
       {
         id: "status",
         header: () => t("activity.importGrid.rowNumber"),
-        cell: ({ row }) => {
+        cell: ({ row }: { row: any }) => {
           const {
             status,
             skipReason,
@@ -213,7 +184,7 @@ function useImportReviewColumns({
                 warnings,
                 t,
               );
-          const dotColor = isForcedDuplicate ? "bg-amber-500" : STATUS_DOT_COLOR[status];
+          const dotColor = isForcedDuplicate ? "bg-amber-500" : STATUS_DOT_COLOR[status as DraftActivityStatus];
           const dot = dotColor ? (
             <span className={`inline-block h-2 w-2 shrink-0 rounded-full ${dotColor}`} />
           ) : null;
@@ -342,7 +313,7 @@ function useImportReviewColumns({
             onSearch: onSymbolSearch,
             onSelect: onSymbolSelect,
             onCreateCustomAsset,
-            isClearable: (rowData: unknown) => {
+            isClearable: (rowData: any) => {
               const row = rowData as DraftActivity;
               return !needsImportAssetResolution(row.activityType ?? "", row.subtype);
             },
@@ -392,8 +363,8 @@ function useImportReviewColumns({
             variant: "number",
             step: 0.000001,
             valueType: "string",
-            helpText: t("activity.importGrid.unitPriceHelpText"),
           },
+          helpText: t("activity.importGrid.unitPriceHelpText"),
         },
       },
       // 12. Amount
@@ -487,7 +458,6 @@ export function ImportReviewGrid({
   onBulkSetAccount,
   gridHeight,
 }: ImportReviewGridProps) {
-  const { t } = useTranslation();
   const { settings } = useSettingsContext();
   const fallbackCurrency = settings?.baseCurrency ?? "USD";
   const nonSelectableRowIndexSet = useMemo(
@@ -684,7 +654,7 @@ export function ImportReviewGrid({
 
           for (const field of fields) {
             if (nextRow[field] !== prevRow[field]) {
-              (updates as Record<string, unknown>)[field] = nextRow[field];
+              (updates as Record<string, unknown>)[field as string] = nextRow[field];
             }
           }
 
@@ -735,8 +705,8 @@ export function ImportReviewGrid({
   const dataGrid = useDataGrid<DraftActivity>({
     data: drafts,
     columns,
-    getRowId: (row) => String(row.rowIndex),
-    enableRowSelection: (row) => !nonSelectableRowIndexSet.has(row.original.rowIndex),
+    getRowId: (row: DraftActivity) => String(row.rowIndex),
+    enableRowSelection: (row: any) => !nonSelectableRowIndexSet.has(row.original.rowIndex),
     enableMultiRowSelection: true,
     enableSorting: false,
     enableColumnFilters: false,
@@ -773,13 +743,13 @@ export function ImportReviewGrid({
   useEffect(() => {
     if (isSyncingRef.current) return;
 
-    const currentSelected = tableSelectedRows.map((row) => row.original.rowIndex).sort();
+    const currentSelected = tableSelectedRows.map((row: any) => row.original.rowIndex).sort();
     const prevSelected = prevSelectedRef.current;
 
     // Check if selection actually changed
     const hasChanged =
       currentSelected.length !== prevSelected.length ||
-      currentSelected.some((idx, i) => idx !== prevSelected[i]);
+      currentSelected.some((idx: number, i: number) => idx !== prevSelected[i]);
 
     if (hasChanged) {
       prevSelectedRef.current = currentSelected;
