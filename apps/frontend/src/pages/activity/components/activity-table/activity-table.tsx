@@ -67,7 +67,7 @@ export const ActivityTable = ({
   handleEdit,
   handleDelete,
 }: ActivityTableProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { duplicateActivityMutation } = useActivityMutations();
   const { settings } = useSettingsContext();
   const appTimezone = settings?.timezone?.trim() || undefined;
@@ -172,7 +172,7 @@ export const ActivityTable = ({
           const isOptionActivity = instrumentType === "OPTION";
           const parsedOption = isOptionActivity ? parseOccSymbol(symbol) : null;
 
-          const displaySymbol = isCash ? "Cash" : parsedOption ? parsedOption.underlying : symbol;
+          const displaySymbol = isCash ? t("activity.table.cash") : parsedOption ? parsedOption.underlying : symbol;
           const avatarSymbol = isCash ? "$CASH" : symbol;
           const normalizedSymbol = (parsedOption?.underlying ?? symbol).trim().toUpperCase();
           const shouldShowExchange =
@@ -186,7 +186,7 @@ export const ActivityTable = ({
 
           // Option subtitle: "Mar 29 $150 CALL"
           const optionSubtitle = parsedOption
-            ? `${new Date(parsedOption.expiration + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })} $${parsedOption.strikePrice} ${parsedOption.optionType}`
+            ? `${new Date(parsedOption.expiration + "T12:00:00").toLocaleDateString(i18n.language, { month: "short", day: "numeric" })} $${parsedOption.strikePrice} ${parsedOption.optionType}`
             : null;
 
           const content = (
@@ -225,7 +225,7 @@ export const ActivityTable = ({
         enableHiding: true,
         enableSorting: false,
         meta: {
-          label: "Quantity",
+          label: t("activity.table.quantity"),
         },
         header: ({ column }) => (
           <DataTableColumnHeader
@@ -279,7 +279,7 @@ export const ActivityTable = ({
         enableSorting: false,
         enableHiding: true,
         meta: {
-          label: "Price / Amount",
+          label: t("activity.table.priceAmount"),
         },
         header: ({ column }) => (
           <DataTableColumnHeader
@@ -329,7 +329,7 @@ export const ActivityTable = ({
         enableHiding: true,
         enableSorting: false,
         meta: {
-          label: "Fee",
+          label: t("activity.table.fee"),
         },
         header: ({ column }) => (
           <DataTableColumnHeader className="justify-end text-right" column={column} title={t("activity.table.fee")} />
@@ -356,7 +356,7 @@ export const ActivityTable = ({
         enableSorting: false,
         enableHiding: true,
         meta: {
-          label: "Total",
+          label: t("activity.table.total"),
         },
         header: ({ column }) => (
           <DataTableColumnHeader className="justify-end text-right" column={column} title={t("activity.table.total")} />
@@ -380,7 +380,7 @@ export const ActivityTable = ({
         enableSorting: false,
         enableHiding: true,
         meta: {
-          label: "Account",
+          label: t("activity.table.account"),
         },
         header: ({ column }) => <DataTableColumnHeader column={column} title={t("activity.table.account")} />,
         cell: ({ row }) => {
@@ -402,7 +402,7 @@ export const ActivityTable = ({
         enableSorting: false,
         enableHiding: true,
         meta: {
-          label: "Currency",
+          label: t("activity.table.currency"),
         },
         header: ({ column }) => <DataTableColumnHeader column={column} title={t("activity.table.currency")} />,
         cell: ({ row }) => <div>{row.getValue("currency")}</div>,
@@ -479,7 +479,7 @@ export const ActivityTable = ({
         enableHiding: false,
       },
     ],
-    [handleEdit, handleDelete, handleDuplicate, symbolExchangeCountMap],
+    [handleEdit, handleDelete, handleDuplicate, symbolExchangeCountMap, t, i18n.language],
   );
 
   const handleSortingChange = React.useCallback<OnChangeFn<SortingState>>(

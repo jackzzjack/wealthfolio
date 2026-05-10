@@ -701,7 +701,34 @@
       "addTransaction": "Add Transaction",
       "importFromCsv": "Import from CSV",
       "transferHoldings": "Transfer Holdings",
-      "addPersonalAsset": "Add Personal Asset"
+      "addPersonalAsset": "Add Personal Asset",
+      "import": "Import",
+      "add": "Add"
+    },
+    "types": {
+      "BUY": "Buy",
+      "SELL": "Sell",
+      "SPLIT": "Split",
+      "DIVIDEND": "Dividend",
+      "INTEREST": "Interest",
+      "DEPOSIT": "Deposit",
+      "WITHDRAWAL": "Withdrawal",
+      "TRANSFER_IN": "Transfer In",
+      "TRANSFER_OUT": "Transfer Out",
+      "FEE": "Fee",
+      "TAX": "Tax",
+      "CREDIT": "Credit",
+      "ADJUSTMENT": "Adjustment",
+      "UNKNOWN": "Unknown"
+    },
+    "subtypes": {
+      "DRIP": "Dividend Reinvested (DRIP)",
+      "DIVIDEND_IN_KIND": "Dividend in Kind",
+      "STAKING_REWARD": "Staking Reward",
+      "BONUS": "Bonus",
+      "REBATE": "Trading Rebate",
+      "REFUND": "Fee Refund",
+      "OPTION_EXPIRY": "Option Expiry"
     },
     "manager": {
       "title": "Add Activity",
@@ -725,6 +752,7 @@
       "total": "Total",
       "account": "Account",
       "currency": "Currency",
+      "cash": "Cash",
       "noActivityFound": "No activity found.",
       "toggleColumns": "Toggle columns"
     },
@@ -753,7 +781,18 @@
       "validated": "Validated",
       "reset": "Reset",
       "loading": "Loading…",
-      "activities": "activities"
+      "activities": "activities",
+      "viewMode": "View mode",
+      "editMode": "Edit mode",
+      "counts": "{{fetched}} / {{total}} activities"
+    },
+    "instrumentTypes": {
+      "EQUITY": "Equity",
+      "CRYPTO": "Crypto",
+      "FX": "FX",
+      "OPTION": "Option",
+      "METAL": "Metal",
+      "BOND": "Bond"
     },
     "mobileControls": {
       "searchPlaceholder": "Search...",
@@ -782,7 +821,8 @@
       "moreDetails": "More details",
       "edit": "Edit",
       "duplicate": "Duplicate",
-      "delete": "Delete"
+      "delete": "Delete",
+      "open": "Open"
     },
     "detailSheet": {
       "title": "Activity Details",
@@ -1001,8 +1041,18 @@
       },
       "pagination": {
         "rowsPerPage": "Rows per page",
+        "show": "Show",
         "page": "Page",
-        "of": "of"
+        "of": "of",
+        "noActivities": "No activities",
+        "showing": "Showing",
+        "to": "to",
+        "activities": "activities",
+        "jumpToPageTitle": "Enter a page number between 1 and {{count}}",
+        "firstPage": "Go to first page",
+        "lastPage": "Go to last page",
+        "previousPage": "Previous page",
+        "nextPage": "Next page"
       },
       "status": {
         "valid": "Valid",

@@ -1,6 +1,7 @@
 import { Badge } from "@wealthfolio/ui/components/ui/badge";
-import { ActivityType, ActivityTypeNames, SUBTYPE_DISPLAY_NAMES } from "@/lib/constants";
+import { ActivityType } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 interface ActivityTypeBadgeProps {
   type: ActivityType;
@@ -31,16 +32,17 @@ function getActivityBadgeVariant(type: ActivityType) {
 }
 
 export function ActivityTypeBadge({ type, subtype, className }: ActivityTypeBadgeProps) {
+  const { t } = useTranslation();
   const variant = getActivityBadgeVariant(type);
   const normalizedSubtype = subtype?.trim().toUpperCase();
   const subtypeLabel = normalizedSubtype
-    ? (SUBTYPE_DISPLAY_NAMES[normalizedSubtype] ?? subtype)
+    ? t(`activity.subtypes.${normalizedSubtype}`, { defaultValue: subtype })
     : undefined;
 
   return (
     <span className="inline-flex min-w-0 items-center gap-1.5">
       <Badge variant={variant} className={cn("rounded-sm", className)}>
-        {ActivityTypeNames[type]}
+        {t(`activity.types.${type}`, { defaultValue: type })}
       </Badge>
       {subtypeLabel && (
         <span className="text-muted-foreground truncate text-xs font-normal">{subtypeLabel}</span>

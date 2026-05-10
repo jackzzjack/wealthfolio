@@ -238,12 +238,12 @@ const ActivityPage = () => {
 
       {/* Mobile add button */}
       <div className="flex items-center gap-2 sm:hidden">
-        <Button size="icon" title="Import" variant="outline" asChild>
+        <Button size="icon" title={t("activity.page.import")} variant="outline" asChild>
           <Link to={"/import"}>
             <Icons.Import className="size-4" />
           </Link>
         </Button>
-        <Button size="icon" title="Add" onClick={() => handleEdit(undefined)}>
+        <Button size="icon" title={t("activity.page.add")} onClick={() => handleEdit(undefined)}>
           <Icons.Plus className="size-4" />
         </Button>
       </div>

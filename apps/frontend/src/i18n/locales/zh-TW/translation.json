@@ -697,11 +697,38 @@
   "activity": {
     "page": {
       "title": "交易活動",
-      "addActivities": "新增交易活動",
+      "addActivities": "新增活動",
       "addTransaction": "新增交易",
       "importFromCsv": "從 CSV 匯入",
       "transferHoldings": "轉移持倉",
-      "addPersonalAsset": "新增個人資產"
+      "addPersonalAsset": "新增個人資產",
+      "import": "匯入",
+      "add": "新增"
+    },
+    "types": {
+      "BUY": "買入",
+      "SELL": "賣出",
+      "SPLIT": "拆股",
+      "DIVIDEND": "股息",
+      "INTEREST": "利息",
+      "DEPOSIT": "入金",
+      "WITHDRAWAL": "出金",
+      "TRANSFER_IN": "轉入",
+      "TRANSFER_OUT": "轉出",
+      "FEE": "手續費",
+      "TAX": "稅務",
+      "CREDIT": "入帳",
+      "ADJUSTMENT": "調整",
+      "UNKNOWN": "未知"
+    },
+    "subtypes": {
+      "DRIP": "股息再投資 (DRIP)",
+      "DIVIDEND_IN_KIND": "以股代息",
+      "STAKING_REWARD": "質押獎勵",
+      "BONUS": "紅利",
+      "REBATE": "交易返現",
+      "REFUND": "手續費退回",
+      "OPTION_EXPIRY": "期權到期"
     },
     "manager": {
       "title": "新增交易活動",
@@ -725,8 +752,9 @@
       "total": "總計",
       "account": "帳戶",
       "currency": "貨幣",
+      "cash": "現金",
       "noActivityFound": "找不到交易活動。",
-      "toggleColumns": "切換欄位"
+      "toggleColumns": "切換欄位顯示"
     },
     "tableMobile": {
       "noActivitiesFound": "找不到交易活動",
@@ -746,14 +774,25 @@
     "viewControls": {
       "account": "帳戶",
       "type": "類型",
-      "instrument": "商品",
+      "instrument": "資產種類",
       "status": "狀態",
       "allActivities": "所有活動",
       "pendingReview": "待審核",
       "validated": "已驗證",
       "reset": "重設",
       "loading": "載入中…",
-      "activities": "筆活動"
+      "activities": "筆交易活動",
+      "viewMode": "檢視模式",
+      "editMode": "編輯模式",
+      "counts": "{{fetched}} / {{total}} 筆交易活動"
+    },
+    "instrumentTypes": {
+      "EQUITY": "股票/基金",
+      "CRYPTO": "加密貨幣",
+      "FX": "外匯",
+      "OPTION": "期權",
+      "METAL": "貴金屬",
+      "BOND": "債券"
     },
     "mobileControls": {
       "searchPlaceholder": "搜尋...",
@@ -779,10 +818,11 @@
       "deleting": "刪除中"
     },
     "operations": {
-      "moreDetails": "更多詳情",
+      "moreDetails": "更多詳細資訊",
       "edit": "編輯",
-      "duplicate": "複製",
-      "delete": "刪除"
+      "duplicate": "重複製作",
+      "delete": "刪除",
+      "open": "開啟"
     },
     "detailSheet": {
       "title": "交易活動詳情",
@@ -1001,8 +1041,18 @@
       },
       "pagination": {
         "rowsPerPage": "每頁列數",
-        "page": "頁",
-        "of": "共"
+        "show": "顯示",
+        "page": "頁碼",
+        "of": "/",
+        "noActivities": "沒有交易活動",
+        "showing": "顯示",
+        "to": "至",
+        "activities": "筆交易活動",
+        "jumpToPageTitle": "輸入 1 到 {{count}} 之間的頁碼",
+        "firstPage": "首頁",
+        "lastPage": "末頁",
+        "previousPage": "上一頁",
+        "nextPage": "下一頁"
       },
       "status": {
         "valid": "有效",

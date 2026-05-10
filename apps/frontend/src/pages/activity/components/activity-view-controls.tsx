@@ -2,7 +2,7 @@ import { debounce } from "lodash";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { ActivityType, ActivityTypeNames, INSTRUMENT_TYPE_OPTIONS } from "@/lib/constants";
+import { ActivityType, INSTRUMENT_TYPE_OPTIONS } from "@/lib/constants";
 import { Account } from "@/lib/types";
 import {
   AnimatedToggleGroup,
@@ -86,16 +86,20 @@ export function ActivityViewControls({
 
   const activityOptions = useMemo(
     () =>
-      (Object.entries(ActivityTypeNames) as [ActivityType, string][]).map(([value, label]) => ({
+      Object.values(ActivityType).map((value) => ({
         value,
-        label,
+        label: t(`activity.types.${value}`, { defaultValue: value }),
       })),
-    [],
+    [t],
   );
 
   const instrumentTypeOptions = useMemo(
-    () => INSTRUMENT_TYPE_OPTIONS.map((opt) => ({ value: opt.value, label: opt.label })),
-    [],
+    () =>
+      INSTRUMENT_TYPE_OPTIONS.map((opt) => ({
+        value: opt.value,
+        label: t(`activity.instrumentTypes.${opt.value}`, { defaultValue: opt.label }),
+      })),
+    [t],
   );
 
   const statusOptions = useMemo(
@@ -191,7 +195,7 @@ export function ActivityViewControls({
                 {t("activity.viewControls.loading")}
               </span>
             ) : (
-              `${totalFetched} / ${totalRowCount} ${t("activity.viewControls.activities")}`
+              t("activity.viewControls.counts", { fetched: totalFetched, total: totalRowCount })
             )}
           </span>
         )}
@@ -211,20 +215,20 @@ export function ActivityViewControls({
               label: (
                 <>
                   <Icons.Rows3 className="h-4 w-4" aria-hidden="true" />
-                  <span className="sr-only">View mode</span>
+                  <span className="sr-only">{t("activity.viewControls.viewMode")}</span>
                 </>
               ),
-              title: "View mode",
+              title: t("activity.viewControls.viewMode"),
             },
             {
               value: "datagrid",
               label: (
                 <>
                   <Icons.Grid3x3 className="h-4 w-4" aria-hidden="true" />
-                  <span className="sr-only">Edit mode</span>
+                  <span className="sr-only">{t("activity.viewControls.editMode")}</span>
                 </>
               ),
-              title: "Edit mode",
+              title: t("activity.viewControls.editMode"),
               "data-testid": "edit-mode-toggle",
             },
           ]}

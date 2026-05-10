@@ -37,7 +37,7 @@ export function ActivityOperations<TData>({
       <DropdownMenu>
         <DropdownMenuTrigger className="hover:bg-muted flex h-8 w-8 items-center justify-center rounded-md border transition-colors">
           <Icons.MoreVertical className="h-4 w-4" />
-          <span className="sr-only">Open</span>
+          <span className="sr-only">{t("activity.operations.open")}</span>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => setDetailSheetOpen(true)}>

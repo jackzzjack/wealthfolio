@@ -1,4 +1,4 @@
-import { ActivityStatus, ActivityTypeNames, SUBTYPE_DISPLAY_NAMES } from "@/lib/constants";
+import { ActivityStatus } from "@/lib/constants";
 import { parseOccSymbol } from "@/lib/occ-symbol";
 import type { ActivityDetails } from "@/lib/types";
 import {
@@ -59,7 +59,7 @@ function DetailSection({ title, icon, children }: DetailSectionProps) {
 }
 
 export function ActivityDetailSheet({ activity, open, onOpenChange }: ActivityDetailSheetProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const STATUS_CONFIG: Record<
     string,
@@ -79,19 +79,30 @@ export function ActivityDetailSheet({ activity, open, onOpenChange }: ActivityDe
     : null;
 
   const subtypeDisplay = activity.subtype
-    ? SUBTYPE_DISPLAY_NAMES[activity.subtype] || activity.subtype
+    ? t(`activity.subtypes.${activity.subtype}`, { defaultValue: activity.subtype })
     : null;
 
   const formatDate = (date: Date | string | undefined) => {
     if (!date) return "—";
     const d = typeof date === "string" ? new Date(date) : date;
-    return format(d, "PPpp");
+    return d.toLocaleString(i18n.language, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    });
   };
 
   const formatShortDate = (date: Date | string | undefined) => {
     if (!date) return "—";
     const d = typeof date === "string" ? new Date(date) : date;
-    return format(d, "PP");
+    return d.toLocaleDateString(i18n.language, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   };
 
   // Parse OCC symbol for option activities
@@ -128,7 +139,9 @@ export function ActivityDetailSheet({ activity, open, onOpenChange }: ActivityDe
             <div className="flex items-start justify-between">
               <div>
                 <div className="text-muted-foreground mb-1 text-xs uppercase tracking-wide">
-                  {ActivityTypeNames[activity.activityType] || activity.activityType}
+                  {t(`activity.types.${activity.activityType}`, {
+                    defaultValue: activity.activityType,
+                  })}
                 </div>
                 {parsedOption ? (
                   <>
@@ -180,7 +193,9 @@ export function ActivityDetailSheet({ activity, open, onOpenChange }: ActivityDe
               label={t("activity.detailSheet.type")}
               value={
                 <Badge variant="outline">
-                  {ActivityTypeNames[activity.activityType] || activity.activityType}
+                  {t(`activity.types.${activity.activityType}`, {
+                    defaultValue: activity.activityType,
+                  })}
                 </Badge>
               }
             />
