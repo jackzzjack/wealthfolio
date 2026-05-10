@@ -17,7 +17,9 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY . .
 ENV CI=1
 ENV BUILD_TARGET=web
-RUN npm install -g pnpm@9.9.0 && pnpm install --frozen-lockfile
+# Give Node enough heap for the large Rollup bundle (~4 MB uncompressed)
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+RUN npm install -g pnpm@10.33.0 && pnpm install --frozen-lockfile
 # Build only the main app to avoid building workspace addons in this image
 RUN pnpm --filter frontend... build && mv dist /web-dist
 

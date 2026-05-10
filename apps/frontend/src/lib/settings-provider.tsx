@@ -1,9 +1,11 @@
 import { isDesktop, logger } from "@/adapters";
+import i18n from "@/i18n";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 import { useSettings } from "@/hooks/use-settings";
 import { useSettingsMutation } from "@/hooks/use-settings-mutation";
 import { Settings, SettingsContextType } from "@/lib/types";
+import { setFormatterLocale } from "@/lib/utils";
 
 interface ExtendedSettingsContextType extends SettingsContextType {
   updateSettings: (
@@ -14,6 +16,7 @@ interface ExtendedSettingsContextType extends SettingsContextType {
         | "font"
         | "baseCurrency"
         | "timezone"
+        | "locale"
         | "onboardingCompleted"
         | "menuBarVisible"
         | "syncEnabled"
@@ -46,6 +49,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         | "font"
         | "baseCurrency"
         | "timezone"
+        | "locale"
         | "onboardingCompleted"
         | "menuBarVisible"
         | "syncEnabled"
@@ -135,6 +139,12 @@ const applySettingsToDocument = (newSettings: Settings) => {
   // Font classes
   document.body.classList.remove("font-mono", "font-sans", "font-serif");
   document.body.classList.add(newSettings.font);
+
+  // Locale — sync i18next language and number/date formatters
+  if (newSettings.locale) {
+    i18n.changeLanguage(newSettings.locale).catch(() => {});
+    setFormatterLocale(newSettings.locale);
+  }
 
   // Cache theme/font in localStorage for pre-auth usage (login screen)
   try {

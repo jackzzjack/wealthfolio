@@ -194,8 +194,8 @@ export const formatDateTime = (date: string | Date, timezone?: string) => {
     timeZone: effectiveTimezone,
   };
 
-  const dateFormatter = new Intl.DateTimeFormat("en-US", dateOptions);
-  const timeFormatter = new Intl.DateTimeFormat("en-US", timeOptions);
+  const dateFormatter = new Intl.DateTimeFormat(_intlLocale, dateOptions);
+  const timeFormatter = new Intl.DateTimeFormat(_intlLocale, timeOptions);
 
   return {
     date: dateFormatter.format(dateObj),
@@ -251,12 +251,26 @@ const DECIMAL_FORMAT_OPTIONS: Intl.NumberFormatOptions = {
   maximumFractionDigits: DISPLAY_DECIMAL_PRECISION,
 };
 
-const decimalFormatter = new Intl.NumberFormat("en-US", DECIMAL_FORMAT_OPTIONS);
+// Maps i18next locale codes to BCP 47 tags for Intl APIs.
+// Extend this map when adding new languages.
+const LOCALE_TO_INTL: Record<string, string> = {
+  en: "en-US",
+  "zh-TW": "zh-TW",
+};
+
+let _intlLocale = "en-US";
+let decimalFormatter = new Intl.NumberFormat(_intlLocale, DECIMAL_FORMAT_OPTIONS);
 const currencyFormatterCache = new Map<string, Intl.NumberFormat>();
+
+export function setFormatterLocale(locale: string) {
+  _intlLocale = LOCALE_TO_INTL[locale] ?? locale;
+  currencyFormatterCache.clear();
+  decimalFormatter = new Intl.NumberFormat(_intlLocale, DECIMAL_FORMAT_OPTIONS);
+}
 
 const getCurrencyFormatter = (currency: string) => {
   const normalizedCurrency = currency?.toUpperCase?.() ?? "USD";
-  const cacheKey = normalizedCurrency;
+  const cacheKey = `${_intlLocale}:${normalizedCurrency}`;
 
   if (currencyFormatterCache.has(cacheKey)) {
     return currencyFormatterCache.get(cacheKey)!;
@@ -264,7 +278,7 @@ const getCurrencyFormatter = (currency: string) => {
 
   let formatter: Intl.NumberFormat;
   try {
-    formatter = new Intl.NumberFormat("en-US", {
+    formatter = new Intl.NumberFormat(_intlLocale, {
       style: "currency",
       currency: normalizedCurrency,
       ...DECIMAL_FORMAT_OPTIONS,
@@ -328,7 +342,7 @@ export function formatPercent(value: number | null | undefined) {
   if (value == null) return "-";
   try {
     // Use Intl.NumberFormat for correct percentage formatting (handles x100 and % sign)
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat(_intlLocale, {
       style: "percent",
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
@@ -354,7 +368,7 @@ export function formatQuantity(quantity: number | string | null | undefined): st
   const numQuantity = typeof quantity === "string" ? parseFloat(quantity) : quantity;
   if (!Number.isFinite(numQuantity)) return "-";
 
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat(_intlLocale, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 4,
     useGrouping: true,

@@ -40,6 +40,7 @@ impl SettingsRepositoryTrait for SettingsRepository {
                 "font" => settings.font = value,
                 "base_currency" => settings.base_currency = value,
                 "timezone" => settings.timezone = value,
+                "locale" => settings.locale = value,
                 "instance_id" => settings.instance_id = value,
                 "onboarding_completed" => {
                     settings.onboarding_completed = value.parse().unwrap_or(false);
@@ -99,6 +100,16 @@ impl SettingsRepositoryTrait for SettingsRepository {
                         .values(&AppSettingDB {
                             setting_key: "timezone".to_string(),
                             setting_value: timezone.clone(),
+                        })
+                        .execute(conn)
+                        .map_err(StorageError::from)?;
+                }
+
+                if let Some(ref locale) = settings.locale {
+                    diesel::replace_into(app_settings)
+                        .values(&AppSettingDB {
+                            setting_key: "locale".to_string(),
+                            setting_value: locale.clone(),
                         })
                         .execute(conn)
                         .map_err(StorageError::from)?;

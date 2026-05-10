@@ -698,6 +698,7 @@ export interface Settings {
   font: string;
   baseCurrency: string;
   timezone: string;
+  locale: string;
   instanceId: string;
   onboardingCompleted: boolean;
   autoUpdateCheckEnabled: boolean;
