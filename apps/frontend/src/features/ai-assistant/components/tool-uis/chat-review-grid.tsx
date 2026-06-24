@@ -71,6 +71,8 @@ export interface ChatReviewGridProps {
   onBulkSkip: (rowIndexes: number[]) => void;
   onBulkUnskip: (rowIndexes: number[]) => void;
   onBulkForceImport: (rowIndexes: number[]) => void;
+  onBulkSetCurrency: (rowIndexes: number[], currency: string) => void;
+  onBulkSetAccount: (rowIndexes: number[], accountId: string) => void;
 }
 
 export const ChatReviewGrid = memo(function ChatReviewGrid({
@@ -82,6 +84,8 @@ export const ChatReviewGrid = memo(function ChatReviewGrid({
   onBulkSkip,
   onBulkUnskip,
   onBulkForceImport,
+  onBulkSetCurrency,
+  onBulkSetAccount,
 }: ChatReviewGridProps) {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
 
@@ -125,7 +129,9 @@ export const ChatReviewGrid = memo(function ChatReviewGrid({
           onBulkSkip={handleBulkSkip}
           onBulkUnskip={handleBulkUnskip}
           onBulkForceImport={handleBulkForceImport}
-          gridHeight={400}
+          onBulkSetCurrency={onBulkSetCurrency}
+          onBulkSetAccount={onBulkSetAccount}
+          gridHeight="400px"
         />
       </div>
     </div>

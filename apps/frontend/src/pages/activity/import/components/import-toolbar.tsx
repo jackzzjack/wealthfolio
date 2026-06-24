@@ -24,8 +24,8 @@ export interface ImportToolbarProps {
   onSkip: () => void;
   onUnskip: () => void;
   onForceImport?: () => void;
-  onSetCurrency: (currency: string) => void;
-  onSetAccount: (accountId: string) => void;
+  onSetCurrency?: (currency: string) => void;
+  onSetAccount?: (accountId: string) => void;
   onClearSelection: () => void;
 }
 
@@ -123,115 +123,119 @@ export function ImportToolbar({
         <div className="bg-border mx-1 h-5 w-px" />
 
         {/* Currency dropdown */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              size="sm"
-              title={t("activity.importGrid.setCurrencyForSelectedRows")}
-              className="h-8"
-            >
-              <Icons.DollarSign className="mr-1.5 h-3.5 w-3.5" />
-              {t("activity.table.currency")}
-              <Icons.ChevronDown className="ml-1 h-3 w-3" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
-            {/* Search input */}
-            <div className="px-2 py-1.5">
-              <input
-                type="text"
-                placeholder={t("activity.importGrid.searchCurrencies")}
-                value={currencySearch}
-                onChange={(e) => setCurrencySearch(e.target.value)}
-                className="bg-muted/50 focus:ring-ring w-full rounded-md border px-2 py-1 text-sm outline-none focus:ring-1"
-                onClick={(e) => e.stopPropagation()}
-              />
-            </div>
-            <DropdownMenuSeparator />
-            {/* Common currencies */}
-            {!currencySearch && (
-              <>
-                <div className="text-muted-foreground px-2 py-1 text-xs font-medium">
-                  {t("activity.importGrid.common")}
-                </div>
-                {COMMON_CURRENCIES.map((code) => (
+        {onSetCurrency && (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                title={t("activity.importGrid.setCurrencyForSelectedRows")}
+                className="h-8"
+              >
+                <Icons.DollarSign className="mr-1.5 h-3.5 w-3.5" />
+                {t("activity.table.currency")}
+                <Icons.ChevronDown className="ml-1 h-3 w-3" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              {/* Search input */}
+              <div className="px-2 py-1.5">
+                <input
+                  type="text"
+                  placeholder={t("activity.importGrid.searchCurrencies")}
+                  value={currencySearch}
+                  onChange={(e) => setCurrencySearch(e.target.value)}
+                  className="bg-muted/50 focus:ring-ring w-full rounded-md border px-2 py-1 text-sm outline-none focus:ring-1"
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </div>
+              <DropdownMenuSeparator />
+              {/* Common currencies */}
+              {!currencySearch && (
+                <>
+                  <div className="text-muted-foreground px-2 py-1 text-xs font-medium">
+                    {t("activity.importGrid.common")}
+                  </div>
+                  {COMMON_CURRENCIES.map((code) => (
+                    <DropdownMenuItem
+                      key={code}
+                      onSelect={() => {
+                        onSetCurrency(code);
+                        setCurrencySearch("");
+                      }}
+                    >
+                      <span className="font-mono">{code}</span>
+                    </DropdownMenuItem>
+                  ))}
+                  <DropdownMenuSeparator />
+                  <div className="text-muted-foreground px-2 py-1 text-xs font-medium">
+                    {t("activity.importGrid.allCurrencies")}
+                  </div>
+                </>
+              )}
+              {/* Filtered/All currencies */}
+              <div className="max-h-48 overflow-y-auto">
+                {filteredCurrencies.slice(0, 20).map((currency) => (
                   <DropdownMenuItem
-                    key={code}
+                    key={currency.value}
                     onSelect={() => {
-                      onSetCurrency(code);
+                      onSetCurrency(currency.value);
                       setCurrencySearch("");
                     }}
                   >
-                    <span className="font-mono">{code}</span>
+                    <span className="font-mono">{currency.value}</span>
+                    <span className="text-muted-foreground ml-2 truncate text-xs">
+                      {currency.label.replace(` (${currency.value})`, "")}
+                    </span>
                   </DropdownMenuItem>
                 ))}
-                <DropdownMenuSeparator />
-                <div className="text-muted-foreground px-2 py-1 text-xs font-medium">
-                  {t("activity.importGrid.allCurrencies")}
-                </div>
-              </>
-            )}
-            {/* Filtered/All currencies */}
-            <div className="max-h-48 overflow-y-auto">
-              {filteredCurrencies.slice(0, 20).map((currency) => (
-                <DropdownMenuItem
-                  key={currency.value}
-                  onSelect={() => {
-                    onSetCurrency(currency.value);
-                    setCurrencySearch("");
-                  }}
-                >
-                  <span className="font-mono">{currency.value}</span>
-                  <span className="text-muted-foreground ml-2 truncate text-xs">
-                    {currency.label.replace(` (${currency.value})`, "")}
-                  </span>
-                </DropdownMenuItem>
-              ))}
-              {filteredCurrencies.length > 20 && (
-                <div className="text-muted-foreground px-2 py-1 text-xs">
-                  {t("activity.importGrid.typeToSearchMore")}
-                </div>
-              )}
-              {filteredCurrencies.length === 0 && (
-                <div className="text-muted-foreground px-2 py-1 text-xs">
-                  {t("activity.importGrid.noCurrenciesFound")}
-                </div>
-              )}
-            </div>
-          </DropdownMenuContent>
-        </DropdownMenu>
+                {filteredCurrencies.length > 20 && (
+                  <div className="text-muted-foreground px-2 py-1 text-xs">
+                    {t("activity.importGrid.typeToSearchMore")}
+                  </div>
+                )}
+                {filteredCurrencies.length === 0 && (
+                  <div className="text-muted-foreground px-2 py-1 text-xs">
+                    {t("activity.importGrid.noCurrenciesFound")}
+                  </div>
+                )}
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
 
         {/* Account dropdown */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              size="sm"
-              title={t("activity.importGrid.setAccountForSelectedRows")}
-              className="h-8"
-            >
-              <Icons.Briefcase className="mr-1.5 h-3.5 w-3.5" />
-              {t("activity.table.account")}
-              <Icons.ChevronDown className="ml-1 h-3 w-3" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
-            {accounts.length === 0 ? (
-              <div className="text-muted-foreground px-2 py-3 text-center text-sm">
-                {t("activity.importGrid.noAccountsAvailable")}
-              </div>
-            ) : (
-              accounts.map((account) => (
-                <DropdownMenuItem key={account.id} onSelect={() => onSetAccount(account.id)}>
-                  <Icons.Briefcase className="mr-2 h-3.5 w-3.5" />
-                  <span className="truncate">{account.name}</span>
-                  <span className="text-muted-foreground ml-auto text-xs">{account.currency}</span>
-                </DropdownMenuItem>
-              ))
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {onSetAccount && (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                title={t("activity.importGrid.setAccountForSelectedRows")}
+                className="h-8"
+              >
+                <Icons.Briefcase className="mr-1.5 h-3.5 w-3.5" />
+                {t("activity.table.account")}
+                <Icons.ChevronDown className="ml-1 h-3 w-3" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              {accounts.length === 0 ? (
+                <div className="text-muted-foreground px-2 py-3 text-center text-sm">
+                  {t("activity.importGrid.noAccountsAvailable")}
+                </div>
+              ) : (
+                accounts.map((account) => (
+                  <DropdownMenuItem key={account.id} onSelect={() => onSetAccount(account.id)}>
+                    <Icons.Briefcase className="mr-2 h-3.5 w-3.5" />
+                    <span className="truncate">{account.name}</span>
+                    <span className="text-muted-foreground ml-auto text-xs">{account.currency}</span>
+                  </DropdownMenuItem>
+                ))
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
 
         <div className="bg-border mx-1 h-5 w-px" />
 
@@ -262,8 +266,8 @@ export interface ImportContextMenuProps {
   onSkip: () => void;
   onUnskip: () => void;
   onForceImport?: () => void;
-  onSetCurrency: (currency: string) => void;
-  onSetAccount: (accountId: string) => void;
+  onSetCurrency?: (currency: string) => void;
+  onSetAccount?: (accountId: string) => void;
 }
 
 export function ImportContextMenu({
@@ -324,41 +328,45 @@ export function ImportContextMenu({
         <DropdownMenuSeparator />
 
         {/* Currency submenu */}
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
-            <Icons.DollarSign className="mr-2 h-4 w-4" />
-            {t("activity.importGrid.setCurrency")}
-          </DropdownMenuSubTrigger>
-          <DropdownMenuSubContent className="w-40">
-            {COMMON_CURRENCIES.map((code) => (
-              <DropdownMenuItem key={code} onSelect={() => onSetCurrency(code)}>
-                <span className="font-mono">{code}</span>
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
+        {onSetCurrency && (
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <Icons.DollarSign className="mr-2 h-4 w-4" />
+              {t("activity.importGrid.setCurrency")}
+            </DropdownMenuSubTrigger>
+            <DropdownMenuSubContent className="w-40">
+              {COMMON_CURRENCIES.map((code) => (
+                <DropdownMenuItem key={code} onSelect={() => onSetCurrency(code)}>
+                  <span className="font-mono">{code}</span>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+        )}
 
         {/* Account submenu */}
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
-            <Icons.Briefcase className="mr-2 h-4 w-4" />
-            {t("activity.importGrid.setAccount")}
-          </DropdownMenuSubTrigger>
-          <DropdownMenuSubContent className="w-48">
-            {accounts.length === 0 ? (
-              <div className="text-muted-foreground px-2 py-2 text-xs">
-                {t("activity.importGrid.noAccountsAvailable")}
-              </div>
-            ) : (
-              accounts.map((account) => (
-                <DropdownMenuItem key={account.id} onSelect={() => onSetAccount(account.id)}>
-                  <span className="truncate">{account.name}</span>
-                  <span className="text-muted-foreground ml-auto text-xs">{account.currency}</span>
-                </DropdownMenuItem>
-              ))
-            )}
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
+        {onSetAccount && (
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <Icons.Briefcase className="mr-2 h-4 w-4" />
+              {t("activity.importGrid.setAccount")}
+            </DropdownMenuSubTrigger>
+            <DropdownMenuSubContent className="w-48">
+              {accounts.length === 0 ? (
+                <div className="text-muted-foreground px-2 py-2 text-xs">
+                  {t("activity.importGrid.noAccountsAvailable")}
+                </div>
+              ) : (
+                accounts.map((account) => (
+                  <DropdownMenuItem key={account.id} onSelect={() => onSetAccount(account.id)}>
+                    <span className="truncate">{account.name}</span>
+                    <span className="text-muted-foreground ml-auto text-xs">{account.currency}</span>
+                  </DropdownMenuItem>
+                ))
+              )}
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

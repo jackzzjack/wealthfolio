@@ -566,6 +566,8 @@ export interface UseChatImportSessionResult {
   bulkSkip: (rowIndexes: number[]) => void;
   bulkUnskip: (rowIndexes: number[]) => void;
   bulkForceImport: (rowIndexes: number[]) => void;
+  onBulkSetCurrency: (rowIndexes: number[], currency: string) => void;
+  onBulkSetAccount: (rowIndexes: number[], accountId: string) => void;
   applyAssetResolution: (key: string, draft: NewAsset, options: { assetId?: string }) => void;
   revalidate: () => Promise<void>;
   confirm: () => Promise<void>;
@@ -819,6 +821,20 @@ export function useChatImportSession({
     dispatch({
       type: "BULK_UPDATE",
       payload: { rowIndexes, updates: { forceImport: true } },
+    });
+  }, []);
+
+  const onBulkSetCurrency = useCallback((rowIndexes: number[], currency: string) => {
+    dispatch({
+      type: "BULK_UPDATE",
+      payload: { rowIndexes, updates: { currency } },
+    });
+  }, []);
+
+  const onBulkSetAccount = useCallback((rowIndexes: number[], accountId: string) => {
+    dispatch({
+      type: "BULK_UPDATE",
+      payload: { rowIndexes, updates: { accountId } },
     });
   }, []);
 
@@ -1085,6 +1101,8 @@ export function useChatImportSession({
     bulkSkip,
     bulkUnskip,
     bulkForceImport,
+    onBulkSetCurrency,
+    onBulkSetAccount,
     applyAssetResolution: applyAssetResolutionCb,
     revalidate,
     confirm,
